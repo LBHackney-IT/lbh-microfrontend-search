@@ -19,8 +19,6 @@ executors:
     docker:
       - image: "hashicorp/terraform:light"
 
-    working_directory: *workspace_root
-
 commands:
   assume-role-and-persist-workspace:
     description: "Assumes deployment role and persists credentials across jobs"
@@ -81,7 +79,7 @@ jobs:
           aws-account: $AWS_ACCOUNT_STAGING
 
   assume-role-production:
-    executor: tl-executor
+    executor: mtfh-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
@@ -101,9 +99,8 @@ jobs:
     steps:
       - terraform-init-then-apply:
           environment: "production"
-
   build-deploy-development:
-    executor: tl-executor
+    executor: mtfh-executor
     steps:
       - *attach_workspace
       - run:
@@ -118,7 +115,7 @@ jobs:
             --cache-control "max-age=86400"
           overwrite: true
   build-deploy-staging:
-    executor: tl-executor
+    executor: mtfh-executor
     steps:
       - *attach_workspace
       - run:
@@ -133,7 +130,7 @@ jobs:
             --cache-control "max-age=86400"
           overwrite: true
   build-deploy-production:
-    executor: tl-executor
+    executor: mtfh-executor
     steps:
       - *attach_workspace
       - run:
@@ -147,24 +144,8 @@ jobs:
             --acl public-read \
             --cache-control "max-age=86400"
           overwrite: true
-  run-tests-development:
-    executor: tl-executor
-    steps:
-      - *attach_workspace
-      - run: 
-          name: test
-          command: |
-            yarn test
-  run-tests-staging:
-    executor: tl-executor
-    steps:
-      - *attach_workspace
-      - run: 
-          name: test
-          command: |
-            yarn test
-  run-tests-production:
-    executor: tl-executor
+  run-tests:
+    executor: mtfh-executor
     steps:
       - *attach_workspace
       - run: 
@@ -199,7 +180,7 @@ workflows:
             branches:
               only:
                 - master
-      - run-tests-development:
+      - run-tests:
           context: api-assume-role-housing-development-context
           requires:
             - build-deploy-development
@@ -230,7 +211,7 @@ workflows:
             branches:
               only:
                 - release
-      - run-tests-staging:
+      - run-tests:
           context: api-assume-role-housing-staging-context
           requires:
             - build-deploy-staging
@@ -269,7 +250,7 @@ workflows:
             branches:
               only:
                 - release  
-      - run-tests-production:
+      - run-tests:
           context: api-assume-role-housing-production-context
           requires:
             - build-deploy-production
