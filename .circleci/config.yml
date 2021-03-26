@@ -71,19 +71,16 @@ jobs:
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
-
   assume-role-staging:
     executor: mtfh-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_STAGING
-
   assume-role-production:
     executor: mtfh-executor
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
-
   terraform-init-and-apply-to-development:
     executor: docker-terraform
     steps:
@@ -109,7 +106,7 @@ jobs:
             yarn run build
       - aws-s3/sync:
           from: build
-          to: 's3://lbh-housing-tenancy-lease-frontend-development.hackney.gov.uk/'
+          to: 's3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/'
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
@@ -124,7 +121,7 @@ jobs:
             yarn run build
      - aws-s3/sync:
           from: build
-          to: 's3://lbh-housing-tenancy-lease-frontend-development.hackney.gov.uk/'
+          to: 's3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/'
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
@@ -139,7 +136,7 @@ jobs:
             yarn run build
       - aws-s3/sync:
           from: build
-          to: 's3://lbh-housing-tenancy-lease-frontend-development.hackney.gov.uk/'
+          to: 's3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/'
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
@@ -157,6 +154,12 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
+      - run-tests:
+          context: api-assume-role-housing-development-context
+          filters:
+            branches:
+              only:
+                - master
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
@@ -181,13 +184,11 @@ workflows:
               only:
                 - master
       - run-tests:
-          context: api-assume-role-housing-development-context
-          requires:
-            - build-deploy-development
+          context: api-assume-role-housing-staging-context
           filters:
             branches:
               only:
-                - master
+                - release
       - assume-role-staging:
           context: api-assume-role-housing-staging-context
           requires:
@@ -212,9 +213,7 @@ workflows:
               only:
                 - release
       - run-tests:
-          context: api-assume-role-housing-staging-context
-          requires:
-            - build-deploy-staging
+          context: api-assume-role-housing-production-context
           filters:
             branches:
               only:
@@ -250,11 +249,3 @@ workflows:
             branches:
               only:
                 - release  
-      - run-tests:
-          context: api-assume-role-housing-production-context
-          requires:
-            - build-deploy-production
-          filters:
-            branches:
-              only:
-                - release

@@ -1,7 +1,11 @@
-
-resource "aws_s3_bucket" "b" {
-  bucket = "lbh-housing-tenancy-lease-frontend-development.hackney.gov.uk"
+resource "aws_s3_bucket" "frontend-bucket-development" {
+  bucket = "lbh-housing-tl-search-frontend-development.hackney.gov.uk"
   acl    = "public-read"
- # policy = 
-
+  versioning {
+    enabled = true
+  }
+    website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
 }
