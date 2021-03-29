@@ -66,7 +66,7 @@ export function SearchResultItem(p: ISearchResult) {
                 </div>
             )}
             <div className={__("row")}>
-                <a href="#">More details</a>
+                <a href="/">More details</a>
             </div>
         </div>
     );
