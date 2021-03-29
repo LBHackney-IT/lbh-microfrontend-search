@@ -119,7 +119,7 @@ jobs:
           name: build
           command: |
             yarn run build
-     - aws-s3/sync:
+      - aws-s3/sync:
           from: build
           to: 's3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/'
           arguments: |
