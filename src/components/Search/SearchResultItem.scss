@@ -1,0 +1,29 @@
+@import "~lbh-frontend/lbh/base";
+
+.mtfh-search-result {
+    border: 1px solid rgba(117, 117, 117, 0.4);
+    padding: 10px;
+    margin: 1rem 1rem 0 0;
+    border-radius: 3px;
+    float: left;
+
+    &__subtitle,
+    &__row {
+        margin: 6px 0 0;
+    }
+
+    &__title {
+        @include lbh-heading-h4;
+        margin: 0;
+    }
+    &__subtitle {
+        @include lbh-heading-h6;
+    }
+    &__row {
+        @include lbh-body-xs;
+    }
+
+    a {
+        @include lbh-link-common;
+    }
+}

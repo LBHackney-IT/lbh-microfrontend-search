@@ -10,15 +10,8 @@
         max-width: 458px;
     }
 
+    // search results wrapper
     &__results {
         overflow: hidden;
-    }
-
-    &__result {
-        border: solid 1px black;
-        padding: 1rem;
-        margin: 1rem 1rem 0 0;
-        border-radius: 3px;
-        float: left;
     }
 }
