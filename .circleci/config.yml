@@ -196,7 +196,7 @@ workflows:
             branches:
               only:
                 - release
-      - build-deploy-to-staging:
+      - build-deploy-staging:
           context: api-assume-role-housing-staging-context
           requires:
             - terraform-init-and-apply-to-staging
@@ -207,7 +207,7 @@ workflows:
       - permit-production-terraform-release:
           type: approval
           requires:
-            - build-deploy-to-staging
+            - build-deploy-staging
       - assume-role-production:
           context: api-assume-role-housing-production-context
           requires:
