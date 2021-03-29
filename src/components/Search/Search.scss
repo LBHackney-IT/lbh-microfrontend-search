@@ -4,6 +4,21 @@
 @import "~lbh-frontend/lbh/components/lbh-button/button";
 
 .mtfh-search {
-  max-width: 458px;
-  margin: 42px;
+    margin: 42px;
+
+    &__header {
+        max-width: 458px;
+    }
+
+    &__results {
+        overflow: hidden;
+    }
+
+    &__result {
+        border: solid 1px black;
+        padding: 1rem;
+        margin: 1rem 1rem 0 0;
+        border-radius: 3px;
+        float: left;
+    }
 }
