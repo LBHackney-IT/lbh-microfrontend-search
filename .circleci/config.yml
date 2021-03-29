@@ -161,14 +161,14 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
       - terraform-init-and-apply-to-development:
           requires:
             - assume-role-development
           filters:
             branches:
               only:
-                - master
+                - main
       - build-deploy-development:
           context: api-assume-role-housing-development-context
           requires:
@@ -176,7 +176,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
   continuous-delivery-staging-and-production:
     jobs:
       - install-dependencies
