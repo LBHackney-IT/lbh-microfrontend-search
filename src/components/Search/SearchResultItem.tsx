@@ -1,4 +1,5 @@
 import React from "react";
+import { createBemElementBuilder } from "../utils";
 import "./SearchResultItem.scss";
 
 export type PersonType = "Housing Officer" | string;
@@ -41,31 +42,50 @@ export interface ISearchResult {
 
 export function SearchResultItem(p: ISearchResult) {
     const bemBlock = "mtfh-search-result";
-    // bem element notation utility
-    const __ = (suffix) => `${bemBlock}__${suffix}`;
+    const __ = createBemElementBuilder(bemBlock);
+    const tenure = p.tenures[0];
+    const { assetFullAddress: address, type } = tenure;
     const isMultipleTenancies = p.tenures.length > 1;
-    const address = "1 Hill Street, E5 9HL";
+    // there is more than one status.
+    const tenureStatuses = [type];
     return (
-        <div className={bemBlock}>
-            <p className={__("title")}>
+        <div className={bemBlock} data-testid={`searchResult_${p.id}`}>
+            <p className={__("title")} data-testid={`searchResultName_${p.id}`}>
                 {p.title} {p.firstname}
                 {p.middleName ? ` ${p.middleName}` : ""} {p.surname}
             </p>
-            <p className={__("subtitle")}>{address}</p>
-            <p className={__("row")}>
-                <strong>DOB:</strong> {p.dateOfBirth}
-            </p>
-            {isMultipleTenancies && (
-                <div className={__("row")}> Multiple tenancies </div>
-            )}
             {!isMultipleTenancies && (
-                <div className={__("row")}>
-                    {p.tenures.map((t, index) => (
-                        <p key={index}>{t.assetFullAddress}</p>
-                    ))}
+                <div
+                    className={__("subtitle")}
+                    data-testid={`searchResultAddress_${p.id}`}
+                >
+                    {address}
                 </div>
             )}
-            <div className={__("row")}>
+            {isMultipleTenancies && (
+                <div
+                    className={__("subtitle")}
+                    data-testid={`searchResultMultipleTenancies_${p.id}`}
+                >
+                    Multiple tenancies
+                </div>
+            )}
+            <div className={__("row")} data-testid={`searchDOB_${p.id}`}>
+                <strong>DOB:</strong> {p.dateOfBirth}
+            </div>
+
+            {!isMultipleTenancies && (
+                <p
+                    className={__("row")}
+                    data-testid={`searchTenureStatuses_${p.id}`}
+                >
+                    <strong>Tenure:</strong> {tenureStatuses.join(", ")}
+                </p>
+            )}
+            <div
+                className={__("row")}
+                data-testid={`searchMoreDetails_${p.id}`}
+            >
                 <a href="/">More details</a>
             </div>
         </div>

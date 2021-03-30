@@ -21,6 +21,10 @@
     }
     &__row {
         @include lbh-body-xs;
+        color: rgba(0, 0, 0, 0.54);
+        strong {
+            color: black;
+        }
     }
 
     a {
