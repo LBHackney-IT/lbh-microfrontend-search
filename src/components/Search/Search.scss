@@ -10,6 +10,17 @@
         max-width: 458px;
     }
 
+    &__title {
+        @include lbh-heading-h2;
+    }
+
+    &__subtitle {
+        @include lbh-heading-h3;
+        &__highlight {
+            font-style: italic;
+        }
+    }
+
     // search results wrapper
     &__results {
         overflow: hidden;

@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./Search.scss";
 import mockedSearchResults from "./mockedData";
 import { ISearchResult, SearchResultItem } from "./SearchResultItem";
+import { createBemElementBuilder } from "../utils/";
 
 export default function Search() {
     const [results, setResults] = useState<ISearchResult[]>([]);
     const [pageTitle, setPageTitle] = useState<string>("Search");
+    const [searchedTerm, setSearchedTerm] = useState<string>("Joan Fisher");
+    const bemBlock = "mtfh-search";
+    const __ = createBemElementBuilder(bemBlock);
 
     useEffect(() => {
         setResults(mockedSearchResults);
@@ -16,9 +20,15 @@ export default function Search() {
     }, [results]);
 
     return (
-        <div className="mtfh-search">
-            <div className="mtfh-search__header">
-                <h2 className="lbh-heading-h2">{pageTitle}</h2>
+        <div className={bemBlock}>
+            <div className={__("header")}>
+                <h2 className={__("title")}>{pageTitle}</h2>
+                <h3 className={__("subtitle")}>
+                    Person:{" "}
+                    <span className={__("subtitle__highlight")}>
+                        {searchedTerm}
+                    </span>
+                </h3>
                 <div className="govuk-form-group lbh-form-group">
                     <input
                         className="govuk-input lbh-input"
