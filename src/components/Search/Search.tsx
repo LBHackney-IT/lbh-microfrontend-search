@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Search.scss";
-import { persons as mockedSearchResults } from "./mockedData";
 import { ISearchResult, SearchResultItem } from "./SearchResultItem";
 import { findByPersonName } from "../../services/Search";
 import { createBemElementBuilder } from "../utils/";
