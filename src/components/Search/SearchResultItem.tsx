@@ -46,7 +46,7 @@ export function SearchResultItem(p: ISearchResult) {
     const tenure = p.tenures[0];
     const { assetFullAddress: address, type } = tenure;
     const isMultipleTenancies = p.tenures.length > 1;
-    // there is more than one status.
+    // there is more than one status. e.g. active, secure
     const tenureStatuses = [type];
     return (
         <div className={bemBlock} data-testid={`searchResult_${p.id}`}>

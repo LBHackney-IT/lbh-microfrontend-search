@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from "react";
 import "./Search.scss";
-import mockedSearchResults from "./mockedData";
+import { persons as mockedSearchResults } from "./mockedData";
 import { ISearchResult, SearchResultItem } from "./SearchResultItem";
+import { findByPersonName } from "../../services/Search";
 import { createBemElementBuilder } from "../utils/";
+import { augmentWithTenure } from "../utils/demo";
 
 export default function Search() {
     const [results, setResults] = useState<ISearchResult[]>([]);
+    const [totalResults, setTotalResults] = useState<Number>(0);
     const [pageTitle, setPageTitle] = useState<string>("Search");
-    const [searchedTerm, setSearchedTerm] = useState<string>("Joan Fisher");
+    const [searchedTerm, setSearchedTerm] = useState<string>("");
+    const [showingResultsForTerm, setshowingResultsForTerm] = useState<string>(
+        ""
+    );
     const bemBlock = "mtfh-search";
     const __ = createBemElementBuilder(bemBlock);
 
-    useEffect(() => {
-        setResults(mockedSearchResults);
-    }, []);
+    const doSearch = () => {
+        if (searchedTerm) {
+            findByPersonName(searchedTerm)
+                .then((res) => res.json())
+                .then((data) => {
+                    const {
+                        results: { persons, total },
+                    } = data;
+                    persons.forEach(augmentWithTenure);
+                    setResults(persons);
+                    setTotalResults(total);
+                    setshowingResultsForTerm(searchedTerm);
+                });
+        }
+    };
+
+    const onTypingSearhTerm = (evt) => {
+        setSearchedTerm(evt.target.value.trim());
+    };
+
+    const onSearchAgain = () => {
+        setshowingResultsForTerm("");
+        setSearchedTerm("");
+    };
 
     useEffect(() => {
         setPageTitle(`Search${results.length ? " results" : ""}`);
@@ -23,51 +50,72 @@ export default function Search() {
         <div className={bemBlock}>
             <div className={__("header")}>
                 <h2 className={__("title")}>{pageTitle}</h2>
-                <h3 className={__("subtitle")}>
-                    Person:{" "}
-                    <span className={__("subtitle__highlight")}>
-                        {searchedTerm}
-                    </span>
-                </h3>
-                <div className="govuk-form-group lbh-form-group">
-                    <input
-                        className="govuk-input lbh-input"
-                        id="searchInput"
-                        name="test-name"
-                        type="text"
-                    />
-                </div>
-                <div className="govuk-form-group lbh-form-group">
-                    <fieldset
-                        className="govuk-fieldset"
-                        aria-describedby="example-hint"
-                    >
-                        <div className="govuk-radios lbh-radios">
-                            <div className="govuk-radios__item">
-                                <input
-                                    className="govuk-radios__input"
-                                    id="example"
-                                    name="example"
-                                    type="radio"
-                                    value="yes"
-                                    defaultChecked
-                                />
-                                <label
-                                    className="govuk-label govuk-radios__label"
-                                    htmlFor="example"
-                                >
-                                    Person
-                                </label>
-                            </div>
+                {showingResultsForTerm && (
+                    <>
+                        <h3 className={__("subtitle")}>
+                            Person:
+                            <span className={__("subtitle__highlight")}>
+                                {showingResultsForTerm}
+                            </span>
+                        </h3>
+                        <div>
+                            <button
+                                className="govuk-button lbh-button"
+                                data-module="govuk-button"
+                                onClick={onSearchAgain}
+                            >
+                                Search again
+                            </button>
                         </div>
-                    </fieldset>
-                </div>
-                <button
-                    className="govuk-button lbh-button"
-                    data-module="govuk-button"
-                >
-                    Search
-                </button>
+                    </>
+                )}
+
+                {!showingResultsForTerm && (
+                    <>
+                        <div className="govuk-form-group lbh-form-group">
+                            <input
+                                className="govuk-input lbh-input"
+                                id="searchInput"
+                                name="test-name"
+                                type="text"
+                                onKeyUp={onTypingSearhTerm}
+                            />
+                        </div>
+                        <button
+                            className="govuk-button lbh-button"
+                            data-module="govuk-button"
+                            onClick={doSearch}
+                        >
+                            Search
+                        </button>
+
+                        <div className="govuk-form-group lbh-form-group">
+                            <fieldset
+                                className="govuk-fieldset"
+                                aria-describedby="example-hint"
+                            >
+                                <div className="govuk-radios lbh-radios">
+                                    <div className="govuk-radios__item">
+                                        <input
+                                            className="govuk-radios__input"
+                                            id="example"
+                                            name="example"
+                                            type="radio"
+                                            value="yes"
+                                            defaultChecked
+                                        />
+                                        <label
+                                            className="govuk-label govuk-radios__label"
+                                            htmlFor="example"
+                                        >
+                                            Person
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </>
+                )}
             </div>
             <div className="mtfh-search__results">
                 {results.map((r) => (

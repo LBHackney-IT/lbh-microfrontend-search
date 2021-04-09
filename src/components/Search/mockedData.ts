@@ -1,4 +1,4 @@
-const data = [
+const persons = [
     {
         id: "1",
         title: "Mrs",
@@ -212,4 +212,17 @@ const data = [
     },
 ];
 
-export default data;
+const mockFindByName = (term?: string) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve({
+                results: {
+                    persons: persons,
+                },
+                total: persons.length,
+            });
+        }, 1000);
+    });
+};
+
+export { persons, mockFindByName };
