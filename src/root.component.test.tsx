@@ -1,9 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Root from "./root.component";
 
-describe("Root component", () => {
-    it("should be in the document", () => {
-        expect(true).toBeTruthy();
-    });
+test("should be in the document", () => {
+    render(<Root />);
+    const search = screen.queryByTestId("searchComponent");
+    expect(search).toBeInTheDocument();
 });
