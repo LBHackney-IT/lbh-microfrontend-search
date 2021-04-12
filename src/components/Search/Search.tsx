@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import "./Search.scss";
+import React, { useEffect, useState } from "react";
 import { ISearchResult, SearchResultItem } from "./SearchResultItem";
 import { findByPersonName } from "../../services/Search";
 import { createBemElementBuilder } from "../utils/";
 import { augmentWithTenure } from "../utils/demo";
+import "./Search.scss";
 
 export default function Search() {
     const [results, setResults] = useState<ISearchResult[]>([]);
@@ -46,7 +46,7 @@ export default function Search() {
     }, [results]);
 
     return (
-        <div className={bemBlock}>
+        <div className={bemBlock} data-testid="searchComponent">
             <div className={__("header")}>
                 <h2 className={__("title")}>{pageTitle}</h2>
                 {showingResultsForTerm && (
