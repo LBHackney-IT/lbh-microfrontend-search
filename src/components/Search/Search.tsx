@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ISearchResult, SearchResultItem } from "./SearchResultItem";
 import { findByPersonName } from "../../services/Search";
-import { createBemElementBuilder } from "../utils/";
+import { createBemElementBuilder } from "../utils";
 import { augmentWithTenure } from "../utils/demo";
 import "./Search.scss";
 
@@ -75,8 +75,9 @@ export default function Search() {
                             <input
                                 className="govuk-input lbh-input"
                                 id="searchInput"
-                                name="test-name"
+                                name="searchedTerm"
                                 type="text"
+                                data-testid="searchInput"
                                 onKeyUp={onTypingSearhTerm}
                             />
                         </div>
@@ -84,6 +85,7 @@ export default function Search() {
                             className="govuk-button lbh-button"
                             data-module="govuk-button"
                             onClick={doSearch}
+                            data-testid="btnSearch"
                         >
                             Search
                         </button>
@@ -97,15 +99,15 @@ export default function Search() {
                                     <div className="govuk-radios__item">
                                         <input
                                             className="govuk-radios__input"
-                                            id="example"
-                                            name="example"
+                                            id="filterPerson"
+                                            name="filterPerson"
                                             type="radio"
                                             value="yes"
                                             defaultChecked
                                         />
                                         <label
                                             className="govuk-label govuk-radios__label"
-                                            htmlFor="example"
+                                            htmlFor="filterPerson"
                                         >
                                             Person
                                         </label>
