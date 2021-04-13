@@ -91,10 +91,7 @@ export default function Search() {
                         </button>
 
                         <div className="govuk-form-group lbh-form-group">
-                            <fieldset
-                                className="govuk-fieldset"
-                                aria-describedby="example-hint"
-                            >
+                            <fieldset className="govuk-fieldset">
                                 <div className="govuk-radios lbh-radios">
                                     <div className="govuk-radios__item">
                                         <input
