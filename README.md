@@ -1,2 +1,3 @@
 # mtfh-search-microfrontend
-The Search Microfrontend 
+
+The Search Microfrontend
