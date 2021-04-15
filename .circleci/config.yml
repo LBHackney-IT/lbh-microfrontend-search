@@ -93,6 +93,9 @@ jobs:
             aws-region: eu-west-2
         steps:
             - *attach_workspace
+            - run:
+                name: build
+                command: yarn build
             - aws-cli/install
             - run:
                   name: Deploy to S3
