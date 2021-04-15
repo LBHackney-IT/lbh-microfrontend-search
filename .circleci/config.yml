@@ -110,12 +110,10 @@ jobs:
             - run:
                   name: build
                   command: yarn build
-            - aws-s3/sync:
-                  arguments: |
-                      --acl public-read \
-                      --cache-control "max-age=86400"
-                  from: build
-                  to: "s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/"
+            - aws-cli/install
+            - run:
+                  name: Deploy to S3
+                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/
 
     build-deploy-production:
         executor: node-executor
@@ -126,12 +124,10 @@ jobs:
             - run:
                   name: build
                   command: yarn build
-            - aws-s3/sync:
-                  arguments: |
-                      --acl public-read \
-                      --cache-control "max-age=86400"
-                  from: build
-                  to: "s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/"
+            - aws-cli/install
+            - run:
+                  name: Deploy to S3
+                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/
 
     assume-role-development:
         executor: node-executor
