@@ -89,6 +89,8 @@ jobs:
 
     build-deploy-development:
         executor: node-executor
+        environment:
+            aws-region: eu-west-2
         steps:
             - *attach_workspace
             - run:
@@ -103,6 +105,8 @@ jobs:
 
     build-deploy-staging:
         executor: node-executor
+        environment:
+            aws-region: eu-west-2
         steps:
             - *attach_workspace
             - run:
@@ -117,6 +121,8 @@ jobs:
 
     build-deploy-production:
         executor: node-executor
+        environment:
+            aws-region: eu-west-2
         steps:
             - *attach_workspace
             - run:
@@ -126,7 +132,6 @@ jobs:
                   arguments: |
                       --acl public-read \
                       --cache-control "max-age=86400"
-                  aws-region: eu-west-2
                   from: build
                   to: "s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/"
 
