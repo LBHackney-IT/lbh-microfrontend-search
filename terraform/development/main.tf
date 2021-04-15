@@ -31,6 +31,6 @@ module "cloudfront-development" {
   cname_aliases = []
   environment_name = "development"
   cost_code= "B0811"
-  project_name= "MTFH-T&L"
+  project_name= "MTFH Tenants and Leaseholders"
   use_cloudfront_cert = true
 }
