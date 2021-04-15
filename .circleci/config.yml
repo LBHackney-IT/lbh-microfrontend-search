@@ -93,15 +93,10 @@ jobs:
             aws-region: eu-west-2
         steps:
             - *attach_workspace
+            - aws-cli/install
             - run:
-                  name: build
-                  command: yarn build
-            - aws-s3/sync:
-                  arguments: |
-                      --acl public-read \
-                      --cache-control "max-age=86400"
-                  from: dist
-                  to: "s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/"
+                  name: Deploy to S3
+                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/
 
     build-deploy-staging:
         executor: node-executor
