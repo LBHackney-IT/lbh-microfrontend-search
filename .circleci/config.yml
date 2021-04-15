@@ -45,11 +45,12 @@ commands:
             - *attach_workspace
             - checkout
             - run:
+                  name: get and init
                   command: |
                       cd ./terraform/<<parameters.environment>>/
                       terraform get -update=true
                       terraform init
-                  name: get and init
+
             - run:
                   name: apply
                   command: |
