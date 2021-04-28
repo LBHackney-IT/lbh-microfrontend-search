@@ -1,10 +1,11 @@
-const { merge } = require("webpack-merge");
-const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
+const { merge } = require('webpack-merge');
+const singleSpaDefaults = require('webpack-config-single-spa-react-ts');
+const path = require('path');
 
 module.exports = (webpackConfigEnv, argv) => {
     const defaultConfig = singleSpaDefaults({
-        orgName: "mtfh",
-        projectName: "search",
+        orgName: 'mtfh',
+        projectName: 'search',
         webpackConfigEnv,
         argv,
     });
@@ -17,18 +18,18 @@ module.exports = (webpackConfigEnv, argv) => {
                     test: /\.s[ac]ss$/i,
                     use: [
                         // Creates `style` nodes from JS strings
-                        "style-loader",
+                        'style-loader',
                         // Translates CSS into CommonJS
-                        "css-loader",
+                        'css-loader',
                         // Compiles Sass to CSS
-                        "sass-loader",
+                        'sass-loader',
                     ],
                 },
                 {
                     test: /\.svg$/,
                     use: [
                         {
-                            loader: "svg-url-loader",
+                            loader: 'svg-url-loader',
                             options: {
                                 limit: 10000,
                             },
@@ -36,6 +37,12 @@ module.exports = (webpackConfigEnv, argv) => {
                     ],
                 },
             ],
+        },
+        resolve: {
+            alias: {
+                '@comp': path.resolve(__dirname, 'src/components/'),
+            },
+            extensions: ['.ts', '.tsx', '.js'],
         },
     });
 };

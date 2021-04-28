@@ -1,0 +1,45 @@
+@import '~lbh-frontend/lbh/base';
+@import '~lbh-frontend/lbh/components/lbh-pagination/pagination';
+
+.pagination {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
+
+    &__item {
+        @include lbh-link;
+        @include lbh-body-m;
+        padding: 0px 5px;
+        text-decoration: none;
+        display: inline-block;
+
+        border: none;
+        background: none;
+
+        &:visited,
+        &.--visited {
+            color: lbh-colour('lbh-link');
+        }
+
+        &.--disabled,
+        &:disabled {
+            color: rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        &.--current {
+            font-weight: 700;
+            pointer-events: none;
+            cursor: default;
+
+            &:link,
+            &:hover,
+            &:focus,
+            &:visited {
+                color: lbh-colour('lbh-text');
+            }
+        }
+    }
+}

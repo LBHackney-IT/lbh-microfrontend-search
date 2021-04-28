@@ -1,7 +1,13 @@
 {
     "extends": "ts-config-single-spa",
     "compilerOptions": {
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "src",
+        "paths": {
+            "@mtfh/components": ["components"],
+            "@mtfh/services": ["services"],
+            "@mtfh/utils": ["utils"]
+        }
     },
     "include": ["src/**/*", "typings/declarations.d.ts"]
 }

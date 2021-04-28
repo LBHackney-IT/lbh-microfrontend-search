@@ -1,4 +1,7 @@
 {
     "extends": ["ts-react-important-stuff", "plugin:prettier/recommended"],
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "rules": {
+        "jsx-a11y/anchor-is-valid": 0
+    }
 }
