@@ -15,32 +15,20 @@ module.exports = (webpackConfigEnv, argv) => {
         module: {
             rules: [
                 {
-                    test: /\.s[ac]ss$/i,
-                    use: [
-                        // Creates `style` nodes from JS strings
-                        'style-loader',
-                        // Translates CSS into CommonJS
-                        'css-loader',
-                        // Compiles Sass to CSS
-                        'sass-loader',
-                    ],
+                    test: /\.svg$/,
+                    use: 'file-loader',
                 },
                 {
-                    test: /\.svg$/,
-                    use: [
-                        {
-                            loader: 'svg-url-loader',
-                            options: {
-                                limit: 10000,
-                            },
-                        },
-                    ],
+                    test: /\.scss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader'],
                 },
             ],
         },
         resolve: {
             alias: {
-                '@comp': path.resolve(__dirname, 'src/components/'),
+                '@search/components': path.resolve(__dirname, 'src/components'),
+                '@search/services': path.resolve(__dirname, 'src/services'),
+                '@search/utils': path.resolve(__dirname, 'src/utils'),
             },
             extensions: ['.ts', '.tsx', '.js'],
         },

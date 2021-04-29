@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
+import { PaginationProperties } from './pagination.types';
 import { pages, navigation } from './pagination-utils';
 import './pagination.scss';
 
 export function Pagination({
     totalResults = 0,
     pageSize = 0,
-    onChange = (p: number) => {},
+    onChange,
     navLinksPageSize = 5,
-}) {
+}: PaginationProperties): JSX.Element {
     const [totalResultPages, setTotalResultPages] = useState<number>(0);
     const [currentNavLinksPage, setCurrentNavLinksPage] = useState<number>(1);
     const [currentNavLinks, setCurrentNavLinks] = useState<Array<number>>([]);
     const [totalNavLinksPages, setTotalNavLinksPages] = useState<number>(0);
     const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
-    const [isPrevDisabled, setIsPrevDisabled] = useState<boolean>(true);
+    const [isPreviousDisabled, setIsPreviousDisabled] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    const onPageChange = (newPage) => {
+    const onPageChange = (newPage: any) => {
         setCurrentPage(newPage);
         onChange(newPage);
     };
@@ -40,7 +41,7 @@ export function Pagination({
         );
 
         setCurrentNavLinks(pages);
-        setIsPrevDisabled(isPrevDisabled);
+        setIsPreviousDisabled(isPrevDisabled);
         setIsNextDisabled(isNextDisabled);
     }, [currentNavLinksPage, totalNavLinksPages]);
 
@@ -61,7 +62,7 @@ export function Pagination({
                                             currentNavLinksPage - 1
                                         );
                                     }}
-                                    disabled={isPrevDisabled}
+                                    disabled={isPreviousDisabled}
                                     className="pagination__item"
                                 >
                                     <span
@@ -73,17 +74,23 @@ export function Pagination({
                                     Previous
                                 </button>
                             </li>
-                            {currentNavLinks.map((l, i) => (
-                                <li key={i} className="lbh-pagination__item">
+                            {currentNavLinks.map((link, index) => (
+                                <li
+                                    key={index}
+                                    className="lbh-pagination__item"
+                                >
                                     <button
                                         aria-label="Next page"
-                                        onClick={() => onPageChange(l)}
+                                        onClick={() => onPageChange(link)}
                                         className={classNames(
                                             'pagination__item',
-                                            { '--current': currentPage === l }
+                                            {
+                                                '--current':
+                                                    currentPage === link,
+                                            }
                                         )}
                                     >
-                                        {l}
+                                        {link}
                                     </button>
                                 </li>
                             ))}

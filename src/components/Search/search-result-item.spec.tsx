@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { SearchResultItem, ISearchResult } from '@mtfh/components';
+import { SearchResultItem, ISearchResult } from '@search/components';
 
 let multipleTenanciesResult: ISearchResult;
 let singleTenancyResult: ISearchResult;

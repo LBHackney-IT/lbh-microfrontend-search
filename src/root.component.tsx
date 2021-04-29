@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { Search } from '@mtfh/components';
+import { Search } from '@search/components';
 
-export default function Root() {
-    return <Search />;
+export default function Root(): JSX.Element {
+    return (
+        <div className="js-enabled" data-testid="root">
+            <Search />
+        </div>
+    );
 }

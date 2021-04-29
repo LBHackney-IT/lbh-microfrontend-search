@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { ISearchResult, SearchResultItem } from './search-result-item';
-import { findByPersonName } from '@mtfh/services';
-import { augmentWithTenure, createBemElementBuilder } from '@mtfh/utils';
-import { Pagination } from '@mtfh/components';
+import { augmentWithTenure, createBemElementBuilder } from '@search/utils';
+import { findByPersonName } from '@search/services';
+import { Pagination } from '@search/components';
 import { fromTo, parseSort } from './search-utils';
+import { ISearchResult, SearchResultItem } from './search-result-item';
 import './search.scss';
 
-export function Search() {
+export function Search(): JSX.Element {
     const [results, setResults] = useState<ISearchResult[]>([]);
     const [totalResults, setTotalResults] = useState<number>(0);
     const [pageTitle, setPageTitle] = useState<string>('Search');
@@ -26,26 +26,26 @@ export function Search() {
     const bemBlock = 'mtfh-search';
     const __ = createBemElementBuilder(bemBlock);
 
-    const onPageChange = (pageNumber) => {
+    const onPageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
     };
 
-    const onTypingSearhTerm = (evt) => {
-        setSearchedTerm(evt.target.value.trim());
+    const onTypingSearchTerm = (event_: any) => {
+        setSearchedTerm(event_.target.value.trim());
     };
 
     const toggleSearchAgain = () => {
         setShowSearchForm(!showSearchForm);
     };
 
-    const onSortChange = (evt) => {
-        const [sortType, sortValue] = parseSort(evt.currentTarget.value);
+    const onSortChange = (event_: any) => {
+        const [sortType, sortValue] = parseSort(event_.currentTarget.value);
         setIsDesc(sortValue.toString());
         setBy(sortType);
     };
 
-    const onPageSizeChange = (evt) => {
-        setPageSize(Number(evt.currentTarget.value));
+    const onPageSizeChange = (event_: any) => {
+        setPageSize(Number(event_.currentTarget.value));
     };
 
     const doSearch = (page?: number) => {
@@ -56,17 +56,23 @@ export function Search() {
             pageSize,
             sortBy: by,
         })
-            .then((res) => res.json())
-            .then((data) => {
+            .then(result => result.json())
+            .then(data => {
                 const {
                     results: { persons },
                     total,
                 } = data;
-                persons.forEach(augmentWithTenure);
+
+                for (const person of persons) {
+                    augmentWithTenure(person);
+                }
+
                 setResults(persons);
                 setTotalResults(total);
-                setPageTitle(`Search${results.length ? ' results' : ''}`);
+                setPageTitle(`Search${results.length > 0 ? ' results' : ''}`);
+
                 const [from, to] = fromTo(page ?? currentPage, pageSize, total);
+
                 setItemsFrom(from);
                 setItemsTo(to);
                 setShowingResultsForTerm(searchedTerm);
@@ -131,7 +137,7 @@ export function Search() {
                                 name="searchedTerm"
                                 type="text"
                                 data-testid="searchInput"
-                                onKeyUp={onTypingSearhTerm}
+                                onKeyUp={onTypingSearchTerm}
                             />
                         </div>
                         <button
@@ -222,8 +228,8 @@ export function Search() {
             )}
 
             <div className="mtfh-search__results">
-                {results.map((r) => (
-                    <SearchResultItem key={r.id} {...r} />
+                {results.map(result => (
+                    <SearchResultItem key={result.id} {...result} />
                 ))}
             </div>
             <Pagination

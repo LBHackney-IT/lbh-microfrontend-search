@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createBemElementBuilder } from '@mtfh/utils';
+import { createBemElementBuilder } from '@search/utils';
 import './search-result-item.scss';
 
 export type PersonType = 'Housing Officer' | string;
@@ -41,7 +41,7 @@ export interface ISearchResult {
     [key: string]: any;
 }
 
-export function SearchResultItem(p: ISearchResult) {
+export function SearchResultItem(p: ISearchResult): JSX.Element {
     const bemBlock = 'mtfh-search-result';
     const __ = createBemElementBuilder(bemBlock);
     const tenure = p.tenures[0];
@@ -49,6 +49,7 @@ export function SearchResultItem(p: ISearchResult) {
     const isMultipleTenancies = p.tenures.length > 1;
     // there is more than one status. e.g. active, secure
     const tenureStatuses = [type];
+
     return (
         <div className={bemBlock} data-testid={`searchResult_${p.id}`}>
             <p className={__('title')} data-testid={`searchResultName_${p.id}`}>

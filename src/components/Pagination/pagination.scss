@@ -11,12 +11,11 @@
     &__item {
         @include lbh-link;
         @include lbh-body-m;
-        padding: 0px 5px;
-        text-decoration: none;
         display: inline-block;
-
-        border: none;
+        padding: 0 5px;
+        text-decoration: none;
         background: none;
+        border: none;
 
         &:visited,
         &.--visited {
@@ -31,8 +30,8 @@
 
         &.--current {
             font-weight: 700;
-            pointer-events: none;
             cursor: default;
+            pointer-events: none;
 
             &:link,
             &:hover,

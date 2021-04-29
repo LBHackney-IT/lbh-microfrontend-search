@@ -1,2 +1,2 @@
-export * from './create-ben-element-builder';
+export * from './create-bem-element-builder';
 export * from './demo';

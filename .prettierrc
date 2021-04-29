@@ -1,7 +1,12 @@
 {
-    "tabWidth": 4,
     "useTabs": false,
-    "endOfLine": "auto",
+    "tabWidth": 4,
+    "singleQuote": true,
     "semi": true,
-    "singleQuote": true
+    "quoteProps": "consistent",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "trailingComma": "es5"
 }

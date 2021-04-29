@@ -1,11 +1,11 @@
 @import '~lbh-frontend/lbh/base';
 
 .mtfh-search-result {
-    border: 1px solid rgba(117, 117, 117, 0.4);
-    padding: 10px;
-    margin: 1rem 1rem 0 0;
-    border-radius: 3px;
     float: left;
+    margin: 1rem 1rem 0 0;
+    padding: 10px;
+    border: 1px solid rgba(117, 117, 117, 0.4);
+    border-radius: 3px;
 
     &__subtitle,
     &__row {
@@ -22,8 +22,9 @@
     &__row {
         @include lbh-body-xs;
         color: rgba(0, 0, 0, 0.54);
+
         strong {
-            color: black;
+            color: #000000;
         }
     }
 

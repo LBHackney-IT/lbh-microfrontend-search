@@ -2,7 +2,7 @@ export function fromTo(
     currentPage: number,
     pageSize: number,
     totalResults: number
-) {
+): [number, number] {
     const from = (currentPage - 1) * pageSize + 1;
     const nrOfPages = Math.ceil(totalResults / pageSize);
 
@@ -11,6 +11,7 @@ export function fromTo(
     }
 
     let to = pageSize * currentPage;
+
     if (to > totalResults) {
         to = from + (totalResults % pageSize) - 1;
     }
@@ -20,5 +21,6 @@ export function fromTo(
 
 export function parseSort(sortToken: string): [string, boolean] {
     const parts = sortToken.split('_');
+
     return [parts[0], Boolean(Number(parts[1]))];
 }

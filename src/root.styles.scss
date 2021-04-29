@@ -1,0 +1,29 @@
+@import '~lbh-frontend/lbh/base';
+@import '~lbh-frontend/lbh/core/all';
+@import '~lbh-frontend/lbh/objects/all';
+@import '~govuk-frontend/govuk/helpers/media-queries';
+@import '~govuk-frontend/govuk/overrides/all';
+@import '~lbh-frontend/lbh/components/lbh-summary-list/summary-list';
+
+* {
+    @include lbh-font;
+}
+
+@include govuk-media-query($from: tablet) {
+    .parent {
+        display: grid;
+        grid-row-gap: 0;
+        grid-column-gap: 15px;
+        grid-template-rows: 1fr;
+        grid-template-columns: 310px 1fr;
+        margin: 0;
+    }
+
+    .aside {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .main {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+}

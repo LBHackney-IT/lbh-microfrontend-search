@@ -17,6 +17,7 @@
 
     &__subtitle {
         @include lbh-heading-h3;
+
         &__highlight {
             padding-left: 0.5rem;
         }
@@ -31,20 +32,21 @@
     &__filters {
         position: relative;
         text-align: right;
+
         .lbh-select {
             margin-left: 0.5rem;
         }
+
         .lbh-form-group {
             margin-left: 1rem;
-            // margin-top: 0;
         }
+
         .lbh-label,
         .lbh-form-group {
             display: inline-block;
         }
     }
 
-    // search results wrapper
     &__results {
         overflow: hidden;
     }
