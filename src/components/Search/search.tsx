@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import { augmentWithTenure, createBemElementBuilder } from '@search/utils';
-import { findByPersonName } from '@search/services';
-import { Pagination } from '@search/components';
+import { augmentWithTenure, createBemElementBuilder } from '@utilities';
+import { Person } from '@types';
+import { findByPersonName } from '@services';
+import { Pagination } from '@components';
 import { fromTo, parseSort } from './search-utils';
-import { ISearchResult, SearchResultItem } from './search-result-item';
+import { SearchResultItem } from './search-result-item';
 import './search.scss';
 
 export function Search(): JSX.Element {
-    const [results, setResults] = useState<ISearchResult[]>([]);
+    const [results, setResults] = useState<Person[]>([]);
     const [totalResults, setTotalResults] = useState<number>(0);
     const [pageTitle, setPageTitle] = useState<string>('Search');
     const [searchedTerm, setSearchedTerm] = useState<string>('');
@@ -137,7 +138,8 @@ export function Search(): JSX.Element {
                                 name="searchedTerm"
                                 type="text"
                                 data-testid="searchInput"
-                                onKeyUp={onTypingSearchTerm}
+                                onChange={onTypingSearchTerm}
+                                placeholder="Enter search query"
                             />
                         </div>
                         <button
@@ -208,7 +210,7 @@ export function Search(): JSX.Element {
                         <div className="govuk-form-group lbh-form-group">
                             <label
                                 className="govuk-label lbh-label"
-                                htmlFor="select-1"
+                                htmlFor="select-2"
                             >
                                 Show
                             </label>
@@ -216,7 +218,7 @@ export function Search(): JSX.Element {
                                 value={pageSize}
                                 onChange={onPageSizeChange}
                                 className="govuk-select lbh-select"
-                                id="select-1"
+                                id="select-2"
                             >
                                 <option value="12">12 items</option>
                                 <option value="20">20 items</option>

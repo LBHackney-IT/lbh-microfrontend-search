@@ -1,6 +1,7 @@
 {
-    "name": "@search/search",
+    "name": "@mtfh/search",
     "license": "MIT",
+    "version": "0.0.1",
     "scripts": {
         "start": "webpack serve --port 8070",
         "start:standalone": "webpack serve --env standalone",
@@ -26,6 +27,7 @@
         ]
     },
     "dependencies": {
+        "@mtfh/auth": "git+ssh://git@github.com:LBHackney-IT/mtfh-frontend-authentication.git#v0.0.1",
         "classnames": "^2.3.1",
         "lbh-frontend": "3.5.2",
         "query-string": "^7.0.0",
@@ -43,6 +45,7 @@
         "@testing-library/react": "11.2.6",
         "@testing-library/react-hooks": "5.1.2",
         "@testing-library/user-event": "13.1.5",
+        "@types/faker": "5.5.5",
         "@types/jest": "26.0.22",
         "@types/js-cookie": "2.2.6",
         "@types/jsonwebtoken": "8.5.1",
@@ -57,6 +60,7 @@
         "babel-jest": "26.6.3",
         "babel-plugin-transform-class-properties": "6.24.1",
         "css-loader": "5.2.1",
+        "dotenv": "9.0.2",
         "eslint": "7.24.0",
         "eslint-config-prettier": "8.1.0",
         "eslint-import-resolver-typescript": "2.4.0",
@@ -64,6 +68,7 @@
         "eslint-plugin-import": "2.22.1",
         "eslint-plugin-prettier": "3.3.1",
         "eslint-plugin-unicorn": "29.0.0",
+        "faker": "5.5.3",
         "file-loader": "6.2.0",
         "govuk-frontend": "3.11.0",
         "husky": "4.3.8",
@@ -72,6 +77,8 @@
         "jest-cli": "26.6.3",
         "js-cookie": "2.2.1",
         "lint-staged": "10.5.4",
+        "msw": "0.28.2",
+        "node-fetch": "2.6.1",
         "prettier": "2.2.1",
         "process": "0.11.10",
         "react-test-renderer": "17.0.2",

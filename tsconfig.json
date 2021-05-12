@@ -1,6 +1,7 @@
 {
     "extends": "ts-config-single-spa",
     "include": ["src/**/*", "typings/**/*.d.ts"],
+    "exclude": ["src/test-utils.js"],
     "compilerOptions": {
         "strict": true,
         "jsx": "react",
@@ -8,9 +9,10 @@
         "baseUrl": "src",
         "esModuleInterop": true,
         "paths": {
-            "@search/components": ["components"],
-            "@search/services": ["services"],
-            "@search/utils": ["utils"]
+            "@components": ["components"],
+            "@services": ["services"],
+            "@types": ["types"],
+            "@utilities": ["utils"]
         }
     }
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { SearchResultItem, ISearchResult } from '@search/components';
+import { Person } from '@types';
+import { SearchResultItem } from '@components';
 
-let multipleTenanciesResult: ISearchResult;
-let singleTenancyResult: ISearchResult;
+let multipleTenanciesResult: Person;
+let singleTenancyResult: Person;
 
 beforeEach(() => {
     multipleTenanciesResult = {

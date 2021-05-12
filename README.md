@@ -1,13 +1,26 @@
 ### Overview
 
-This is the search part of the Single SPA Framework Architecture.
+This is the Search micro-frontend for the MTFH project.
+This app is not intended to be run in isolation in production, but managed through it's [root app](https://github.com/LBHackney-IT/mtfh-frontend-root).
+
+### Development
+
+Create a `.env` file in the root of the repo for the following required key-value pairs:
+
+```env
+SEARCH_API_URL=
+SEARCH_API_KEY=
+```
+
+The values can be found in the development AWS account in the Parameter Store (eu-west-2).
 
 ### Running it locally
+
 You can either run this application in standalone mode or inside the single SPA "root" application that provides the header and footer.
 
-- Install all dependencies by running `yarn`.
-- Run in standalone mode by running `yarn start:standalone`.
-- Run inside the container application by running the root application and running `yarn start` on this application.
+-   Install all dependencies by running `yarn`.
+-   Run in standalone mode by running `yarn start:standalone`.
+-   Run inside the container application by running the root application and running `yarn start` on this application.
 
 ### Production build
 

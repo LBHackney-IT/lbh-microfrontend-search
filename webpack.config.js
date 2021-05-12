@@ -1,6 +1,8 @@
 const { merge } = require('webpack-merge');
 const singleSpaDefaults = require('webpack-config-single-spa-react-ts');
+const webpack = require('webpack');
 const path = require('path');
+const dotenv = require('dotenv').config();
 
 module.exports = (webpackConfigEnv, argv) => {
     const defaultConfig = singleSpaDefaults({
@@ -11,7 +13,6 @@ module.exports = (webpackConfigEnv, argv) => {
     });
 
     return merge(defaultConfig, {
-        // modify the webpack config however you'd like to by adding to this object
         module: {
             rules: [
                 {
@@ -26,11 +27,19 @@ module.exports = (webpackConfigEnv, argv) => {
         },
         resolve: {
             alias: {
-                '@search/components': path.resolve(__dirname, 'src/components'),
-                '@search/services': path.resolve(__dirname, 'src/services'),
-                '@search/utils': path.resolve(__dirname, 'src/utils'),
+                '@components': path.resolve(__dirname, 'src/components'),
+                '@services': path.resolve(__dirname, 'src/services'),
+                '@types': path.resolve(__dirname, 'src/types'),
+                '@utilities': path.resolve(__dirname, 'src/utils'),
             },
             extensions: ['.ts', '.tsx', '.js'],
         },
+        externals: ['@mtfh/auth'],
+        plugins: [
+            new webpack.EnvironmentPlugin({
+                SEARCH_API_URL: dotenv.SEARCH_API_URL || '',
+                SEARCH_API_KEY: dotenv.SEARCH_API_KEY || '',
+            }),
+        ],
     });
 };

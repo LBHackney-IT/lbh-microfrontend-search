@@ -1,47 +1,10 @@
 import React from 'react';
 
-import { createBemElementBuilder } from '@search/utils';
+import { createBemElementBuilder } from '@utilities';
+import { Person } from '@types';
 import './search-result-item.scss';
 
-export type PersonType = 'Housing Officer' | string;
-
-export interface IIdentification {
-    identificationType: string;
-    value: string;
-    originalDocumentSeen: boolean;
-    linkToDocument: string;
-}
-
-export interface ITenure {
-    id: string;
-    type: string;
-    startDate: string;
-    endDate: string;
-    assetFullAddress: string;
-}
-
-export interface ISearchResult {
-    id: string;
-    title: string;
-    firstname: string;
-    middleName?: string;
-    surname: string;
-    preferredFirstname: string;
-    preferredSurname: string;
-    ethinicity: string;
-    nationality: string;
-    placeOfBirth: string;
-    dateOfBirth: string;
-    gender: string;
-    identification: IIdentification[];
-    personTypes: PersonType[];
-    isPersonCautionaryAlert: boolean;
-    isTenureCautionaryAlert: boolean;
-    tenures: ITenure[];
-    [key: string]: any;
-}
-
-export function SearchResultItem(p: ISearchResult): JSX.Element {
+export function SearchResultItem(p: Person): JSX.Element {
     const bemBlock = 'mtfh-search-result';
     const __ = createBemElementBuilder(bemBlock);
     const tenure = p.tenures[0];

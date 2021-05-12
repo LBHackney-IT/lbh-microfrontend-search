@@ -20,6 +20,7 @@
         "plugin:import/warnings",
         "plugin:import/typescript"
     ],
+    "ignorePatterns": "src/test-utils.js",
     "rules": {
         "unicorn/no-useless-undefined": "off",
         "unicorn/no-reduce": "off",
@@ -63,7 +64,7 @@
                 "selector": "interface",
                 "format": ["PascalCase"],
                 "custom": {
-                    "regex": "^I[A-Z]",
+                    "regex": "^[A-Z]",
                     "match": true
                 }
             }

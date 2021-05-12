@@ -1,4 +1,4 @@
-import { createBemElementBuilder } from '@search/utils';
+import { createBemElementBuilder } from '@utilities';
 
 test('elements BEM classes are correctly formatted', () => {
     const bemBlock = 'foo';

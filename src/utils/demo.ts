@@ -1,6 +1,6 @@
-import { ISearchResult } from '@search/components';
+import { Person } from '@types';
 
-export function augmentWithTenure(searchResult: ISearchResult): ISearchResult {
+export function augmentWithTenure(searchResult: Person): Person {
     if (searchResult.tenures.length === 0) {
         searchResult.tenures = [
             {

@@ -3,15 +3,17 @@ module.exports = {
     transform: {
         '^.+\\.(j|t)sx?$': 'babel-jest',
     },
-    transformIgnorePatterns: ['/node_modules/(?!lbh-frontend)'],
+    transformIgnorePatterns: ['/node_modules/(?!lbh-frontend|@mtfh)'],
     moduleNameMapper: {
         '\\.(css|scss)$': 'identity-obj-proxy',
-        '@search/components': '<rootDir>/components',
-        '@search/services': '<rootDir>/services',
-        '@search/utils': '<rootDir>/utils',
+        '@components': '<rootDir>/components',
+        '@services': '<rootDir>/services',
+        '@types': '<rootDir>/types',
+        '@utilities': '<rootDir>/utils',
     },
     setupFilesAfterEnv: [
         '../node_modules/@testing-library/jest-dom/dist/index.js',
+        './test-utils.js',
     ],
     coverageDirectory: '../coverage',
     coveragePathIgnorePatterns: [],

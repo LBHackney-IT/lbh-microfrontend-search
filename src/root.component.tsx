@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Search } from '@search/components';
+import { Search } from '@components';
 
 export default function Root(): JSX.Element {
     return (

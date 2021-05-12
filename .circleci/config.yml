@@ -91,12 +91,18 @@ jobs:
         executor: node-executor
         environment:
             aws-region: eu-west-2
+        parameters:
+            stage:
+                type: string
         steps:
             - *attach_workspace
+            - aws-cli/install
             - run:
                 name: build
-                command: yarn build
-            - aws-cli/install
+                command: |
+                    export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
+                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
+                    yarn build
             - run:
                   name: Deploy to S3
                   command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/
@@ -105,12 +111,18 @@ jobs:
         executor: node-executor
         environment:
             aws-region: eu-west-2
+        parameters:
+            stage:
+                type: string
         steps:
             - *attach_workspace
+            - aws-cli/install
             - run:
                   name: build
-                  command: yarn build
-            - aws-cli/install
+                  command: |
+                    export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
+                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
+                    yarn build
             - run:
                   name: Deploy to S3
                   command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/
@@ -119,12 +131,18 @@ jobs:
         executor: node-executor
         environment:
             aws-region: eu-west-2
+        parameters:
+            stage:
+                type: string
         steps:
             - *attach_workspace
+            - aws-cli/install
             - run:
                   name: build
-                  command: yarn build
-            - aws-cli/install
+                  command: |
+                    export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
+                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
+                    yarn build
             - run:
                   name: Deploy to S3
                   command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/
@@ -187,6 +205,7 @@ workflows:
                       branches:
                           only: main
             - build-deploy-development:
+                  stage: "development"
                   requires:
                       - terraform-init-and-apply-to-development
                   filters:
@@ -195,7 +214,7 @@ workflows:
             - assume-role-staging:
                   context: api-assume-role-housing-staging-context
                   requires:
-                      - lint-and-test
+                      - build-deploy-development
                   filters:
                       branches:
                           only: main
@@ -206,6 +225,7 @@ workflows:
                       branches:
                           only: main
             - build-deploy-staging:
+                  stage: "staging"
                   requires:
                       - terraform-init-and-apply-to-staging
                   filters:
@@ -233,6 +253,7 @@ workflows:
                   requires:
                       - terraform-init-and-apply-to-production
             - build-deploy-production:
+                  stage: "production"
                   requires:
                       - permit-deploy-production
                   filters:
