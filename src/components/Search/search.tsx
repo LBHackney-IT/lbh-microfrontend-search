@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { augmentWithTenure, createBemElementBuilder } from '@utilities';
 import { Person } from '@types';
-import { findByPersonName } from '@services';
+import { findByPersonName, cacheKeys } from '@services';
 import { Pagination } from '@components';
 import { fromTo, parseSort } from './search-utils';
 import { SearchResultItem } from './search-result-item';
@@ -49,9 +49,9 @@ export function Search(): JSX.Element {
         setPageSize(Number(event_.currentTarget.value));
     };
 
-    const doSearch = (page?: number) => {
+    const doSearch = (page?: number, overwriteSearchedTerm?: string) => {
         findByPersonName({
-            searchText: searchedTerm,
+            searchText: overwriteSearchedTerm ?? searchedTerm,
             page: page ?? currentPage,
             isDesc,
             pageSize,
@@ -71,17 +71,22 @@ export function Search(): JSX.Element {
                 setResults(persons);
                 setTotalResults(total);
                 setPageTitle(`Search${results.length > 0 ? ' results' : ''}`);
+                sessionStorage.setItem(
+                    cacheKeys.SEARCHED_TERM,
+                    overwriteSearchedTerm ?? searchedTerm
+                );
 
                 const [from, to] = fromTo(page ?? currentPage, pageSize, total);
 
                 setItemsFrom(from);
                 setItemsTo(to);
-                setShowingResultsForTerm(searchedTerm);
+                setShowingResultsForTerm(overwriteSearchedTerm ?? searchedTerm);
             });
     };
 
     const search = (page?: number) => {
         if (searchedTerm) {
+            setShowSearchForm(false);
             setShowSearchForm(false);
             doSearch(page);
         }
@@ -104,6 +109,18 @@ export function Search(): JSX.Element {
         setCurrentPage(1);
         search(1);
     }, [pageSize]);
+
+    useEffect(() => {
+        const cachedSearchedTerm = sessionStorage.getItem(
+            cacheKeys.SEARCHED_TERM
+        );
+        if (cachedSearchedTerm) {
+            setSearchedTerm(cachedSearchedTerm);
+            setShowingResultsForTerm(cachedSearchedTerm);
+            setShowSearchForm(false);
+            doSearch(1, cachedSearchedTerm);
+        }
+    }, []);
 
     return (
         <div className={bemBlock} data-testid="searchComponent">

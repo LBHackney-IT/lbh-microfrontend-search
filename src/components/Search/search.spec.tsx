@@ -6,7 +6,7 @@ import {
     waitFor,
     RenderResult,
 } from '@testing-library/react';
-import { config } from '@services';
+import { config, cacheKeys } from '@services';
 import { Search } from './search';
 import { server } from '../../mocks';
 
@@ -158,4 +158,24 @@ test('it shows no results', async () => {
     const { getByText } = utils;
 
     await waitFor(() => expect(getByText('No results')).toBeInTheDocument());
+});
+
+test('searchTerm is saved to sessionStorage', async () => {
+    const utils = render(<Search />);
+    submitSearch(utils, 'Stacy');
+
+    await waitFor(() =>
+        expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
+            cacheKeys.SEARCHED_TERM,
+            'Stacy'
+        )
+    );
+});
+
+test('search hydrates from sessionStorage', async () => {
+    const getItem = window.sessionStorage.getItem as jest.Mock<string>;
+    getItem.mockImplementationOnce(() => 'Harry');
+
+    const { getByText } = render(<Search />);
+    await waitFor(() => expect(getByText('Harry')).toBeInTheDocument());
 });

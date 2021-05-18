@@ -51,7 +51,7 @@ export function SearchResultItem(p: Person): JSX.Element {
                 className={__('row')}
                 data-testid={`searchMoreDetails_${p.id}`}
             >
-                <a href="/">More details</a>
+                <a href={`/person/${p.id}`}>More details</a>
             </div>
         </div>
     );
