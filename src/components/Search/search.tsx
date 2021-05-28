@@ -99,6 +99,12 @@ export function Search(): JSX.Element {
         }
     };
 
+    const onSearchInputKeyDown = ({ code }: any) => {
+        if (code === 'Enter') {
+            onClickSearch();
+        }
+    };
+
     useEffect(() => {
         if (searchedTerm === showingResultsForTerm) {
             search();
@@ -156,6 +162,7 @@ export function Search(): JSX.Element {
                                 type="text"
                                 data-testid="searchInput"
                                 onChange={onTypingSearchTerm}
+                                onKeyDown={onSearchInputKeyDown}
                                 placeholder="Enter search query"
                             />
                         </div>
