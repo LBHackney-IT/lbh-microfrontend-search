@@ -9,7 +9,6 @@ Create a `.env` file in the root of the repo for the following required key-valu
 
 ```env
 SEARCH_API_URL=
-SEARCH_API_KEY=
 ```
 
 The values can be found in the development AWS account in the Parameter Store (eu-west-2).

@@ -101,7 +101,6 @@ jobs:
                 name: build
                 command: |
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
-                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
@@ -121,7 +120,6 @@ jobs:
                   name: build
                   command: |
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
-                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
@@ -141,7 +139,6 @@ jobs:
                   name: build
                   command: |
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
-                    export SEARCH_API_KEY=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-key --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { LinkBox, LinkOverlay, Link } from '@mtfh/common';
 import { createBemElementBuilder } from '@utilities';
 import { Person } from '@types';
 import './search-result-item.scss';
@@ -14,7 +15,7 @@ export function SearchResultItem(p: Person): JSX.Element {
     const tenureStatuses = [type];
 
     return (
-        <div className={bemBlock} data-testid={`searchResult_${p.id}`}>
+        <LinkBox className={bemBlock} data-testid={`searchResult_${p.id}`}>
             <p className={__('title')} data-testid={`searchResultName_${p.id}`}>
                 {p.title} {p.firstname}
                 {p.middleName ? ` ${p.middleName}` : ''} {p.surname}
@@ -47,12 +48,12 @@ export function SearchResultItem(p: Person): JSX.Element {
                     <strong>Tenure:</strong> {tenureStatuses.join(', ')}
                 </p>
             )}
-            <div
+            <LinkOverlay
                 className={__('row')}
                 data-testid={`searchMoreDetails_${p.id}`}
             >
-                <a href={`/person/${p.id}`}>More details</a>
-            </div>
-        </div>
+                <Link href={`/person/${p.id}`}>More details</Link>
+            </LinkOverlay>
+        </LinkBox>
     );
 }

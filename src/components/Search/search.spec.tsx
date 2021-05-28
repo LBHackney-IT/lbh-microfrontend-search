@@ -172,10 +172,27 @@ test('searchTerm is saved to sessionStorage', async () => {
     );
 });
 
+test('it submits with the enter key', async () => {
+    const { getByPlaceholderText, getAllByTestId } = render(<Search />);
+    const input = getByPlaceholderText(
+        'Enter search query'
+    ) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'test' } });
+    fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+    await waitFor(() =>
+        expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
+    );
+});
+
 test('search hydrates from sessionStorage', async () => {
     const getItem = window.sessionStorage.getItem as jest.Mock<string>;
     getItem.mockImplementationOnce(() => 'Harry');
 
-    const { getByText } = render(<Search />);
+    const { getByText, getAllByTestId } = render(<Search />);
     await waitFor(() => expect(getByText('Harry')).toBeInTheDocument());
+    await waitFor(() =>
+        expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
+    );
 });
