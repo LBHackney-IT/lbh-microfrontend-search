@@ -48,6 +48,19 @@
     }
 
     &__results {
+        display: grid;
+        grid-template-columns: auto;
+        align-items: flex-start;
         overflow: hidden;
+        column-gap: 1rem;
+
+        @include govuk-media-query($from: tablet) {
+            grid-template-columns: auto auto;
+        }
+
+        @include govuk-media-query($from: desktop) {
+            grid-template-columns: auto auto auto auto;
+            column-gap: 1rem;
+        }
     }
 }

@@ -2,10 +2,19 @@
 
 .mtfh-search-result {
     float: left;
-    margin: 1rem 1rem 0 0;
+    width: auto;
+    margin: 1rem 0 0 0;
     padding: 10px;
     border: 1px solid rgba(117, 117, 117, 0.4);
     border-radius: 3px;
+
+    @include govuk-media-query($from: tablet) {
+        width: auto;
+    }
+
+    @include govuk-media-query($from: desktop) {
+        width: auto;
+    }
 
     &__subtitle,
     &__row {
