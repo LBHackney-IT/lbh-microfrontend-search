@@ -8,14 +8,33 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
 
+    nav {
+        text-align: center;
+        @include govuk-media-query($from: tablet) {
+            text-align: left;
+        }
+    }
+
+    ul {
+        flex-direction: row;
+        margin: 0 auto;
+        @include govuk-media-query($from: tablet) {
+            margin: unset;
+        }
+    }
+
     &__item {
         @include lbh-link;
         @include lbh-body-m;
         display: inline-block;
         padding: 0 5px;
+        font-size: 12px;
         text-decoration: none;
         background: none;
         border: none;
+        @include govuk-media-query($from: tablet) {
+            font-size: 16px;
+        }
 
         &:visited,
         &.--visited {

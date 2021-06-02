@@ -1,11 +1,11 @@
 @import '~lbh-frontend/lbh/base';
+@import '~govuk-frontend/govuk/helpers/media-queries';
 
 .mtfh-search-result {
     float: left;
-    width: auto;
     margin: 1rem 0 0 0;
     padding: 10px;
-    border: 1px solid rgba(117, 117, 117, 0.4);
+    border: 1px solid rgba(173, 171, 171, 0.4);
     border-radius: 3px;
 
     @include govuk-media-query($from: tablet) {
