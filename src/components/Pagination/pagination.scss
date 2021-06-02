@@ -8,6 +8,13 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
 
+    nav.lbh-pagination {
+        width: 100%;
+        @include govuk-media-query($from: desktop) {
+            align-items: center;
+        }
+    }
+
     nav {
         text-align: center;
         @include govuk-media-query($from: tablet) {
