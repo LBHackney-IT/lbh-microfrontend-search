@@ -8,22 +8,3 @@
 * {
     @include lbh-font;
 }
-
-@include govuk-media-query($from: tablet) {
-    .parent {
-        display: grid;
-        grid-row-gap: 0;
-        grid-column-gap: 15px;
-        grid-template-rows: 1fr;
-        grid-template-columns: 310px 1fr;
-        margin: 0;
-    }
-
-    .aside {
-        grid-area: 1 / 1 / 2 / 2;
-    }
-
-    .main {
-        grid-area: 1 / 2 / 2 / 3;
-    }
-}
