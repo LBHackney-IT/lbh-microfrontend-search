@@ -1,12 +1,15 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
+import { routeRender } from './test-utils';
 import Root from './root.component';
 
 describe('Root component', () => {
-    it('should be in the document', () => {
-        render(<Root />);
+    it('should be in the document', async () => {
+        routeRender(<Root />);
 
-        expect(screen.getByTestId('root')).toBeInTheDocument();
+        await waitFor(() =>
+            expect(screen.getByTestId('root')).toBeInTheDocument()
+        );
     });
 });

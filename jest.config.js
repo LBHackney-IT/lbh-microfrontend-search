@@ -13,7 +13,7 @@ module.exports = {
     },
     setupFilesAfterEnv: [
         '../node_modules/@testing-library/jest-dom/dist/index.js',
-        './test-utils.js',
+        './test-utils.tsx',
     ],
     coverageDirectory: '../coverage',
     coveragePathIgnorePatterns: [],

@@ -1,13 +1,9 @@
 import React from 'react';
 import { rest } from 'msw';
-import {
-    render,
-    fireEvent,
-    waitFor,
-    RenderResult,
-} from '@testing-library/react';
+import { fireEvent, waitFor, RenderResult } from '@testing-library/react';
 import { config, cacheKeys } from '@services';
 import { Search } from './search';
+import { routeRender } from '../../test-utils';
 import { server } from '../../mocks';
 
 const submitSearch = (
@@ -38,18 +34,20 @@ const paginateResults = ({ container }: RenderResult, page: number) => {
 };
 
 test('it renders correctly', () => {
-    const { getByPlaceholderText, getByTestId } = render(<Search />);
+    const [result, history] = routeRender(<Search />);
+
+    const { getByPlaceholderText, getByTestId } = result;
 
     expect(getByPlaceholderText('Enter search query')).toBeInTheDocument();
     expect(getByTestId('btnSearch')).toBeInTheDocument();
 });
 
 test('it performs a search with results', async () => {
-    const utils = render(<Search />);
+    const [result, history] = routeRender(<Search />);
 
-    submitSearch(utils, 'Jane');
+    submitSearch(result, 'Jane');
 
-    const { getAllByTestId } = utils;
+    const { getAllByTestId } = result;
 
     await waitFor(() =>
         expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
@@ -57,17 +55,17 @@ test('it performs a search with results', async () => {
 });
 
 test('it changes results on page change', async () => {
-    const utils = render(<Search />);
-    submitSearch(utils, 'Mike');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Mike');
 
-    const { getAllByTestId } = utils;
+    const { getAllByTestId } = result;
 
     await waitFor(() =>
         expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
     );
 
     const results = getAllByTestId(/searchResult_/);
-    paginateResults(utils, 2);
+    paginateResults(result, 2);
 
     await waitFor(() =>
         expect(results[0]).not.toBe(getAllByTestId(/searchResult_/)[0])
@@ -75,10 +73,10 @@ test('it changes results on page change', async () => {
 });
 
 test('it can perform additional searches', async () => {
-    const utils = render(<Search />);
-    submitSearch(utils, 'Jack');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Jack');
 
-    const { getByText, getByTestId } = utils;
+    const { getByText, getByTestId } = result;
 
     await waitFor(() => expect(getByText('Search again')).toBeInTheDocument());
 
@@ -88,16 +86,16 @@ test('it can perform additional searches', async () => {
 
     await waitFor(() => expect(getByTestId('searchInput')).toBeInTheDocument());
 
-    submitSearch(utils, 'Lance');
+    submitSearch(result, 'Lance');
 
     await waitFor(() => expect(getByText('Lance')).toBeInTheDocument());
 });
 
 test('it changes results based on sort', async () => {
-    const utils = render(<Search />);
-    submitSearch(utils, 'Mary');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Mary');
 
-    const { getAllByTestId, getByLabelText } = utils;
+    const { getAllByTestId, getByLabelText } = result;
 
     await waitFor(() =>
         expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
@@ -114,10 +112,10 @@ test('it changes results based on sort', async () => {
 });
 
 test('it changes the page size to show', async () => {
-    const utils = render(<Search />);
-    submitSearch(utils, 'Mary');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Mary');
 
-    const { getAllByTestId, getByLabelText } = utils;
+    const { getAllByTestId, getByLabelText } = result;
 
     await waitFor(() =>
         expect(getAllByTestId(/searchResult_/)).toHaveLength(12)
@@ -133,10 +131,10 @@ test('it changes the page size to show', async () => {
 });
 
 test('it will not perform a search if the query is empty', () => {
-    const utils = render(<Search />);
-    submitSearch(utils, '');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, '');
 
-    const { queryAllByTestId } = utils;
+    const { queryAllByTestId } = result;
     expect(queryAllByTestId(/searchResult_/)).toHaveLength(0);
 });
 
@@ -152,17 +150,17 @@ test('it shows no results', async () => {
         )
     );
 
-    const utils = render(<Search />);
-    submitSearch(utils, 'Louis');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Louis');
 
-    const { getByText } = utils;
+    const { getByText } = result;
 
     await waitFor(() => expect(getByText('No results')).toBeInTheDocument());
 });
 
 test('searchTerm is saved to sessionStorage', async () => {
-    const utils = render(<Search />);
-    submitSearch(utils, 'Stacy');
+    const [result, history] = routeRender(<Search />);
+    submitSearch(result, 'Stacy');
 
     await waitFor(() =>
         expect(window.sessionStorage.setItem).toHaveBeenCalledWith(
@@ -173,7 +171,10 @@ test('searchTerm is saved to sessionStorage', async () => {
 });
 
 test('it submits with the enter key', async () => {
-    const { getByPlaceholderText, getAllByTestId } = render(<Search />);
+    const [result, history] = routeRender(<Search />);
+
+    const { getByPlaceholderText, getAllByTestId } = result;
+
     const input = getByPlaceholderText(
         'Enter search query'
     ) as HTMLInputElement;
@@ -190,7 +191,10 @@ test('search hydrates from sessionStorage', async () => {
     const getItem = window.sessionStorage.getItem as jest.Mock<string>;
     getItem.mockImplementationOnce(() => 'Harry');
 
-    const { getByText, getAllByTestId } = render(<Search />);
+    const [result, history] = routeRender(<Search />);
+
+    const { getByText, getAllByTestId } = result;
+
     await waitFor(() => expect(getByText('Harry')).toBeInTheDocument());
     await waitFor(() =>
         expect(getAllByTestId(/searchResult_/)).toHaveLength(12)

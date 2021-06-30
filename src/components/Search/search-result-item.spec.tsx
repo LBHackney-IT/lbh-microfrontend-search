@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-
+import { screen } from '@testing-library/react';
 import { Person } from '@types';
 import { SearchResultItem } from '@components';
+import { routeRender } from '../../test-utils';
 
 let multipleTenanciesResult: Person;
 let singleTenancyResult: Person;
@@ -87,7 +87,8 @@ beforeEach(() => {
 });
 
 test('It renders without throwing an error', () => {
-    render(<SearchResultItem {...singleTenancyResult} />);
+    routeRender(<SearchResultItem {...singleTenancyResult} />);
+
     const { id } = singleTenancyResult;
     const wrapper = screen.queryByTestId(`searchResult_${id}`);
     const title = screen.queryByTestId(`searchResultName_${id}`);
@@ -101,7 +102,8 @@ test('It renders without throwing an error', () => {
 });
 
 test('Item with single tenancy displays the address', () => {
-    render(<SearchResultItem {...singleTenancyResult} />);
+    routeRender(<SearchResultItem {...singleTenancyResult} />);
+
     const { id } = singleTenancyResult;
     const address = screen.queryByTestId(`searchResultAddress_${id}`);
     const multipleTenanciesMessage = screen.queryByTestId(
@@ -113,7 +115,7 @@ test('Item with single tenancy displays the address', () => {
 });
 
 test('Item with multiple tenancies does not display any address', () => {
-    render(<SearchResultItem {...multipleTenanciesResult} />);
+    routeRender(<SearchResultItem {...multipleTenanciesResult} />);
     const { id } = multipleTenanciesResult;
     const address = screen.queryByTestId(`searchResultAddress_${id}`);
     const multipleTenanciesMessage = screen.queryByTestId(

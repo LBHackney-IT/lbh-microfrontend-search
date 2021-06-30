@@ -1,5 +1,5 @@
+import { Link as RouterLink } from 'react-router-dom';
 import React from 'react';
-
 import { LinkBox, LinkOverlay, Link } from '@mtfh/common';
 import { createBemElementBuilder } from '@utilities';
 import { Person } from '@types';
@@ -52,7 +52,9 @@ export function SearchResultItem(p: Person): JSX.Element {
                 className={__('row')}
                 data-testid={`searchMoreDetails_${p.id}`}
             >
-                <Link href={`/person/${p.id}`}>More details</Link>
+                <Link as={RouterLink} to={`/person/${p.id}`}>
+                    More details
+                </Link>
             </LinkOverlay>
         </LinkBox>
     );
