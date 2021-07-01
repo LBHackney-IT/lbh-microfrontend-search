@@ -1,7 +1,5 @@
-import { SWRConfig } from 'swr';
 import { Route, Router } from 'react-router-dom';
 import React from 'react';
-import { rest } from 'msw';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { RenderResult, render, cleanup } from '@testing-library/react';

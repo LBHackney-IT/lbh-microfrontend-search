@@ -7,7 +7,7 @@ export default function Root(): JSX.Element {
     return (
         <div data-testid="root">
             <Router>
-                <Route path="/search" exact>
+                <Route path="/">
                     <div className="js-enabled">
                         <Search />
                     </div>

@@ -34,7 +34,7 @@ const paginateResults = ({ container }: RenderResult, page: number) => {
 };
 
 test('it renders correctly', () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
 
     const { getByPlaceholderText, getByTestId } = result;
 
@@ -43,7 +43,7 @@ test('it renders correctly', () => {
 });
 
 test('it performs a search with results', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
 
     submitSearch(result, 'Jane');
 
@@ -55,7 +55,7 @@ test('it performs a search with results', async () => {
 });
 
 test('it changes results on page change', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Mike');
 
     const { getAllByTestId } = result;
@@ -73,7 +73,7 @@ test('it changes results on page change', async () => {
 });
 
 test('it can perform additional searches', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Jack');
 
     const { getByText, getByTestId } = result;
@@ -92,7 +92,7 @@ test('it can perform additional searches', async () => {
 });
 
 test('it changes results based on sort', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Mary');
 
     const { getAllByTestId, getByLabelText } = result;
@@ -112,7 +112,7 @@ test('it changes results based on sort', async () => {
 });
 
 test('it changes the page size to show', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Mary');
 
     const { getAllByTestId, getByLabelText } = result;
@@ -131,7 +131,7 @@ test('it changes the page size to show', async () => {
 });
 
 test('it will not perform a search if the query is empty', () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, '');
 
     const { queryAllByTestId } = result;
@@ -150,7 +150,7 @@ test('it shows no results', async () => {
         )
     );
 
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Louis');
 
     const { getByText } = result;
@@ -159,7 +159,7 @@ test('it shows no results', async () => {
 });
 
 test('searchTerm is saved to sessionStorage', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
     submitSearch(result, 'Stacy');
 
     await waitFor(() =>
@@ -171,7 +171,7 @@ test('searchTerm is saved to sessionStorage', async () => {
 });
 
 test('it submits with the enter key', async () => {
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
 
     const { getByPlaceholderText, getAllByTestId } = result;
 
@@ -191,7 +191,7 @@ test('search hydrates from sessionStorage', async () => {
     const getItem = window.sessionStorage.getItem as jest.Mock<string>;
     getItem.mockImplementationOnce(() => 'Harry');
 
-    const [result, history] = routeRender(<Search />);
+    const [result] = routeRender(<Search />);
 
     const { getByText, getAllByTestId } = result;
 

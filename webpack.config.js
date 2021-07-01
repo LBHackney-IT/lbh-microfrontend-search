@@ -34,7 +34,7 @@ module.exports = (webpackConfigEnv, argv) => {
             },
             extensions: ['.ts', '.tsx', '.js'],
         },
-        externals: ['@mtfh/common', 'react-router-dom'],
+        externals: ['react-router-dom'],
         plugins: [
             new webpack.EnvironmentPlugin({
                 SEARCH_API_URL: dotenv.SEARCH_API_URL || '',
