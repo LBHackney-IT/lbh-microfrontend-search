@@ -14,7 +14,10 @@ export function findByPersonName(
 ): Promise<Response> {
     return fetch(
         `${config.searchApiUrl}/search/persons?${queryString.stringify(
-            parameters
+            parameters,
+            {
+                skipEmptyString: true,
+            }
         )}`,
         { headers }
     );

@@ -18,7 +18,7 @@ export function Search(): JSX.Element {
     );
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isDesc, setIsDesc] = useState<string>('false');
-    const [by, setBy] = useState<string>('surname');
+    const [by, setBy] = useState<string>('');
     const [pageSize, setPageSize] = useState<number>(12);
     const [itemsFrom, setItemsFrom] = useState<number>(1);
     const [itemsTo, setItemsTo] = useState<number>(1);
@@ -109,7 +109,7 @@ export function Search(): JSX.Element {
         if (searchedTerm === showingResultsForTerm) {
             search();
         }
-    }, [currentPage, isDesc]);
+    }, [currentPage, by, isDesc]);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -221,14 +221,9 @@ export function Search(): JSX.Element {
                                 className="govuk-select lbh-select"
                                 id="select-1"
                             >
-                                <option value="surname_0">name A-Z</option>
-                                <option value="surname_1">name Z-A</option>{' '}
-                                <option value="streetname_0">
-                                    street name A-Z
-                                </option>{' '}
-                                <option value="streetname_1">
-                                    street name Z-A
-                                </option>
+                                <option value="_0">Best match</option>
+                                <option value="surname_0">Last name A-Z</option>
+                                <option value="surname_1">Last name Z-A</option>
                             </select>
                         </div>
                         <div className="govuk-form-group lbh-form-group">
