@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { augmentWithTenure, createBemElementBuilder } from '@utilities';
+import { createBemElementBuilder } from '@utilities';
 import { Person } from '@types';
 import { findByPersonName, cacheKeys } from '@services';
 import { Pagination } from '@components';
@@ -63,10 +63,6 @@ export function Search(): JSX.Element {
                     results: { persons },
                     total,
                 } = data;
-
-                for (const person of persons) {
-                    augmentWithTenure(person);
-                }
 
                 setResults(persons);
                 setTotalResults(total);

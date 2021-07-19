@@ -8,8 +8,8 @@ import './search-result-item.scss';
 export function SearchResultItem(p: Person): JSX.Element {
     const bemBlock = 'mtfh-search-result';
     const __ = createBemElementBuilder(bemBlock);
-    const tenure = p.tenures[0];
-    const { assetFullAddress: address, type } = tenure;
+    const tenure = p.tenures[0] || {};
+    const { assetFullAddress: address, type = 'N/A' } = tenure;
     const isMultipleTenancies = p.tenures.length > 1;
     // there is more than one status. e.g. active, secure
     const tenureStatuses = [type];
@@ -20,7 +20,7 @@ export function SearchResultItem(p: Person): JSX.Element {
                 {p.title} {p.firstname}
                 {p.middleName ? ` ${p.middleName}` : ''} {p.surname}
             </p>
-            {!isMultipleTenancies && (
+            {!isMultipleTenancies && address && (
                 <div
                     className={__('subtitle')}
                     data-testid={`searchResultAddress_${p.id}`}
