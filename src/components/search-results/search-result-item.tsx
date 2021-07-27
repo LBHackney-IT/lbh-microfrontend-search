@@ -16,10 +16,21 @@ export function SearchResultItem(p: Person): JSX.Element {
 
     return (
         <LinkBox className={bemBlock} data-testid={`searchResult_${p.id}`}>
-            <p className={__('title')} data-testid={`searchResultName_${p.id}`}>
-                {p.title} {p.firstname}
-                {p.middleName ? ` ${p.middleName}` : ''} {p.surname}
-            </p>
+            <LinkOverlay
+                className={__('row')}
+                data-testid={`searchMoreDetails_${p.id}`}
+            >
+                <Link
+                    className={__('title')}
+                    as={RouterLink}
+                    to={`/person/${p.id}`}
+                    data-testid={`searchResultName_${p.id}`}
+                    variant="text-colour"
+                >
+                    {p.title} {p.firstname}
+                    {p.middleName ? ` ${p.middleName}` : ''} {p.surname}
+                </Link>
+            </LinkOverlay>
             {!isMultipleTenancies && address && (
                 <div
                     className={__('subtitle')}
@@ -48,14 +59,6 @@ export function SearchResultItem(p: Person): JSX.Element {
                     <strong>Tenure:</strong> {tenureStatuses.join(', ')}
                 </p>
             )}
-            <LinkOverlay
-                className={__('row')}
-                data-testid={`searchMoreDetails_${p.id}`}
-            >
-                <Link as={RouterLink} to={`/person/${p.id}`}>
-                    More details
-                </Link>
-            </LinkOverlay>
         </LinkBox>
     );
 }

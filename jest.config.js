@@ -16,13 +16,13 @@ module.exports = {
         './test-utils.tsx',
     ],
     coverageDirectory: '../coverage',
-    coveragePathIgnorePatterns: [],
+    coveragePathIgnorePatterns: ['mocks'],
     coverageThreshold: {
         global: {
-            statements: 98.78,
-            branches: 84.16,
-            functions: 95.12,
-            lines: 98.73,
+            statements: 99.3,
+            branches: 97.53,
+            functions: 97.5,
+            lines: 99.29,
         },
     },
 };

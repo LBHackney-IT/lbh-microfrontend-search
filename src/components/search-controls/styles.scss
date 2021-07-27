@@ -1,0 +1,45 @@
+@import '~lbh-frontend/lbh/base';
+
+.mtfh-search-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    @include govuk-media-query($from: tablet) {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &__status {
+        @include lbh-body-m();
+        white-space: nowrap;
+
+        @include govuk-media-query($from: tablet) {
+            margin-right: 1rem;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+
+    .lbh-form-group {
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+
+        .lbh-label {
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+
+        & + .lbh-form-group {
+            margin-left: 1rem;
+        }
+    }
+}

@@ -15,31 +15,12 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
-        "plugin:unicorn/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
         "plugin:import/typescript"
     ],
     "ignorePatterns": "src/test-utils.js",
     "rules": {
-        "unicorn/no-useless-undefined": "off",
-        "unicorn/no-reduce": "off",
-        "unicorn/prefer-query-selector": "off",
-        "unicorn/no-null": "off",
-        "unicorn/prevent-abbreviations": [
-            "error",
-            {
-                "whitelist": {
-                    "getServerSideProps": true,
-                    "getStaticProps": true
-                },
-                "replacements": {
-                    "env": {
-                        "environment": false
-                    }
-                }
-            }
-        ],
         "import/order": [
             "error",
             {
@@ -76,5 +57,17 @@
         "no-duplicate-imports": "error",
         "no-irregular-whitespace": "error",
         "@typescript-eslint/ban-ts-comment": "off"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["tests/**", "*.+(spec|test).+(j|t)s?(x)"],
+            "plugins": ["jest"],
+            "rules": {
+                "@typescript-eslint/unbound-method": "off",
+                "@typescript-eslint/no-unused-vars": "off",
+                "jest/unbound-method": "error",
+                "compat/compat": "off"
+            }
+        }
+    ]
 }

@@ -1,17 +1,13 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 
-import { Search } from '@components';
+import App from './app';
 
 export default function Root(): JSX.Element {
     return (
         <div data-testid="root">
             <Router>
-                <Route path="/">
-                    <div className="js-enabled">
-                        <Search />
-                    </div>
-                </Route>
+                <App />
             </Router>
         </div>
     );
