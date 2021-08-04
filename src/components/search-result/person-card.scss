@@ -1,27 +1,7 @@
 @import '~lbh-frontend/lbh/base';
-@import '~govuk-frontend/govuk/helpers/media-queries';
 
-.mtfh-search-result {
-    float: left;
-    margin: 1rem 0 0 0;
-    padding: 10px;
-    border: 1px solid rgba(173, 171, 171, 0.4);
-    border-radius: 3px;
-
-    @include govuk-media-query($from: tablet) {
-        width: auto;
-    }
-
-    @include govuk-media-query($from: desktop) {
-        width: auto;
-    }
-
-    .mtfh-search-result {
-        &__subtitle,
-        &__row {
-            margin: 6px 0 0;
-        }
-
+.mtfh-search-person {
+    .mtfh-search-person {
         &__title {
             @include lbh-heading-h4;
             margin: 0;

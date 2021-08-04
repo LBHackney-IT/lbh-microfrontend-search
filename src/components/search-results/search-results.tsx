@@ -4,7 +4,7 @@ import { Center, Spinner } from '@mtfh/common';
 import { isPerson } from '@utilities';
 import { Person, Tenure } from '@types';
 
-import { SearchResultItem } from './search-result-item';
+import { PersonCard } from '../search-result/person-card';
 import './search.scss';
 
 interface SearchResultsProps {
@@ -23,7 +23,7 @@ export const SearchResults = ({ results }: SearchResultsProps): JSX.Element => {
         <div className="mtfh-search__results">
             {results.map((result: Person | Tenure) => {
                 if (isPerson(result)) {
-                    return <SearchResultItem key={result.id} {...result} />;
+                    return <PersonCard key={result.id} person={result} />;
                 }
             })}
         </div>
