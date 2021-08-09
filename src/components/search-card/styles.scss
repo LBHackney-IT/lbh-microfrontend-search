@@ -9,4 +9,27 @@
     > * {
         margin: 6px 0 0;
     }
+
+    a {
+        @include lbh-heading-h4;
+        margin: 0;
+
+        &:link {
+            color: lbh-colour(lbh-text);
+            text-decoration: none;
+        }
+
+        &:visited,
+        &:hover {
+            color: lbh-colour(lbh-text);
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    strong {
+        font-weight: 600;
+    }
 }

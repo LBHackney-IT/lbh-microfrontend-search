@@ -5,5 +5,5 @@ export const isPerson = (person: Record<string, any>): person is Person => {
 };
 
 export const isTenure = (tenure: Record<string, any>): tenure is Tenure => {
-    return (tenure as Tenure).assetFullAddress !== undefined;
+    return (tenure as Tenure).paymentReference !== undefined;
 };

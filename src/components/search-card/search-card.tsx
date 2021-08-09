@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import './styles.scss';
 
-export const Card: FC<ComponentPropsWithoutRef<'div'>> = ({
+export const SearchCard: FC<ComponentPropsWithoutRef<'div'>> = ({
     className,
     ...props
 }) => <div className={cn('mtfh-search-card', className)} {...props} />;

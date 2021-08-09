@@ -8,14 +8,19 @@ import { locale, SearchType } from '@services';
 import { searchSchema, SearchFormData } from './schema';
 import { Field, InlineField } from '../../components/field';
 
+export interface SearchFormProps extends ComponentPropsWithoutRef<'form'> {
+    defaultType?: SearchType;
+}
+
 export const SearchForm = ({
     className,
+    defaultType = SearchType.PERSON,
     ...props
-}: ComponentPropsWithoutRef<'form'>): JSX.Element => {
+}: SearchFormProps): JSX.Element => {
     const history = useHistory();
     return (
         <Formik<SearchFormData>
-            initialValues={{ searchTerm: '', type: SearchType.PERSON }}
+            initialValues={{ searchTerm: '', type: defaultType }}
             validationSchema={searchSchema}
             validateOnChange={false}
             validateOnBlur={false}

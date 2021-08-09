@@ -15,8 +15,8 @@ test('SearchControls changes sort query param', () => {
     const [_, history] = routeRender(
         <SearchControls page={1} pageSize={5} total={500} />,
         {
-            url: '/search',
-            path: '/search',
+            url: '/search/persons',
+            path: '/search/:type',
         }
     );
     const sort = screen.getByLabelText(`${locale.controls.sortLabel}:`);
@@ -43,8 +43,8 @@ test('SearchControls changes limit query param', () => {
     const [_, history] = routeRender(
         <SearchControls page={1} pageSize={5} total={500} />,
         {
-            url: '/search',
-            path: '/search',
+            url: '/search/persons',
+            path: '/search/:type',
         }
     );
     const limit = screen.getByLabelText(`${locale.controls.limitLabel}:`);

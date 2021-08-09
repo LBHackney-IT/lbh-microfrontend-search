@@ -1,17 +1,17 @@
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRResponse } from '@mtfh/common';
 
-import { Person } from '@types';
+import { Person, Tenure } from '@types';
 import { config } from '../config';
 
 export enum SearchType {
     PERSON = 'persons',
-    // TENURE = 'tenures',
+    TENURE = 'tenures',
 }
 export interface SearchResults {
     results: {
         persons?: Person[];
-        // tenures?: Tenure[];
+        tenures?: Tenure[];
     };
     total: number;
 }

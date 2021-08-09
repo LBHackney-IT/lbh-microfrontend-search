@@ -1,10 +1,10 @@
 import React from 'react';
 import { Center, Spinner } from '@mtfh/common';
 
-import { isPerson } from '@utilities';
+import { isPerson, isTenure } from '@utilities';
 import { Person, Tenure } from '@types';
 
-import { PersonCard } from '../search-result/person-card';
+import { PersonCard, TenureCard } from '../search-result';
 import './search.scss';
 
 interface SearchResultsProps {
@@ -24,6 +24,9 @@ export const SearchResults = ({ results }: SearchResultsProps): JSX.Element => {
             {results.map((result: Person | Tenure) => {
                 if (isPerson(result)) {
                     return <PersonCard key={result.id} person={result} />;
+                }
+                if (isTenure(result)) {
+                    return <TenureCard key={result.id} tenure={result} />;
                 }
             })}
         </div>

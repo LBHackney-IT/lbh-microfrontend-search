@@ -78,3 +78,17 @@ test('SearchResultsView handles query param updates', async () => {
         expect(results).toHaveLength(4);
     });
 });
+
+test('SearchResultsView handles requests for tenures', async () => {
+    const [{ container }] = routeRender(<SearchResultsView />, {
+        path: '/search/:type',
+        url: '/search/tenures?s=Jake',
+    });
+
+    await waitFor(() => {
+        const results = container.querySelectorAll(
+            '.mtfh-search__results > div'
+        );
+        expect(results).toHaveLength(12);
+    });
+});

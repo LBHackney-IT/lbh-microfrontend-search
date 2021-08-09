@@ -1,4 +1,6 @@
-export default {
+import { HouseholdMember, Tenure, Person } from '@types';
+
+const locale = {
     home: 'Home',
     search: 'Search',
     category: 'Category',
@@ -49,11 +51,37 @@ export default {
                 total
             )} of ${total} results`,
     },
+    person: {
+        personTitleAbbr: (title: string): string => {
+            if (['Dr', 'Mr', 'Mrs', 'Ms'].includes(title)) {
+                return `${title}.`;
+            }
+            return title;
+        },
+        personOriginalFullName: (person: Person): string =>
+            [
+                locale.person.personTitleAbbr(person.title),
+                person.firstName,
+                person.middleName,
+                person.surname,
+            ]
+                .filter(prop => prop)
+                .join(' '),
+        multipleTenures: 'Multiple Tenures',
+        tenureType: `Tenure type`,
+    },
+    tenure: {
+        paymentRef: (ref: string): string => `Tenure payment ref ${ref}`,
+        tenureType: `Tenure type`,
+        active: 'active',
+    },
     errors: {
         alertTitle: 'Error',
-        minSearchTerm: 'Please enter 2 or more characters for a search term',
+        minSearchTerm: 'You must enter a minimum of 2 characters',
         searchUnexpectedErrorTitle: 'Unable to retrieve search results',
         searchUnexpectedErrorDescription:
             'Please try again. If the issue persists, please contact support.',
     },
 };
+
+export default locale;

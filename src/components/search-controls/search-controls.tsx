@@ -1,8 +1,13 @@
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, useParams } from 'react-router-dom';
 import React, { useCallback, useMemo } from 'react';
 import { FormGroup, Select } from '@mtfh/common';
 
-import { SearchSortOptions, SearchLimitOptions, locale } from '@services';
+import {
+    SearchSortOptions,
+    SearchLimitOptions,
+    locale,
+    SearchType,
+} from '@services';
 
 import './styles.scss';
 
@@ -28,6 +33,7 @@ export const SearchControls = ({
     pageSize,
 }: SearchControlsProps): JSX.Element => {
     const { search, pathname } = useLocation();
+    const { type } = useParams<{ type: SearchType }>();
     const history = useHistory();
 
     const sortBy = useMemo(() => {
@@ -95,18 +101,20 @@ export const SearchControls = ({
                     : searchResults(page, pageSize, total)}
             </div>
             <div className="mtfh-search-controls__controls">
-                <FormGroup id="sortBy" label={`${sortLabel}:`}>
-                    <Select
-                        onChange={e => handleSort(e.currentTarget.value)}
-                        value={sortBy}
-                    >
-                        {Object.values(SearchSortOptions).map(value => (
-                            <option key={value} value={value}>
-                                {sortOptions[value]}
-                            </option>
-                        ))}
-                    </Select>
-                </FormGroup>
+                {type === SearchType.PERSON && (
+                    <FormGroup id="sortBy" label={`${sortLabel}:`}>
+                        <Select
+                            onChange={e => handleSort(e.currentTarget.value)}
+                            value={sortBy}
+                        >
+                            {Object.values(SearchSortOptions).map(value => (
+                                <option key={value} value={value}>
+                                    {sortOptions[value]}
+                                </option>
+                            ))}
+                        </Select>
+                    </FormGroup>
+                )}
                 <FormGroup id="limit" label={`${limitLabel}:`}>
                     <Select
                         onChange={e => handleLimit(e.currentTarget.value)}

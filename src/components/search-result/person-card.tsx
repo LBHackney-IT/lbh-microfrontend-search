@@ -4,59 +4,59 @@ import { parseISO, format } from 'date-fns';
 import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
 import { Person } from '@types';
+import { locale } from '@services';
 
-import { Card } from '../search-card';
-
-import './person-card.scss';
+import { SearchCard } from '../search-card';
 
 interface PersonCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
     person: Person;
 }
 
+const { personOriginalFullName, multipleTenures, tenureType } = locale.person;
+
 export const PersonCard = ({
     person,
     className,
     ...props
 }: PersonCardProps): JSX.Element => {
+    const hasTenure = person.tenures.length > 0;
     const tenure = person.tenures[0] || {};
     const { assetFullAddress: address, type = 'N/A' } = tenure;
     const isMultipleTenancies = person.tenures.length > 1;
-    const tenureStatuses = [type];
     return (
         <LinkBox className={cn('mtfh-search-person', className)}>
-            <Card {...props}>
-                <LinkOverlay className="mtfh-search-person__row">
+            <SearchCard {...props}>
+                <LinkOverlay>
                     <Link
-                        className="mtfh-search-person__title"
                         as={RouterLink}
                         to={`/person/${person.id}`}
                         variant="text-colour"
                     >
-                        {person.title} {person.firstname}
-                        {person.middleName ? ` ${person.middleName}` : ''}{' '}
-                        {person.surname}
+                        {personOriginalFullName(person)}
                     </Link>
                 </LinkOverlay>
                 {!isMultipleTenancies && address && (
-                    <p className="mtfh-search-person__subtitle">{address}</p>
-                )}
-                {isMultipleTenancies && (
-                    <p className="mtfh-search-person__subtitle">
-                        Multiple tenancies
+                    <p>
+                        <strong>{address}</strong>
                     </p>
                 )}
-                <p className="mtfh-search-person__row">
+                {isMultipleTenancies && (
+                    <p>
+                        <strong>{multipleTenures}</strong>
+                    </p>
+                )}
+                <p>
                     <strong>DOB:</strong>{' '}
                     {format(parseISO(person.dateOfBirth), 'dd/MM/yyyy')}
                 </p>
 
-                {!isMultipleTenancies && (
-                    <p className="mtfh-search-person__row">
-                        <strong>Tenure:</strong> {tenureStatuses.join(', ')}
+                {hasTenure && !isMultipleTenancies && (
+                    <p>
+                        <strong>{tenureType}:</strong> {type}
                     </p>
                 )}
-            </Card>
+            </SearchCard>
         </LinkBox>
     );
 };

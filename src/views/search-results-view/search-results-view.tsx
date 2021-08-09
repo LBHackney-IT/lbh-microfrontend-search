@@ -87,7 +87,7 @@ export const SearchResultsView = (): JSX.Element => {
             {showSearchAgain && (
                 <>
                     <h2 className="lbh-heading-h2">{locale.search}</h2>
-                    <SearchForm />
+                    <SearchForm defaultType={type} />
                 </>
             )}
             {error ? (

@@ -7,7 +7,7 @@ export interface Identification {
     linkToDocument: string;
 }
 
-export interface Tenure {
+export interface TenureSummary {
     id: string;
     type: string;
     startDate: string;
@@ -32,6 +32,6 @@ export interface Person {
     personTypes: PersonType[];
     isPersonCautionaryAlert: boolean;
     isTenureCautionaryAlert: boolean;
-    tenures: Tenure[];
+    tenures: TenureSummary[];
     [key: string]: any;
 }
