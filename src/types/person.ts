@@ -33,5 +33,4 @@ export interface Person {
     isPersonCautionaryAlert: boolean;
     isTenureCautionaryAlert: boolean;
     tenures: TenureSummary[];
-    [key: string]: any;
 }

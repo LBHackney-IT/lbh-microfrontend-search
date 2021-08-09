@@ -61,7 +61,7 @@ const locale = {
         personOriginalFullName: (person: Person): string =>
             [
                 locale.person.personTitleAbbr(person.title),
-                person.firstName,
+                person.firstname,
                 person.middleName,
                 person.surname,
             ]

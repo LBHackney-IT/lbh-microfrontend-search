@@ -15,7 +15,7 @@ export const generateMockPerson = (): Person => ({
     id: faker.datatype.uuid(),
     title: faker.name.prefix(),
     firstname: faker.name.firstName(),
-    middlename: faker.name.middleName(),
+    middleName: faker.name.middleName(),
     preferredFirstname: '',
     preferredSurname: '',
     surname: faker.name.lastName(),
