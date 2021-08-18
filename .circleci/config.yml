@@ -4,6 +4,7 @@ orbs:
     aws-s3: circleci/aws-s3@2.0.0
     aws-cli: circleci/aws-cli@2.0.0
     aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+    snyk: snyk/snyk@1.0.2
 
 parameters:
     run_development_workflow:
@@ -100,6 +101,13 @@ jobs:
             - persist_to_workspace:
                   root: *workspace_root
                   paths: .
+
+    security-scan:
+        executor: node-executor
+        steps:
+            - *attach_workspace
+            - snyk/scan:
+                severity-threshold: high
 
     lint-and-test:
         executor: node-executor
@@ -240,10 +248,17 @@ workflows:
             - lint-and-test:
                   requires:
                       - install-dependencies
+            - security-scan:
+                  context: mtfh-security-scan
+                  requires:
+                      - lint-and-test
+                  filters:
+                      branches:
+                          only: main
             - assume-role-development:
                   context: api-assume-role-housing-development-context
                   requires:
-                      - lint-and-test
+                      - security-scan
                   filters:
                       branches:
                           only: main
@@ -356,4 +371,4 @@ workflows:
         when: << pipeline.parameters.e2e_test_failure >>
         jobs:
             - failure-downstream:
-                context: mtfh-mfe-e2e-tests
+                  context: mtfh-mfe-e2e-tests
