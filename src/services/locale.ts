@@ -1,4 +1,4 @@
-import { HouseholdMember, Tenure, Person } from '@types';
+import { HouseholdMember, Tenure, Person, AssetAddress } from '@types';
 
 const locale = {
     home: 'Home',
@@ -7,6 +7,7 @@ const locale = {
     form: {
         persons: 'Person',
         tenures: 'Tenure',
+        assets: 'Property',
     },
     results: {
         searchResults: 'Search Results',
@@ -14,6 +15,7 @@ const locale = {
         searchType: {
             persons: 'Person',
             tenures: 'Tenure',
+            assets: 'Property',
         },
     },
     controls: {
@@ -73,6 +75,47 @@ const locale = {
     tenure: {
         paymentRef: (ref: string): string => `Tenure payment ref ${ref}`,
         tenureType: `Tenure type`,
+        active: 'active',
+    },
+    property: {
+        address: (assetAddress: AssetAddress) => {
+            const {
+                postPreamble,
+                addressLine1,
+                addressLine2,
+                addressLine3,
+                addressLine4,
+                postCode,
+            } = assetAddress;
+
+            return [
+                postPreamble,
+                addressLine1,
+                addressLine2,
+                addressLine3,
+                addressLine4,
+                postCode,
+            ]
+                .filter(addressLine => !!addressLine)
+                .join(' ');
+        },
+        propertyTypeLabel: 'Property type',
+        propertyType: (propertyType: string) => {
+            const type =
+                propertyType === 'Dwelling'
+                    ? 'Dwelling'
+                    : 'Lettable non-dwelling';
+            return type;
+        },
+        tenureLabel: 'Tenure',
+        tenureInformation: (isActive: boolean, tenureType: string) => {
+            const tenureActivityState = `${isActive ? 'Active' : 'Inactive'}`;
+            const isSecured = `${
+                tenureType === 'SECURE' ? 'secured' : 'unsecured'
+            }`;
+            return `${tenureActivityState}, ${isSecured}`;
+        },
+        uprnLabel: 'UPRN',
         active: 'active',
     },
     errors: {

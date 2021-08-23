@@ -1,13 +1,21 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 
-import { SearchView, SearchResultsView } from './views';
+import { hasToggle } from '@mtfh/common';
+
+import {
+    SearchView,
+    SearchViewLegacy,
+    SearchResultsView,
+    SearchResultsViewLegacy,
+} from './views';
 
 export default function App(): JSX.Element {
+    const searchAsset = hasToggle('MMH.SearchAsset');
     return (
         <Switch>
             <Route path="/" exact>
-                <SearchView />
+                {searchAsset ? <SearchView /> : <SearchViewLegacy />}
             </Route>
             <Route
                 path="/search"
@@ -18,7 +26,11 @@ export default function App(): JSX.Element {
                 }}
             ></Route>
             <Route path="/search/:type" exact>
-                <SearchResultsView />
+                {searchAsset ? (
+                    <SearchResultsView />
+                ) : (
+                    <SearchResultsViewLegacy />
+                )}
             </Route>
             <Route>
                 <div>404</div>

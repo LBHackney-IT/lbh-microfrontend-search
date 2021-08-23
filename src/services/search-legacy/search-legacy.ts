@@ -1,25 +1,24 @@
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRResponse } from '@mtfh/common';
 
-import { Person, Tenure, Property } from '@types';
+import { Person, Tenure } from '@types';
 import { config } from '../config';
 
-export enum SearchType {
-    PROPERTY = 'assets',
+export enum SearchTypeLegacy {
     PERSON = 'persons',
     TENURE = 'tenures',
 }
-export interface SearchResults {
+
+export interface SearchResultsLegacy {
     results: {
         persons?: Person[];
         tenures?: Tenure[];
-        assets?: Property[];
     };
     total: number;
 }
 
-interface GetSearchForPersonsParams {
-    type: SearchType;
+interface GetSearchForPersonsParamsLegacy {
+    type: SearchTypeLegacy;
     searchText: string;
     pageSize: number;
     page?: number;
@@ -27,29 +26,29 @@ interface GetSearchForPersonsParams {
     sortBy?: string;
 }
 
-export enum SearchSortOptions {
+export enum SearchSortOptionsLegacy {
     BEST = 'best',
     SURNAME_ASC = 'surname-asc',
     SURNAME_DESC = 'surname-desc',
 }
 
-export enum SearchLimitOptions {
+export enum SearchLimitOptionsLegacy {
     SMALL = 12,
     MEDIUM = 20,
     LARGE = 40,
 }
 
-export const useSearch = ({
+export const useSearchLegacy = ({
     type,
     isDesc,
     ...params
-}: GetSearchForPersonsParams): AxiosSWRResponse<SearchResults> => {
+}: GetSearchForPersonsParamsLegacy): AxiosSWRResponse<SearchResultsLegacy> => {
     const query = {
         ...params,
         isDesc: isDesc ? 'true' : 'false',
     };
 
-    return useAxiosSWR<SearchResults>(
+    return useAxiosSWR<SearchResultsLegacy>(
         `${config.searchApiUrl}/search/${type}?${stringify(query, {
             skipEmptyString: true,
         })}`,

@@ -4,19 +4,20 @@ import { Formik, Form } from 'formik';
 import cn from 'classnames';
 import { Button, Fieldset, Input, Radio, RadioGroup } from '@mtfh/common';
 
-import { locale, SearchType } from '@services';
+import { locale, SearchTypeLegacy } from '@services';
 import { searchSchema, SearchFormData } from './schema';
-import { Field, InlineField } from '../../components/field';
+import { Field, InlineField } from '../field';
 
-export interface SearchFormProps extends ComponentPropsWithoutRef<'form'> {
-    defaultType?: SearchType;
+export interface SearchFormPropsLegacy
+    extends ComponentPropsWithoutRef<'form'> {
+    defaultType?: SearchTypeLegacy;
 }
 
-export const SearchForm = ({
+export const SearchFormLegacy = ({
     className,
-    defaultType = SearchType.PROPERTY,
+    defaultType = SearchTypeLegacy.PERSON,
     ...props
-}: SearchFormProps): JSX.Element => {
+}: SearchFormPropsLegacy): JSX.Element => {
     const history = useHistory();
     return (
         <Formik<SearchFormData>
@@ -49,7 +50,7 @@ export const SearchForm = ({
                     heading={locale.category}
                 >
                     <RadioGroup>
-                        {Object.values(SearchType).map(type => (
+                        {Object.values(SearchTypeLegacy).map(type => (
                             <InlineField key={type} type="radio" name="type">
                                 <Radio
                                     id={`search-form-type-${type}`}
