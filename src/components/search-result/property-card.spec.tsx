@@ -6,5 +6,8 @@ import { mockAsset } from '../../mocks';
 
 test('it displays the property card', () => {
     routeRender(<PropertyCard asset={mockAsset} />);
-    expect(screen.getByText(/Active, secured/));
+    expect(screen.getByText(/Tenure status/));
+    expect(screen.getByText(/SECURE/));
+    expect(screen.getByText(/Tenure status/));
+    expect(screen.getByText(/Active/));
 });

@@ -110,12 +110,11 @@ const locale = {
             return type;
         },
         tenureLabel: 'Tenure',
-        tenureInformation: (isActive: boolean, tenureType: string): string => {
+        tenureTypeLabel: 'Tenure type',
+        tenureStatusLabel: 'Tenure status',
+        tenureActivityStatus: (isActive: boolean) => {
             const tenureActivityState = `${isActive ? 'Active' : 'Inactive'}`;
-            const isSecured = `${
-                tenureType === 'SECURE' ? 'secured' : 'unsecured'
-            }`;
-            return `${tenureActivityState}, ${isSecured}`;
+            return `${tenureActivityState}`;
         },
         uprnLabel: 'UPRN',
         active: 'active',
