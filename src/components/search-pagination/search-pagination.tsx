@@ -8,7 +8,7 @@ import {
     PaginationButton,
 } from '@mtfh/common';
 
-import { locale } from '@services';
+import { locale } from '../../services';
 
 const {
     previous,

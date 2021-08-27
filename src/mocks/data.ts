@@ -5,7 +5,7 @@ import {
     Tenure,
     HouseholdMember,
     Property,
-} from '@types';
+} from '../types';
 
 faker.seed(1);
 

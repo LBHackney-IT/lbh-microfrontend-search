@@ -1,4 +1,4 @@
-import { Person, Tenure, Property } from '@types';
+import { Person, Tenure, Property } from '../types';
 
 export const isPerson = (person: Record<string, any>): person is Person => {
     return (person as Person).firstname !== undefined;

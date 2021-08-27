@@ -2,9 +2,9 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 
-import { locale, SearchType } from '@services';
 import { SearchForm } from './search-form';
 import { routeRender } from '../../test-utils';
+import { locale } from '../../services';
 
 test('SearchForm renders correctly', () => {
     routeRender(<SearchForm />);

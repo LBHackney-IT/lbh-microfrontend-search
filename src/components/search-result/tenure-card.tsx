@@ -3,11 +3,12 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import { format, parseISO, isPast, isFuture } from 'date-fns';
 import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
-import { Tenure } from '@types';
-import { locale } from '@services';
-
 import { SearchCard } from '../search-card';
 import { Active, InActive } from '../icons';
+
+import { Tenure } from '../../types';
+import { locale } from '../../services';
+
 import './tenure-card.scss';
 
 interface TenureCardProps

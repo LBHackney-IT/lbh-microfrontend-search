@@ -4,8 +4,8 @@ import { Formik, Form } from 'formik';
 import cn from 'classnames';
 import { Button, Fieldset, Input, Radio, RadioGroup } from '@mtfh/common';
 
-import { locale, SearchType } from '@services';
 import { searchSchema, SearchFormData } from './schema';
+import { locale, SearchType } from '../../services';
 import { Field, InlineField } from '../../components/field';
 
 export interface SearchFormProps extends ComponentPropsWithoutRef<'form'> {

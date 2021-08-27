@@ -6,10 +6,6 @@ module.exports = {
     transformIgnorePatterns: ['/node_modules/(?!lbh-frontend|@mtfh)'],
     moduleNameMapper: {
         '\\.(css|scss)$': 'identity-obj-proxy',
-        '@components': '<rootDir>/components',
-        '@services': '<rootDir>/services',
-        '@types': '<rootDir>/types',
-        '@utilities': '<rootDir>/utils',
     },
     setupFilesAfterEnv: [
         '../node_modules/@testing-library/jest-dom/dist/index.js',

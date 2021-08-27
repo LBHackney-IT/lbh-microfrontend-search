@@ -1,8 +1,7 @@
 import { rest } from 'msw';
 
-import { Person, Tenure } from '@types';
-import { config } from '@services';
 import { mockPersons, mockTenures } from './data';
+import { config } from '../services';
 
 const data = {
     persons: mockPersons,

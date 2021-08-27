@@ -1,8 +1,8 @@
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRResponse } from '@mtfh/common';
 
-import { Person, Tenure, Property } from '@types';
 import { config } from '../config';
+import { Person, Tenure, Property } from '../../types';
 
 export enum SearchType {
     PROPERTY = 'assets',

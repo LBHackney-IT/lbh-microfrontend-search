@@ -1,4 +1,4 @@
-import { HouseholdMember, Tenure, Person, AssetAddress } from '@types';
+import { Person, AssetAddress } from '../types';
 
 const locale = {
     home: 'Home',
@@ -78,7 +78,7 @@ const locale = {
         active: 'active',
     },
     property: {
-        address: (assetAddress: AssetAddress) => {
+        address: (assetAddress: AssetAddress): string => {
             const {
                 postPreamble,
                 addressLine1,
@@ -100,7 +100,9 @@ const locale = {
                 .join(' ');
         },
         propertyTypeLabel: 'Property type',
-        propertyType: (propertyType: string) => {
+        propertyType: (
+            propertyType: string
+        ): 'Dwelling' | 'Lettable non-dwelling' => {
             const type =
                 propertyType === 'Dwelling'
                     ? 'Dwelling'
@@ -108,7 +110,7 @@ const locale = {
             return type;
         },
         tenureLabel: 'Tenure',
-        tenureInformation: (isActive: boolean, tenureType: string) => {
+        tenureInformation: (isActive: boolean, tenureType: string): string => {
             const tenureActivityState = `${isActive ? 'Active' : 'Inactive'}`;
             const isSecured = `${
                 tenureType === 'SECURE' ? 'secured' : 'unsecured'

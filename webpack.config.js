@@ -25,15 +25,6 @@ module.exports = (webpackConfigEnv, argv) => {
                 },
             ],
         },
-        resolve: {
-            alias: {
-                '@components': path.resolve(__dirname, 'src/components'),
-                '@services': path.resolve(__dirname, 'src/services'),
-                '@types': path.resolve(__dirname, 'src/types'),
-                '@utilities': path.resolve(__dirname, 'src/utils'),
-            },
-            extensions: ['.ts', '.tsx', '.js'],
-        },
         externals: ['react-router-dom'],
         plugins: [
             new webpack.EnvironmentPlugin({

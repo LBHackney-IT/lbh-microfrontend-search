@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { locale, SearchType } from '@services';
+import { locale, SearchType } from '../../services';
 import './styles.scss';
 
 const { minSearchTerm } = locale.errors;

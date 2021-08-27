@@ -1,10 +1,10 @@
 import React from 'react';
 import { Center, Spinner } from '@mtfh/common';
 
-import { isPerson, isTenure, isProperty } from '@utilities';
-import { Person, Tenure, Property } from '@types';
-
 import { PersonCard, TenureCard, PropertyCard } from '../search-result';
+
+import { isPerson, isTenure, isProperty } from '../../utils';
+import { Person, Tenure, Property } from '../../types';
 import './search.scss';
 
 interface SearchResultsProps {

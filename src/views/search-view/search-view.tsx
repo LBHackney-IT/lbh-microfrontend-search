@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from '@mtfh/common';
 
-import { locale } from '@services';
+import { locale } from '../../services';
 import { SearchForm } from '../../components/search-form';
 import './styles.scss';
 

@@ -2,10 +2,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
 import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
-import { Property } from '@types';
-import { locale } from '@services';
-
 import { SearchCard } from '../search-card';
+
+import { Property } from '../../types';
+import { locale } from '../../services';
 
 interface PropertyCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {

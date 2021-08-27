@@ -7,7 +7,7 @@ import {
     SearchLimitOptions,
     locale,
     SearchType,
-} from '@services';
+} from '../../services';
 
 import './styles.scss';
 

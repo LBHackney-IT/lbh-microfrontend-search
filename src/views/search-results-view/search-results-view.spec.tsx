@@ -2,9 +2,9 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
 
-import { locale } from '@services';
 import { SearchResultsView } from './search-results-view';
 import { routeRender, get } from '../../test-utils';
+import { locale } from '../../services';
 
 test('SearchResultsView shows error if request fails', async () => {
     get('/api/search/persons', { error: 500 }, 500);

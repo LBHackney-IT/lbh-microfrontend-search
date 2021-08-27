@@ -2,9 +2,9 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 
-import { locale, SearchSortOptions, SearchLimitOptions } from '@services';
 import { SearchControls } from './search-controls';
 import { routeRender } from '../../test-utils';
+import { locale, SearchSortOptions, SearchLimitOptions } from '../../services';
 
 test('SearchControls renders correctly', () => {
     routeRender(<SearchControls page={1} pageSize={5} total={500} />);

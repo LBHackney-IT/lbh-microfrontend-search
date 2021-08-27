@@ -1,9 +1,9 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
-import { locale } from '@services';
 import { SearchPagination } from './search-pagination';
 import { routeRender } from '../../test-utils';
+import { locale } from '../../services';
 
 test('Pagination displays range from start if range exceeds start', () => {
     routeRender(<SearchPagination page={1} pageSize={5} total={100} />);

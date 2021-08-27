@@ -7,14 +7,14 @@ import {
 import React, { useState, useEffect } from 'react';
 import { ErrorSummary, Layout, Link, Button } from '@mtfh/common';
 
-import { SearchType, useSearch, locale } from '@services';
+import { SearchType, useSearch, locale } from '../../services';
 
 import {
     SearchControls,
     SearchResults,
     SearchForm,
     SearchPagination,
-} from '@components';
+} from '../../components';
 
 const { searchResults, searchType, searchAgain } = locale.results;
 

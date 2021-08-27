@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import { locale } from '@services';
 import { TenureCard } from './tenure-card';
 import { routeRender } from '../../test-utils';
+import { locale } from '../../services';
 import { generateMockTenure } from '../../mocks';
 
 test('it handles special case of endofTenureDate', () => {

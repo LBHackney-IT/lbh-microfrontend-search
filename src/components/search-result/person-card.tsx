@@ -3,10 +3,10 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import { parseISO, format } from 'date-fns';
 import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
-import { Person } from '@types';
-import { locale } from '@services';
-
 import { SearchCard } from '../search-card';
+
+import { Person } from '../../types';
+import { locale } from '../../services';
 
 interface PersonCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
