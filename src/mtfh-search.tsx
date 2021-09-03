@@ -15,7 +15,6 @@ export {
 } from './components';
 export { Person, TenureSummary } from './types';
 export { locale } from './services';
-export { generateMockPerson } from './mocks';
 
 export const { bootstrap, mount, unmount } = singleSpaReact({
     React,
