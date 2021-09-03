@@ -1,4 +1,4 @@
-import { SWRConfig, cache } from 'swr';
+import { SWRConfig } from 'swr';
 import { Route, Router } from 'react-router-dom';
 import React from 'react';
 import { rest } from 'msw';
@@ -31,7 +31,6 @@ afterEach(async () => {
     cleanup();
     server.resetHandlers();
     matchMedia.clear();
-    cache.clear();
     session = {};
 });
 
@@ -48,7 +47,7 @@ interface RouteRenderConfig {
 export const routeRender = (
     component: JSX.Element,
     options?: Partial<RouteRenderConfig>
-): [RenderResult, MemoryHistory] => {
+): { result: RenderResult; history: MemoryHistory } => {
     const config = {
         url: '/search',
         path: '/search',
@@ -58,22 +57,25 @@ export const routeRender = (
     const history = createMemoryHistory();
     history.push(config.url);
 
-    return [
-        render(
-            <SWRConfig
-                value={{
-                    dedupingInterval: 0,
-                    shouldRetryOnError: false,
-                    errorRetryCount: 0,
-                }}
-            >
-                <Router history={history}>
-                    <Route path={config.path}>{component}</Route>
-                </Router>
-            </SWRConfig>
-        ),
+    const result = render(
+        <SWRConfig
+            value={{
+                provider: () => new Map(),
+                dedupingInterval: 0,
+                shouldRetryOnError: false,
+                errorRetryCount: 0,
+            }}
+        >
+            <Router history={history}>
+                <Route path={config.path}>{component}</Route>
+            </Router>
+        </SWRConfig>
+    );
+
+    return {
+        result,
         history,
-    ];
+    };
 };
 
 export const get = (

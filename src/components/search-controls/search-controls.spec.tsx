@@ -1,73 +1,97 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { SearchControls } from './search-controls';
-import { routeRender } from '../../test-utils';
-import { locale, SearchSortOptions, SearchLimitOptions } from '../../services';
+import { LimitOptions } from '../../types';
+import { get, routeRender } from '../../test-utils';
+import { locale } from '../../services';
+import { SearchProvider } from '../../context/search-context';
 
-test('SearchControls renders correctly', () => {
-    routeRender(<SearchControls page={1} pageSize={5} total={500} />);
-    expect(screen.getByText(/1—5/)).toBeInTheDocument();
+test('SearchControls does not render without a searchText', () => {
+    routeRender(
+        <SearchProvider initial={{ type: 'persons' }}>
+            <SearchControls />
+        </SearchProvider>
+    );
+    expect(screen.queryByText(/Items/)).not.toBeInTheDocument();
 });
 
-test('SearchControls changes sort query param', () => {
-    const [_, history] = routeRender(
-        <SearchControls page={1} pageSize={5} total={500} />,
-        {
-            url: '/search/persons',
-            path: '/search/:type',
-        }
+test('SearchControlsrenders correctly', async () => {
+    routeRender(
+        <SearchProvider initial={{ type: 'persons', searchText: 'Hello' }}>
+            <SearchControls />
+        </SearchProvider>
     );
-    const sort = screen.getByLabelText(`${locale.controls.sortLabel}:`);
-    userEvent.selectOptions(sort, SearchSortOptions.SURNAME_ASC);
 
-    let params = new URLSearchParams(history.location.search);
-    expect(params.get('sort')).toBe('surname');
-    expect(params.get('o')).toBe('asc');
+    await waitFor(() =>
+        expect(
+            screen.queryByText(locale.controls.loadingResults)
+        ).not.toBeInTheDocument()
+    );
+    expect(screen.getByText(/Items/)).toBeInTheDocument();
+});
 
-    userEvent.selectOptions(sort, SearchSortOptions.BEST);
+test('SearchControls changes sort', () => {
+    routeRender(
+        <SearchProvider initial={{ type: 'persons', searchText: 'Hello' }}>
+            <SearchControls />
+        </SearchProvider>
+    );
 
-    params = new URLSearchParams(history.location.search);
-    expect(params.get('sort')).toBe(null);
-    expect(params.get('o')).toBe(null);
+    const sort = screen.getByLabelText(
+        `${locale.controls.sortLabel}:`
+    ) as HTMLSelectElement;
 
-    userEvent.selectOptions(sort, SearchSortOptions.SURNAME_DESC);
+    userEvent.selectOptions(sort, 'surname-desc');
+    expect(sort.value).toBe('surname-desc');
 
-    params = new URLSearchParams(history.location.search);
-    expect(params.get('sort')).toBe('surname');
-    expect(params.get('o')).toBe('desc');
+    userEvent.selectOptions(sort, 'best');
+    expect(sort.value).toBe('best');
+
+    userEvent.selectOptions(sort, 'surname-asc');
+    expect(sort.value).toBe('surname-asc');
 });
 
 test('SearchControls changes limit query param', () => {
-    const [_, history] = routeRender(
-        <SearchControls page={1} pageSize={5} total={500} />,
-        {
-            url: '/search/persons',
-            path: '/search/:type',
-        }
+    routeRender(
+        <SearchProvider initial={{ type: 'persons', searchText: 'Hello' }}>
+            <SearchControls />
+        </SearchProvider>
     );
-    const limit = screen.getByLabelText(`${locale.controls.limitLabel}:`);
-    userEvent.selectOptions(limit, String(SearchLimitOptions.MEDIUM));
+    const limit = screen.getByLabelText(
+        `${locale.controls.limitLabel}:`
+    ) as HTMLSelectElement;
 
-    let params = new URLSearchParams(history.location.search);
-    expect(params.get('l')).toBe(String(SearchLimitOptions.MEDIUM));
-
-    userEvent.selectOptions(limit, String(SearchLimitOptions.SMALL));
-
-    params = new URLSearchParams(history.location.search);
-    expect(params.get('l')).toBe(null);
+    userEvent.selectOptions(limit, String(LimitOptions.MEDIUM));
+    expect(limit.value).toBe(String(LimitOptions.MEDIUM));
 });
 
-test('SearchControls shows loading state if total is udnefined', () => {
-    routeRender(<SearchControls page={1} pageSize={5} total={undefined} />);
+test('SearchControls shows loading state if total is undefined', () => {
+    routeRender(
+        <SearchProvider initial={{ type: 'persons', searchText: 'Hello' }}>
+            <SearchControls />
+        </SearchProvider>
+    );
     expect(
         screen.getByText(locale.controls.loadingResults)
     ).toBeInTheDocument();
 });
 
-test('SearchControls shows no results if total is 0', () => {
-    routeRender(<SearchControls page={1} pageSize={5} total={0} />);
+test('SearchControls shows no results if total is 0', async () => {
+    get('/api/search/:type', { results: { persons: [] }, total: 0 }, 200);
+    routeRender(
+        <SearchProvider initial={{ type: 'persons', searchText: 'Hello' }}>
+            <SearchControls />
+        </SearchProvider>
+    );
+
+    await waitFor(() =>
+        expect(
+            screen.queryByText(locale.controls.loadingResults)
+        ).not.toBeInTheDocument()
+    );
+
     expect(
         screen.getByText(locale.controls.noMatchingResults)
     ).toBeInTheDocument();

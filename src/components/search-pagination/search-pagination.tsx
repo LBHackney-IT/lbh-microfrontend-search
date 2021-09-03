@@ -1,5 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 
 import {
     Pagination,
@@ -9,6 +8,7 @@ import {
 } from '@mtfh/common';
 
 import { locale } from '../../services';
+import { SearchContext } from '../../context/search-context';
 
 const {
     previous,
@@ -18,34 +18,18 @@ const {
 } = locale.pagination;
 
 interface SearchPaginationProps {
-    total?: number;
-    page: number;
-    pageSize: number;
     pageRange?: number;
 }
 
 export const SearchPagination = ({
-    total = -1,
-    page,
-    pageSize,
     pageRange = 2,
 }: SearchPaginationProps): JSX.Element | null => {
-    const { search, pathname } = useLocation();
-    const totalPages = Math.ceil(total / pageSize);
-    const activePage = page < 1 ? 1 : page > totalPages ? totalPages : page;
-
-    const generatePageLink = useCallback(
-        (target: number) => {
-            const newQuery = new URLSearchParams(search);
-            if (target === 1) {
-                newQuery.delete('p');
-            } else {
-                newQuery.set('p', target.toString());
-            }
-            return `${pathname}?${newQuery.toString()}`;
-        },
-        [search, pathname]
-    );
+    const {
+        state: { total, page, pageSize },
+        dispatch,
+    } = useContext(SearchContext);
+    const totalPages = total ? Math.ceil(total / pageSize) : 0;
+    const activePage = page > totalPages ? totalPages : page;
 
     const range = useMemo(() => {
         let rangeStart = activePage - pageRange;
@@ -70,7 +54,12 @@ export const SearchPagination = ({
         return visiblePages;
     }, [total, page, pageSize, pageRange]);
 
-    if (totalPages === Infinity || range.length === 0 || total < 0) {
+    if (
+        total === undefined ||
+        totalPages === Infinity ||
+        range.length === 0 ||
+        total < 0
+    ) {
         return null;
     }
 
@@ -82,8 +71,10 @@ export const SearchPagination = ({
             <PaginationControls>
                 {activePage > 1 && (
                     <PaginationButton
-                        as={Link}
-                        to={generatePageLink(activePage - 1)}
+                        as="button"
+                        onClick={() =>
+                            dispatch({ type: 'PAGE', payload: activePage - 1 })
+                        }
                         variant="previous"
                     >
                         {previous}
@@ -91,9 +82,11 @@ export const SearchPagination = ({
                 )}
                 {range.map(index => (
                     <PaginationButton
+                        as="button"
                         key={index}
-                        as={Link}
-                        to={generatePageLink(index)}
+                        onClick={() =>
+                            dispatch({ type: 'PAGE', payload: index })
+                        }
                         active={index === activePage}
                         aria-label={assistiveNavigation(index)}
                         aria-current={index === activePage ? 'page' : undefined}
@@ -103,8 +96,10 @@ export const SearchPagination = ({
                 ))}
                 {activePage < totalPages && (
                     <PaginationButton
-                        as={Link}
-                        to={generatePageLink(activePage + 1)}
+                        as="button"
+                        onClick={() =>
+                            dispatch({ type: 'PAGE', payload: activePage + 1 })
+                        }
                         variant="next"
                     >
                         {next}

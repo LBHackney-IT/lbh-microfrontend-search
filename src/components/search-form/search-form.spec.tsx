@@ -7,12 +7,12 @@ import { routeRender } from '../../test-utils';
 import { locale } from '../../services';
 
 test('SearchForm renders correctly', () => {
-    routeRender(<SearchForm />);
+    routeRender(<SearchForm onSubmit={jest.fn()} />);
     expect(screen.getByRole('search')).toBeInTheDocument();
 });
 
 test('SearchForm displays error on input if under 2 characters', async () => {
-    routeRender(<SearchForm />);
+    routeRender(<SearchForm onSubmit={jest.fn()} />);
     const input = screen.getByLabelText(`${locale.search}*`);
     userEvent.type(input, 'A');
     userEvent.click(screen.getByRole('button'));
@@ -24,12 +24,11 @@ test('SearchForm displays error on input if under 2 characters', async () => {
     );
 });
 
-test('SearchForm navigates to search results on success', async () => {
-    const [_, history] = routeRender(<SearchForm />);
+test('SearchForm fires onSubmit on success', async () => {
+    const onSubmit = jest.fn();
+    routeRender(<SearchForm onSubmit={onSubmit} />);
     const input = screen.getByLabelText(`${locale.search}*`);
     userEvent.type(input, 'Jake');
     userEvent.click(screen.getByRole('button'));
-
-    await waitFor(() => expect(history.location.pathname).toBe('/search'));
-    expect(history.location.search).toBe('?s=Jake');
+    await waitFor(() => expect(onSubmit).toBeCalledTimes(1));
 });

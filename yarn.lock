@@ -1329,7 +1329,7 @@
 
 "@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common.git":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#ff2b7add148f36bc71a3d63fa2a2635f1e2a91f8"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#b36d219c84955c7489d57c9ec1946955210e2d71"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
@@ -1343,6 +1343,7 @@
     "@types/webpack-env" "^1.16.0"
     axios "^0.21.1"
     classnames "^2.3.1"
+    formik "^2.2.9"
     js-cookie "^2.2.1"
     jwt-decode "^3.1.2"
     lbh-frontend "^3.5.3"
@@ -1350,7 +1351,7 @@
     react-router-dom "^5.2.0"
     rxjs "^7.0.1"
     single-spa "^5.9.3"
-    swr "^0.5.6"
+    swr "^1.0.0"
     use-breakpoint "^2.0.1"
 
 "@nodelib/fs.scandir@2.1.4":
@@ -4723,7 +4724,7 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-formik@2.2.9:
+formik@2.2.9, formik@^2.2.9:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/formik/-/formik-2.2.9.tgz#8594ba9c5e2e5cf1f42c5704128e119fc46232d0"
   integrity sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==
@@ -9591,10 +9592,10 @@ svg-tags@^1.0.0:
   resolved "https://registry.yarnpkg.com/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
   integrity sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=
 
-swr@0.5.6, swr@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.6.tgz#70bfe9bc9d7ac49a064be4a0f4acf57982e55a31"
-  integrity sha512-Bmx3L4geMZjYT5S2Z6EE6/5Cx6v1Ka0LhqZKq8d6WL2eu9y6gHWz3dUzfIK/ymZVHVfwT/EweFXiYGgfifei3w==
+swr@1.0.0, swr@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.0.0.tgz#d047933714d8bd16ae35af67d81149f4ae700a4d"
+  integrity sha512-v55Dr+vxIFiUyGxC5W4uN5falxHxYdbpb/R3bO+bSG+svbC9bUWmupy4NM/2pER7X8OvgwJWu0AiSoGy0ND9ew==
   dependencies:
     dequal "2.0.2"
 

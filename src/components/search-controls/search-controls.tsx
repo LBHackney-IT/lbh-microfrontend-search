@@ -1,21 +1,16 @@
-import { useLocation, useHistory, useParams } from 'react-router-dom';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { FormGroup, Select } from '@mtfh/common';
 
 import {
-    SearchSortOptions,
-    SearchLimitOptions,
-    locale,
+    PersonSortOptions,
+    PersonSortOrderOptions,
+    OrderByOptions,
+    LimitOptions,
     SearchType,
-} from '../../services';
-
+} from '../../types';
+import { locale } from '../../services';
+import { SearchContext } from '../../context/search-context';
 import './styles.scss';
-
-interface SearchControlsProps {
-    total?: number;
-    page: number;
-    pageSize: number;
-}
 
 const {
     loadingResults,
@@ -27,65 +22,50 @@ const {
     limitOption,
 } = locale.controls;
 
-export const SearchControls = ({
-    total,
-    page,
-    pageSize,
-}: SearchControlsProps): JSX.Element => {
-    const { search, pathname } = useLocation();
-    const { type } = useParams<{ type: SearchType }>();
-    const history = useHistory();
+export const SearchControls = (): JSX.Element | null => {
+    const {
+        state: { sort, order, type, pageSize, total, page, searchText },
+        dispatch,
+    } = useContext(SearchContext);
 
     const sortBy = useMemo(() => {
-        const query = new URLSearchParams(search);
-        const sort = query.get('sort');
-        const order = query.get('o');
-
         if (sort && order) {
             return `${sort}-${order}`;
         }
 
-        return 'best';
-    }, [search]);
+        return '';
+    }, [sort, order]);
 
-    const handleSort = useCallback(
-        sort => {
-            const query = new URLSearchParams(search);
+    const handleSortOrder = useCallback((sortOrder: PersonSortOrderOptions) => {
+        switch (sortOrder) {
+            case PersonSortOrderOptions.BEST:
+            default:
+                dispatch({ type: 'SORT', payload: PersonSortOptions.BEST });
+                dispatch({ type: 'ORDER', payload: OrderByOptions.ASC });
+                break;
+            case PersonSortOrderOptions.SURNAME_ASC:
+                dispatch({
+                    type: 'SORT',
+                    payload: PersonSortOptions.SURNAME,
+                });
+                dispatch({ type: 'ORDER', payload: OrderByOptions.ASC });
+                break;
+            case PersonSortOrderOptions.SURNAME_DESC:
+                dispatch({
+                    type: 'SORT',
+                    payload: PersonSortOptions.SURNAME,
+                });
+                dispatch({ type: 'ORDER', payload: OrderByOptions.DESC });
+        }
+    }, []);
 
-            switch (sort) {
-                case 'best':
-                default:
-                    query.delete('sort');
-                    query.delete('o');
-                    break;
-                case 'surname-asc':
-                    query.set('sort', 'surname');
-                    query.set('o', 'asc');
-                    break;
-                case 'surname-desc':
-                    query.set('sort', 'surname');
-                    query.set('o', 'desc');
-            }
+    const handleLimit = useCallback((limit: LimitOptions) => {
+        dispatch({ type: 'LIMIT', payload: limit });
+    }, []);
 
-            history.push(`${pathname}?${query.toString()}`);
-        },
-        [search, pathname]
-    );
-
-    const handleLimit = useCallback(
-        limit => {
-            const query = new URLSearchParams(search);
-
-            if (limit === String(SearchLimitOptions.SMALL)) {
-                query.delete('l');
-            } else {
-                query.set('l', limit);
-            }
-
-            history.push(`${pathname}?${query.toString()}`);
-        },
-        [search, pathname]
-    );
+    if (!searchText) {
+        return null;
+    }
 
     return (
         <div className="mtfh-search-controls">
@@ -104,23 +84,32 @@ export const SearchControls = ({
                 {type === SearchType.PERSON && (
                     <FormGroup id="sortBy" label={`${sortLabel}:`}>
                         <Select
-                            onChange={e => handleSort(e.currentTarget.value)}
+                            onChange={e =>
+                                handleSortOrder(
+                                    e.currentTarget
+                                        .value as PersonSortOrderOptions
+                                )
+                            }
                             value={sortBy}
                         >
-                            {Object.values(SearchSortOptions).map(value => (
-                                <option key={value} value={value}>
-                                    {sortOptions[value]}
-                                </option>
-                            ))}
+                            {Object.values(PersonSortOrderOptions).map(
+                                value => (
+                                    <option key={value} value={value}>
+                                        {sortOptions[value]}
+                                    </option>
+                                )
+                            )}
                         </Select>
                     </FormGroup>
                 )}
                 <FormGroup id="limit" label={`${limitLabel}:`}>
                     <Select
-                        onChange={e => handleLimit(e.currentTarget.value)}
+                        onChange={e =>
+                            handleLimit(Number(e.currentTarget.value))
+                        }
                         value={pageSize}
                     >
-                        {(Object.values(SearchLimitOptions) as number[])
+                        {(Object.values(LimitOptions) as number[])
                             .filter(value => typeof value === 'number')
                             .map(value => (
                                 <option key={value} value={value}>

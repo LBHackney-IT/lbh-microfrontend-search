@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { ReactNode, ComponentType, useContext } from 'react';
 import { Center, Spinner } from '@mtfh/common';
 
-import { PersonCard, TenureCard, PropertyCard } from '../search-result';
-
-import { isPerson, isTenure, isProperty } from '../../utils';
 import { Person, Tenure, Property } from '../../types';
+import { SearchContext } from '../../context/search-context';
 import './search.scss';
 
-interface SearchResultsProps {
-    results?: Person[] | Tenure[] | Property[];
+export interface SearchResultsProp {
+    // children: (results: Tenure[] | Person[] | Property[]) => ReactNode;
+    component: ComponentType<{ result: Tenure | Person | Property }>;
 }
 
-export const SearchResults = ({ results }: SearchResultsProps): JSX.Element => {
+export const SearchResults = ({
+    component: Component,
+}: SearchResultsProp): JSX.Element => {
+    const {
+        state: { results },
+    } = useContext(SearchContext);
+
     if (results === undefined) {
         return (
             <Center className="mtfh-search__loading">
@@ -22,17 +27,9 @@ export const SearchResults = ({ results }: SearchResultsProps): JSX.Element => {
 
     return (
         <div className="mtfh-search__results">
-            {results.map((result: Person | Tenure | Property) => {
-                if (isPerson(result)) {
-                    return <PersonCard key={result.id} person={result} />;
-                }
-                if (isTenure(result)) {
-                    return <TenureCard key={result.id} tenure={result} />;
-                }
-                if (isProperty(result)) {
-                    return <PropertyCard key={result.id} asset={result} />;
-                }
-            })}
+            {results.map((result: Tenure | Person | Property) => (
+                <Component key={result.id} result={result} />
+            ))}
         </div>
     );
 };

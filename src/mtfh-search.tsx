@@ -5,6 +5,18 @@ import React from 'react';
 import Root from './root.component';
 import './root.styles.scss';
 
+export * from './context/search-context';
+export {
+    SearchCard,
+    SearchControls,
+    SearchForm,
+    SearchPagination,
+    SearchResults,
+} from './components';
+export { Person, TenureSummary } from './types';
+export { locale } from './services';
+export { generateMockPerson } from './mocks';
+
 export const { bootstrap, mount, unmount } = singleSpaReact({
     React,
     ReactDOM,

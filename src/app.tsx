@@ -13,8 +13,9 @@ export default function App(): JSX.Element {
                 path="/search"
                 exact
                 render={() => {
-                    const last = sessionStorage.getItem('search:last') || '/';
-                    return <Redirect to={last} />;
+                    const last = sessionStorage.getItem('search:last');
+                    const redirect = last ? `/search/${last}` : '/';
+                    return <Redirect to={redirect} />;
                 }}
             ></Route>
             <Route path="/search/:type" exact>

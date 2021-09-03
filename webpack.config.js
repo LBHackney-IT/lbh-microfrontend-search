@@ -25,7 +25,7 @@ module.exports = (webpackConfigEnv, argv) => {
                 },
             ],
         },
-        externals: ['react-router-dom'],
+        externals: ['react-router-dom', 'formik', 'yup'],
         plugins: [
             new webpack.EnvironmentPlugin({
                 SEARCH_API_URL: dotenv.SEARCH_API_URL || '',

@@ -1,7 +1,11 @@
 {
     "extends": "ts-config-single-spa",
-    "include": ["src/**/*", "typings/**/*.d.ts", "node_modules/@mtfh/common/src/types/lbh-frontend.d.ts"],
-    "exclude": ["src/test-utils.js"],
+    "include": [
+        "src/**/*",
+        "typings/**/*.d.ts",
+        "node_modules/@mtfh/common/src/types/lbh-frontend.d.ts"
+    ],
+    "exclude": ["src/test-utils.js", "**/*.spec.tsx"],
     "compilerOptions": {
         "strict": true,
         "jsx": "react",

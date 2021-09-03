@@ -15,10 +15,10 @@ module.exports = {
     coveragePathIgnorePatterns: ['mocks'],
     coverageThreshold: {
         global: {
-            statements: 99.39,
-            branches: 98.02,
+            statements: 100,
+            branches: 98.7,
             functions: 100,
-            lines: 99.39,
+            lines: 100,
         },
     },
 };
