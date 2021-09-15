@@ -7,7 +7,7 @@ import { isPerson, isTenure, isProperty } from '../../utils';
 import { Person, Property, Tenure } from '../../types';
 
 export interface SearchResultProps {
-    result: Person | Tenure | Property;
+    result: PersonSearchType | Tenure | Property;
 }
 
 export const SearchResult = ({

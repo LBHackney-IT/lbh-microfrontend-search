@@ -17,7 +17,7 @@ const generateMockTenureSummary = (): TenureSummary => ({
     assetFullAddress: faker.address.streetAddress(),
 });
 
-export const generateMockPerson = (): Person => ({
+export const generateMockPerson = (): PersonSearchType => ({
     id: faker.datatype.uuid(),
     title: faker.name.prefix(),
     firstname: faker.name.firstName(),

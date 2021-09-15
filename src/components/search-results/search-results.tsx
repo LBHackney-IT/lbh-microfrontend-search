@@ -7,7 +7,7 @@ import './search.scss';
 
 export interface SearchResultsProp {
     // children: (results: Tenure[] | Person[] | Property[]) => ReactNode;
-    component: ComponentType<{ result: Tenure | Person | Property }>;
+    component: ComponentType<{ result: Tenure | PersonSearchType | Property }>;
 }
 
 export const SearchResults = ({
@@ -27,7 +27,7 @@ export const SearchResults = ({
 
     return (
         <div className="mtfh-search__results">
-            {results.map((result: Tenure | Person | Property) => (
+            {results.map((result: Tenure | PersonSearchType | Property) => (
                 <Component key={result.id} result={result} />
             ))}
         </div>

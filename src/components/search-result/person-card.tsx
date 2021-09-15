@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
 import { SearchCard } from '../search-card';
 
-import { Person } from '../../types';
+import { PersonSearchType } from '../../types';
 import { locale } from '../../services';
 
 interface PersonCardProps
