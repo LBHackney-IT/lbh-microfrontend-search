@@ -4,13 +4,12 @@ import { parseISO, format } from 'date-fns';
 import cn from 'classnames';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
 import { SearchCard } from '../search-card';
-
-import { PersonSearchType } from '../../types';
+import { PersonSearchResult } from '../../types';
 import { locale } from '../../services';
 
 interface PersonCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
-    person: Person;
+    person: PersonSearchResult;
 }
 
 const { personOriginalFullName, multipleTenures, tenureType } = locale.person;

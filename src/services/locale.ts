@@ -1,4 +1,4 @@
-import { Person, AssetAddress } from '../types';
+import { PersonSearchResult, AssetAddress } from '../types';
 
 const locale = {
     home: 'Home',
@@ -60,7 +60,7 @@ const locale = {
             }
             return title;
         },
-        personOriginalFullName: (person: Person): string =>
+        personOriginalFullName: (person: PersonSearchResult): string =>
             [
                 locale.person.personTitleAbbr(person.title),
                 person.firstname,

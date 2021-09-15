@@ -1,9 +1,9 @@
-import { Person, Tenure, Property } from '../types';
+import { PersonSearchResult, Tenure, Property } from '../types';
 
 export const isPerson = (
     person: Record<string, any>
-): person is PersonSearchType => {
-    return (person as Person).firstname !== undefined;
+): person is PersonSearchResult => {
+    return (person as PersonSearchResult).firstname !== undefined;
 };
 
 export const isTenure = (tenure: Record<string, any>): tenure is Tenure => {

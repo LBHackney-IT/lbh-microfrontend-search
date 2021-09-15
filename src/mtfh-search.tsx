@@ -13,7 +13,7 @@ export {
     SearchPagination,
     SearchResults,
 } from './components';
-export { Person, TenureSummary } from './types';
+export { PersonSearchResult, TenureSummary } from './types';
 export { locale } from './services';
 
 export const { bootstrap, mount, unmount } = singleSpaReact({

@@ -15,7 +15,7 @@ export interface TenureSummary {
     assetFullAddress: string;
 }
 
-export interface PersonSearchType {
+export interface PersonSearchResult {
     id: string;
     title: string;
     firstname: string;

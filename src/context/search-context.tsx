@@ -12,7 +12,7 @@ import React, {
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRError } from '@mtfh/common';
 import {
-    Person,
+    PersonSearchResult,
     Tenure,
     Property,
     LimitOptions,
@@ -23,7 +23,7 @@ import { config } from '../services';
 
 interface SearchResults {
     results: {
-        persons?: Person[];
+        persons?: PersonSearchResult[];
         tenures?: Tenure[];
         assets?: Property[];
     };
@@ -34,7 +34,7 @@ export type SearchState = {
     searchText: string;
     page: number;
     pageSize: LimitOptions;
-    results?: Person[] | Tenure[] | Property[];
+    results?: PersonSearchResult[] | Tenure[] | Property[];
     total?: number;
     error?: AxiosSWRError;
 } & (

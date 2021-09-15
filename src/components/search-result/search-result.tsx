@@ -4,10 +4,10 @@ import { TenureCard } from './tenure-card';
 import { PropertyCard } from './property-card';
 import { PersonCard } from './person-card';
 import { isPerson, isTenure, isProperty } from '../../utils';
-import { Person, Property, Tenure } from '../../types';
+import { PersonSearchResult, Property, Tenure } from '../../types';
 
 export interface SearchResultProps {
-    result: PersonSearchType | Tenure | Property;
+    result: PersonSearchResult | Tenure | Property;
 }
 
 export const SearchResult = ({

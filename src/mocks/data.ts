@@ -1,6 +1,6 @@
 import faker from 'faker';
 import {
-    Person,
+    PersonSearchResult,
     TenureSummary,
     Tenure,
     HouseholdMember,
@@ -17,7 +17,7 @@ const generateMockTenureSummary = (): TenureSummary => ({
     assetFullAddress: faker.address.streetAddress(),
 });
 
-export const generateMockPerson = (): PersonSearchType => ({
+export const generateMockPerson = (): PersonSearchResult => ({
     id: faker.datatype.uuid(),
     title: faker.name.prefix(),
     firstname: faker.name.firstName(),
