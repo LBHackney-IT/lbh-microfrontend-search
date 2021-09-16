@@ -14,4 +14,24 @@ describe('locale', () => {
             );
         });
     });
+    describe('property type', () => {
+        it('should return Dwelling if Dwelling is sent', () => {
+            expect(locale.property.propertyType('Dwelling')).toBe('Dwelling');
+        });
+        it('should otherwise return Lettable non-dwelling', () => {
+            expect(locale.property.propertyType('Dwellingg')).toBe(
+                'Lettable non-dwelling'
+            );
+        });
+    });
+    describe('tenure activity status', () => {
+        it('should return Active if isActive is true', () => {
+            expect(locale.property.tenureActivityStatus(true)).toBe('Active');
+        });
+        it('should return Inactive otherwise', () => {
+            expect(locale.property.tenureActivityStatus(false)).toBe(
+                'Inactive'
+            );
+        });
+    });
 });

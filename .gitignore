@@ -67,3 +67,7 @@ dist
 *.sln
 *.sw?
 .DS_Store
+
+# Yalc
+.yalc
+yalc.lock

@@ -2,9 +2,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
 import { parseISO, format } from 'date-fns';
 import cn from 'classnames';
+import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
 import { SearchCard } from '../search-card';
-import { PersonSearchResult } from '../../types';
 import { locale } from '../../services';
 
 interface PersonCardProps

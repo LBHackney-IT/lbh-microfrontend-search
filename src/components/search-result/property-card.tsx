@@ -1,10 +1,10 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
 import cn from 'classnames';
+import { Property } from '@mtfh/common/lib/api/property/v1';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
 import { SearchCard } from '../search-card';
 
-import { Property } from '../../types';
 import { locale } from '../../services';
 
 interface PropertyCardProps
@@ -16,7 +16,6 @@ const {
     address,
     propertyTypeLabel,
     propertyType,
-    tenureLabel,
     tenureTypeLabel,
     tenureStatusLabel,
     uprnLabel,
@@ -47,11 +46,13 @@ export const PropertyCard = ({
                 </p>
                 <p>
                     <strong>{tenureTypeLabel} </strong>
-                    {asset.tenure.type}
+                    {asset.tenure?.type}
                 </p>
                 <p>
                     <strong>{tenureStatusLabel} </strong>
-                    {tenureActivityStatus(asset.tenure.isActive)}
+                    {tenureActivityStatus(
+                        asset.tenure ? asset.tenure.isActive : false
+                    )}
                 </p>
                 <p>
                     <strong>{uprnLabel} </strong>

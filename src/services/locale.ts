@@ -1,4 +1,5 @@
-import { PersonSearchResult, AssetAddress } from '../types';
+import { AssetAddress } from '@mtfh/common/lib/api/property/v1';
+import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 
 const locale = {
     home: 'Home',

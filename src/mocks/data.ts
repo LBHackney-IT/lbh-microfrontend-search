@@ -1,11 +1,12 @@
 import faker from 'faker';
+import { Tenure, HouseholdMember } from '@mtfh/common/lib/api/tenure/v1';
+import { Property } from '@mtfh/common/lib/api/property/v1';
 import {
     PersonSearchResult,
     TenureSummary,
-    Tenure,
-    HouseholdMember,
-    Property,
-} from '../types';
+    IdentificationTypes,
+    PersonType,
+} from '@mtfh/common/lib/api/person/v1';
 
 faker.seed(1);
 
@@ -15,6 +16,14 @@ const generateMockTenureSummary = (): TenureSummary => ({
     startDate: faker.date.past(1).toISOString().slice(0, 10),
     endDate: faker.date.future(1).toISOString().slice(0, 10),
     assetFullAddress: faker.address.streetAddress(),
+    assetId: faker.datatype.uuid(),
+    isActive: true,
+    paymentReference: '',
+    propertyReference: '',
+    uprn: faker.datatype
+        .number({ max: 99999999999 })
+        .toString()
+        .padStart(11, '0'),
 });
 
 export const generateMockPerson = (): PersonSearchResult => ({
@@ -52,16 +61,15 @@ export const generateMockPerson = (): PersonSearchResult => ({
     gender: faker.helpers.randomize(['M', 'F']),
     identification: [
         {
-            identificationType: 'NI',
+            identificationType: IdentificationTypes.NI,
             value: faker.random.alphaNumeric(8),
-            originalDocumentSeen: faker.datatype.boolean(),
-            linkToDocument: faker.system.filePath(),
+            isOriginalDocumentSeen: false,
         },
     ],
-    personTypes: ['Person'],
+    personTypes: [PersonType.PERSON],
     isPersonCautionaryAlert: faker.datatype.boolean(),
     isTenureCautionaryAlert: faker.datatype.boolean(),
-    tenures: Array.from({ length: faker.datatype.number(3) }).map(() =>
+    tenures: Array.from({ length: 3 }).map<TenureSummary>(() =>
         generateMockTenureSummary()
     ),
 });
@@ -100,12 +108,14 @@ export const generateMockTenure = (): Tenure => {
             ...Array.from({ length: faker.datatype.number(4) }).map(() => ({
                 id: faker.datatype.uuid(),
                 fullName: faker.name.findName(),
+                dateOfBirth: faker.date.past(30).toISOString().slice(0, 10),
                 isResponsible: true,
                 type: 'person' as HouseholdMember['type'],
             })),
             ...Array.from({ length: faker.datatype.number(4) }).map(() => ({
                 id: faker.datatype.uuid(),
                 fullName: faker.name.findName(),
+                dateOfBirth: faker.date.past(30).toISOString().slice(0, 10),
                 isResponsible: false,
                 type: 'person' as HouseholdMember['type'],
             })),
@@ -123,6 +133,51 @@ export const generateMockTenure = (): Tenure => {
                 .toString()
                 .padStart(11, '0'),
         },
+        // here
+        propertyReference: '2653838280',
+        accountType: { code: 'S', description: 'Service Charge' },
+        charges: {
+            rent: 0,
+            currentBalance: 0,
+            billingFrequency: '01',
+            paymentReference: '299049788',
+            rentGroupCode: 'LSC',
+            rentGroupDescription: 'LH Serv Charges',
+            serviceCharge: 0,
+            otherCharges: 0,
+            combinedServiceCharges: 0,
+            combinedRentCharges: 0,
+            tenancyInsuranceCharge: 0,
+            originalRentCharge: 0,
+            originalServiceCharge: 0,
+        },
+        isActive: false,
+        isTenanted: false,
+        terminated: { isTerminated: true, reasonForTermination: '' },
+        successionDate: '1900-01-01T00:00:00',
+        masterAccountTenureReference: '',
+        evictionDate: '1900-01-01T00:00:00',
+        potentialEndDate: '1900-01-01T00:00:00',
+        rentCostCentre: 'H2951',
+        isMutualExchange: false,
+        informHousingBenefitsForChanges: false,
+        isSublet: true,
+        subletEndDate: '1900-01-01T00:00:00',
+        subsidiaryAccountsReferences: [],
+        notices: [
+            {
+                type: '',
+                servedDate: '1900-01-01T00:00:00',
+                expiryDate: '1900-01-01T00:00:00',
+                effectiveDate: '1900-01-01T00:00:00',
+                endDate: 'null',
+            },
+        ],
+        legacyReferences: [
+            { name: 'uh_tag_ref', value: '0905836/01' },
+            { name: 'u_saff_tenancy', value: '' },
+        ],
+        agreementType: { code: 'M', description: 'Master Account' },
     };
 };
 
@@ -159,7 +214,6 @@ export const generateMockProperty = (): Property => {
             endOfTenureDate: '2021-08-03',
             isActive: isActive,
         },
-        isAssetCautionaryAlerted: true,
     };
 };
 
@@ -184,5 +238,4 @@ export const mockAsset: Property = {
         endOfTenureDate: '2021-08-03',
         isActive: true,
     },
-    isAssetCautionaryAlerted: true,
 };

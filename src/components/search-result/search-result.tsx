@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
+import { Property } from '@mtfh/common/lib/api/property/v1';
+import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 import { TenureCard } from './tenure-card';
 import { PropertyCard } from './property-card';
 import { PersonCard } from './person-card';
 import { isPerson, isTenure, isProperty } from '../../utils';
-import { PersonSearchResult, Property, Tenure } from '../../types';
 
 export interface SearchResultProps {
     result: PersonSearchResult | Tenure | Property;
@@ -14,7 +16,7 @@ export const SearchResult = ({
     result,
 }: SearchResultProps): JSX.Element | null => {
     if (isPerson(result)) {
-        return <PersonCard person={result} />;
+        return <PersonCard person={result as PersonSearchResult} />;
     }
     if (isTenure(result)) {
         return <TenureCard tenure={result} />;

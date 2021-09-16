@@ -1,14 +1,17 @@
 import React, { ComponentType, useContext } from 'react';
-import { Center, Spinner } from '@mtfh/common';
 
-import { PersonSearchResult, Tenure, Property } from '../../types';
+import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
+import { Property } from '@mtfh/common/lib/api/property/v1';
+import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import { Center, Spinner } from '@mtfh/common';
 import { SearchContext } from '../../context/search-context';
 import './search.scss';
 
+type SearchResult = Tenure | PersonSearchResult | Property;
+
 export interface SearchResultsProp {
-    // children: (results: Tenure[] | Person[] | Property[]) => ReactNode;
     component: ComponentType<{
-        result: Tenure | PersonSearchResult | Property;
+        result: SearchResult;
     }>;
 }
 
@@ -29,7 +32,7 @@ export const SearchResults = ({
 
     return (
         <div className="mtfh-search__results">
-            {results.map((result: Tenure | PersonSearchResult | Property) => (
+            {results.map((result: PersonSearchResult | Tenure | Property) => (
                 <Component key={result.id} result={result} />
             ))}
         </div>
