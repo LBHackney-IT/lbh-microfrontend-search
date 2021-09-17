@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useMemo } from 'react';
-import { FormGroup, Select } from '@mtfh/common';
+import { FormGroup, Select } from '@mtfh/common/lib/components';
 
 import {
     PersonSortOptions,

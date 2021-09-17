@@ -5,7 +5,7 @@ import {
     PaginationSummary,
     PaginationControls,
     PaginationButton,
-} from '@mtfh/common';
+} from '@mtfh/common/lib/components';
 
 import { locale } from '../../services';
 import { SearchContext } from '../../context/search-context';

@@ -33,7 +33,7 @@
         "classnames": "^2.3.1",
         "date-fns": "2.23.0",
         "formik": "2.2.9",
-        "lbh-frontend": "3.5.2",
+        "lbh-frontend": "^3.6.1",
         "query-string": "^7.0.0",
         "react": "17.0.2",
         "react-dom": "17.0.2",
@@ -47,6 +47,7 @@
         "@babel/preset-react": "7.13.13",
         "@babel/preset-typescript": "7.13.0",
         "@babel/runtime": "7.13.10",
+        "@hackney/webpack-import-map-plugin": "1.1.2",
         "@testing-library/jest-dom": "5.11.10",
         "@testing-library/react": "11.2.6",
         "@testing-library/react-hooks": "5.1.2",
@@ -97,11 +98,11 @@
         "ts-config-single-spa": "2.0.1",
         "typescript": "^4.1.2",
         "webpack": "5.33.2",
-        "webpack-cli": "4.6.0",
-        "webpack-config-single-spa-react": "2.2.2",
-        "webpack-config-single-spa-react-ts": "2.2.2",
-        "webpack-config-single-spa-ts": "2.2.2",
-        "webpack-dev-server": "4.0.0-beta.2",
+        "webpack-cli": "4.8.0",
+        "webpack-config-single-spa-react": "4.0.1",
+        "webpack-config-single-spa-react-ts": "4.0.1",
+        "webpack-config-single-spa-ts": "4.1.0",
+        "webpack-dev-server": "4.2.1",
         "webpack-merge": "5.7.3"
     }
 }

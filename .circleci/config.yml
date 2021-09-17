@@ -133,11 +133,15 @@ jobs:
             - run:
                 name: build
                 command: |
+                    export APP_ENV=development
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-staging:
         executor: node-executor
@@ -152,11 +156,15 @@ jobs:
             - run:
                   name: build
                   command: |
+                    export APP_ENV=staging
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     build-deploy-production:
         executor: node-executor
@@ -171,11 +179,15 @@ jobs:
             - run:
                   name: build
                   command: |
+                    export APP_ENV=production
+                    export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export SEARCH_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
-                  command: aws s3 sync dist s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/
+                  command: |
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/ --exclude "*.json"
+                    aws s3 sync dist s3://lbh-housing-tl-search-frontend-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
     assume-role-development:
         executor: docker-python

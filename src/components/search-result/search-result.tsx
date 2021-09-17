@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
-import { Property } from '@mtfh/common/lib/api/property/v1';
-import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
+import type { Property } from '@mtfh/common/lib/api/property/v1';
+import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+
 import { TenureCard } from './tenure-card';
 import { PropertyCard } from './property-card';
 import { PersonCard } from './person-card';

@@ -1,8 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
 import cn from 'classnames';
-import { Property } from '@mtfh/common/lib/api/property/v1';
-import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
+
+import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
+import type { Property } from '@mtfh/common/lib/api/property/v1';
 import { SearchCard } from '../search-card';
 
 import { locale } from '../../services';

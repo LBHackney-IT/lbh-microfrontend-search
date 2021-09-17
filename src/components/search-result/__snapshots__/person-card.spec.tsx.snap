@@ -23,7 +23,7 @@ exports[`it renders a person without tenures 1`] = `
           DOB:
         </strong>
          
-        09/10/2015
+        10/10/2015
       </p>
     </div>
   </div>
@@ -58,7 +58,7 @@ exports[`it renders the person card 1`] = `
           DOB:
         </strong>
          
-        09/10/2015
+        10/10/2015
       </p>
     </div>
   </div>

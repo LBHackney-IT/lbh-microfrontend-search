@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Icon, IconProps } from '@mtfh/common';
+import { Icon, IconProps } from '@mtfh/common/lib/components';
 
 export const Active = (props: Omit<IconProps, 'viewBox'>): JSX.Element => (
     <Icon viewBox="0 0 12 12" {...props}>

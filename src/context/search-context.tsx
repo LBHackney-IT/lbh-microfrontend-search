@@ -11,9 +11,9 @@ import React, {
 } from 'react';
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRError } from '@mtfh/common/lib/hooks';
-import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
-import { Property } from '@mtfh/common/lib/api/property/v1';
-import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
+import type { Property } from '@mtfh/common/lib/api/property/v1';
+import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 import { LimitOptions, PersonSortOptions, OrderByOptions } from '../types';
 
 import { config } from '../services';

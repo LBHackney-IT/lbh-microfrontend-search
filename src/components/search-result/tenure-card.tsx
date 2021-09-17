@@ -2,11 +2,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
 import { format, parseISO, isPast, isFuture } from 'date-fns';
 import cn from 'classnames';
-import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
-import { Link, LinkBox, LinkOverlay } from '@mtfh/common';
+
+import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
+import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
 import { SearchCard } from '../search-card';
 import { Active, InActive } from '../icons';
-
 import { locale } from '../../services';
 
 import './tenure-card.scss';

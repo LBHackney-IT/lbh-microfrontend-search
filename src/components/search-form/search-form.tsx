@@ -9,7 +9,7 @@ import {
     RadioGroup,
     Field,
     InlineField,
-} from '@mtfh/common';
+} from '@mtfh/common/lib/components';
 
 import { searchSchema, SearchFormData } from './schema';
 import { SearchTypes, SearchType } from '../../types';

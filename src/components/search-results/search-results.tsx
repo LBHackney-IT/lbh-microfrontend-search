@@ -1,9 +1,10 @@
 import React, { ComponentType, useContext } from 'react';
 
-import { Tenure } from '@mtfh/common/lib/api/tenure/v1';
-import { Property } from '@mtfh/common/lib/api/property/v1';
-import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
+import type { Property } from '@mtfh/common/lib/api/property/v1';
+import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 import { Center, Spinner } from '@mtfh/common';
+
 import { SearchContext } from '../../context/search-context';
 import './search.scss';
 
