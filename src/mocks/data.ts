@@ -5,7 +5,6 @@ import {
     PersonSearchResult,
     TenureSummary,
     IdentificationTypes,
-    PersonType,
 } from '@mtfh/common/lib/api/person/v1';
 
 faker.seed(1);
@@ -66,7 +65,7 @@ export const generateMockPerson = (): PersonSearchResult => ({
             isOriginalDocumentSeen: false,
         },
     ],
-    personTypes: [PersonType.PERSON],
+    personTypes: ['Tenant'],
     isPersonCautionaryAlert: faker.datatype.boolean(),
     isTenureCautionaryAlert: faker.datatype.boolean(),
     tenures: Array.from({ length: 3 }).map<TenureSummary>(() =>
