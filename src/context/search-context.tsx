@@ -193,6 +193,9 @@ export const SearchProvider: FC<SearchProviderProps> = ({
                       pageSize: query.pageSize,
                       sortBy: query.sort,
                       isDesc: query.order === 'asc',
+                      ...(type === 'assets' && {
+                          assetTypes: 'Dwelling,LettableNonDwelling',
+                      }),
                   },
                   {
                       skipEmptyString: true,
