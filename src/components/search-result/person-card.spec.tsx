@@ -6,17 +6,18 @@ import { locale } from '../../services';
 import { mockPersons } from '../../mocks';
 
 test('it renders the person card', () => {
-    const {
-        result: { container },
-    } = routeRender(<PersonCard person={mockPersons[0]} />);
-    expect(container).toMatchSnapshot();
+    routeRender(<PersonCard person={mockPersons[0]} />);
+    expect(screen.getByText(locale.person.multipleTenures)).toBeInTheDocument();
 });
 
 test('it renders a person without tenures', () => {
-    const {
-        result: { container },
-    } = routeRender(<PersonCard person={{ ...mockPersons[0], tenures: [] }} />);
-    expect(container).toMatchSnapshot();
+    routeRender(<PersonCard person={{ ...mockPersons[0], tenures: [] }} />);
+    expect(
+        screen.queryByText(locale.person.tenureType, { exact: false })
+    ).not.toBeInTheDocument();
+    expect(
+        screen.queryByText(locale.person.multipleTenures)
+    ).not.toBeInTheDocument();
 });
 
 test('it renders a person with one tenure', () => {
@@ -26,6 +27,6 @@ test('it renders a person with one tenure', () => {
         />
     );
     expect(
-        screen.queryByText(locale.person.multipleTenures)
-    ).not.toBeInTheDocument();
+        screen.getByText(locale.person.tenureType, { exact: false })
+    ).toBeInTheDocument();
 });
