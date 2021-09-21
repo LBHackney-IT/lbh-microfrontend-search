@@ -48,7 +48,7 @@ export const TenureCard = ({
                 </p>
                 {tenure.householdMembers.map(
                     member =>
-                        member.type === 'person' &&
+                        member.type.toLocaleLowerCase() === 'person' &&
                         member.isResponsible && (
                             <p key={member.id}>{member.fullName}</p>
                         )
