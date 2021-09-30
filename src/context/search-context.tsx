@@ -10,7 +10,7 @@ import React, {
     useMemo,
 } from 'react';
 import { stringify } from 'query-string';
-import { useAxiosSWR, AxiosSWRError } from '@mtfh/common/lib/hooks';
+import { useAxiosSWR, AxiosSWRError } from '@mtfh/common/lib/http';
 import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
 import type { Property } from '@mtfh/common/lib/api/property/v1';
 import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';

@@ -1337,7 +1337,7 @@
 
 "@mtfh/common@https://github.com/LBHackney-IT/mtfh-frontend-common.git":
   version "0.0.1"
-  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#cf1cb2f98214b7575b6cf642d9293f505895bc11"
+  resolved "https://github.com/LBHackney-IT/mtfh-frontend-common.git#0c9032efaf595bbe70d0e2875e2804542805b63c"
   dependencies:
     "@babel/preset-react" "^7.13.13"
     "@radix-ui/react-polymorphic" "^0.0.12"
