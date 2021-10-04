@@ -1,23 +1,10 @@
-export interface HouseholdMember {
-    id: string;
-    type: 'person' | 'organisation';
-    fullName: string;
-    isResponsible: boolean;
-}
+import {
+    HouseholdMember,
+    TenureType,
+    TenureAsset,
+} from '@mtfh/common/lib/api/tenure/v1';
 
-export interface TenureType {
-    code: string;
-    description: string;
-}
-
-export interface TenureAsset {
-    id: string;
-    fullAddress: string;
-    type: string;
-    uprn: string;
-}
-
-export interface Tenure {
+export interface TenureSearchResult {
     id: string;
     paymentReference: string;
     startOfTenureDate: string;

@@ -11,18 +11,22 @@ import React, {
 } from 'react';
 import { stringify } from 'query-string';
 import { useAxiosSWR, AxiosSWRError } from '@mtfh/common/lib/http';
-import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
-import type { Property } from '@mtfh/common/lib/api/property/v1';
 import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
-import { LimitOptions, PersonSortOptions, OrderByOptions } from '../types';
+import {
+    LimitOptions,
+    PersonSortOptions,
+    OrderByOptions,
+    AssetSearchResult,
+    TenureSearchResult,
+} from '../types';
 
 import { config } from '../services';
 
 interface SearchResults {
     results: {
         persons?: PersonSearchResult[];
-        tenures?: Tenure[];
-        assets?: Property[];
+        tenures?: TenureSearchResult[];
+        assets?: AssetSearchResult[];
     };
     total: number;
 }
@@ -31,7 +35,7 @@ export type SearchState = {
     searchText: string;
     page: number;
     pageSize: LimitOptions;
-    results?: PersonSearchResult[] | Tenure[] | Property[];
+    results?: PersonSearchResult[] | TenureSearchResult[] | AssetSearchResult[];
     total?: number;
     error?: AxiosSWRError;
 } & (

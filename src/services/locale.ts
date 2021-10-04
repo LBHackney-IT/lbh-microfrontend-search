@@ -1,5 +1,5 @@
-import { AssetAddress } from '@mtfh/common/lib/api/property/v1';
 import { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import { AssetAddress } from '@mtfh/common/lib/api/asset/v1';
 
 const locale = {
     home: 'Home',
@@ -78,7 +78,7 @@ const locale = {
         tenureType: `Tenure type`,
         active: 'active',
     },
-    property: {
+    asset: {
         address: (assetAddress: AssetAddress): string => {
             const {
                 postPreamble,
@@ -100,14 +100,12 @@ const locale = {
                 .filter(addressLine => !!addressLine)
                 .join(' ');
         },
-        propertyTypeLabel: 'Property type',
-        propertyType: (
-            propertyType: string
+        assetTypeLabel: 'Property type',
+        assetType: (
+            assetType: string
         ): 'Dwelling' | 'Lettable non-dwelling' => {
             const type =
-                propertyType === 'Dwelling'
-                    ? 'Dwelling'
-                    : 'Lettable non-dwelling';
+                assetType === 'Dwelling' ? 'Dwelling' : 'Lettable non-dwelling';
             return type;
         },
         tenureLabel: 'Tenure',

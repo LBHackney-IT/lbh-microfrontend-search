@@ -3,25 +3,25 @@ import React, { ComponentPropsWithoutRef } from 'react';
 import cn from 'classnames';
 
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
-import type { Property } from '@mtfh/common/lib/api/property/v1';
 import { SearchCard } from '../search-card';
+import type { AssetSearchResult } from '../../types';
 
 import { locale } from '../../services';
 
 interface PropertyCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
-    asset: Property;
+    asset: AssetSearchResult;
 }
 
 const {
     address,
-    propertyTypeLabel,
-    propertyType,
+    assetTypeLabel,
+    assetType,
     tenureTypeLabel,
     tenureStatusLabel,
     uprnLabel,
     tenureActivityStatus,
-} = locale.property;
+} = locale.asset;
 
 export const PropertyCard = ({
     asset,
@@ -42,8 +42,8 @@ export const PropertyCard = ({
                     </Link>
                 </LinkOverlay>
                 <p>
-                    <strong>{propertyTypeLabel} </strong>
-                    {propertyType(asset.assetType)}
+                    <strong>{assetTypeLabel} </strong>
+                    {assetType(asset.assetType)}
                 </p>
                 <p>
                     <strong>{tenureTypeLabel} </strong>

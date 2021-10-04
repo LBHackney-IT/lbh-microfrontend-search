@@ -4,7 +4,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { SearchResults } from './search-results';
 import { SearchResult } from '../search-result';
 import { get, routeRender } from '../../test-utils';
-import { mockAsset, mockTenures } from '../../mocks';
+import { mockAssetSearchResult, mockTenures } from '../../mocks';
 import { SearchProvider } from '../../context/search-context';
 
 test('SearchResults renders correctly for persons', async () => {
@@ -45,7 +45,7 @@ test('SearchResults renders correctly for tenures', async () => {
 
 test('SearchResults renders correctly for assets', async () => {
     get('/api/search/:type', {
-        results: { assets: [mockAsset] },
+        results: { assets: [mockAssetSearchResult] },
         total: 1,
     });
     const {

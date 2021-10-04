@@ -1,6 +1,11 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React, { useContext, useState } from 'react';
-import { ErrorSummary, Layout, Link, Button } from '@mtfh/common';
+import {
+    ErrorSummary,
+    Layout,
+    Link,
+    Button,
+} from '@mtfh/common/lib/components';
 
 import { locale } from '../../services';
 import { SearchContext, SearchURLProvider } from '../../context/search-context';

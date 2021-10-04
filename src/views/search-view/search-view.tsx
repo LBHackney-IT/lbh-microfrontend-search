@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import React from 'react';
-import { Layout } from '@mtfh/common';
+import { Layout } from '@mtfh/common/lib/components';
 
 import { locale } from '../../services';
 import { SearchForm } from '../../components/search-form';

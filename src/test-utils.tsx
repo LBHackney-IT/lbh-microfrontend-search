@@ -5,7 +5,7 @@ import { rest } from 'msw';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import { MemoryHistory, createMemoryHistory } from 'history';
 import { RenderResult, render, cleanup } from '@testing-library/react';
-import { queries } from '@mtfh/common';
+import { queries } from '@mtfh/common/lib/hooks';
 
 import { server } from './mocks';
 

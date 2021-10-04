@@ -4,16 +4,16 @@ import { format, parseISO, isPast, isFuture } from 'date-fns';
 import cn from 'classnames';
 
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
-import type { Tenure } from '@mtfh/common/lib/api/tenure/v1';
 import { SearchCard } from '../search-card';
 import { Active, InActive } from '../icons';
+import { TenureSearchResult } from '../../types';
 import { locale } from '../../services';
 
 import './tenure-card.scss';
 
 interface TenureCardProps
     extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
-    tenure: Tenure;
+    tenure: TenureSearchResult;
 }
 
 const { paymentRef, tenureType, active } = locale.tenure;

@@ -1,11 +1,11 @@
 import faker from 'faker';
 import { Tenure, HouseholdMember } from '@mtfh/common/lib/api/tenure/v1';
-import { Property } from '@mtfh/common/lib/api/property/v1';
 import {
     PersonSearchResult,
     TenureSummary,
     IdentificationTypes,
 } from '@mtfh/common/lib/api/person/v1';
+import { AssetSearchResult } from '../types';
 
 faker.seed(1);
 
@@ -184,39 +184,7 @@ export const mockTenures = Array.from({ length: 40 }).map(() =>
     generateMockTenure()
 );
 
-export const generateMockProperty = (): Property => {
-    const isActive = faker.datatype.boolean();
-
-    return {
-        id: faker.datatype.uuid(),
-        assetId: '00054374',
-        assetType: faker.datatype.boolean()
-            ? 'LettableNonDwelling'
-            : 'Dwelling',
-        assetAddress: {
-            uprn: faker.datatype
-                .number({ max: 99999999999 })
-                .toString()
-                .padStart(11, '0'),
-            addressLine1: 'Powell Road',
-            addressLine2: 'Hackney',
-            addressLine3: 'London',
-            addressLine4: '',
-            postCode: 'E5 8DH',
-            postPreamble: '1 Newcome House',
-        },
-        tenure: {
-            id: '0bb55bde-bc73-d7fe-0324-5cee5b59bc8c',
-            paymentReference: '228008546',
-            type: 'SECURE',
-            startOfTenureDate: '2004-09-16',
-            endOfTenureDate: '2021-08-03',
-            isActive: isActive,
-        },
-    };
-};
-
-export const mockAsset: Property = {
+export const mockAssetSearchResult: AssetSearchResult = {
     id: '986a2a9e-9eb4-0966-120a-238689e3e265',
     assetId: '00054374',
     assetType: 'LettableNonDwelling',
