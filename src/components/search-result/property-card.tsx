@@ -51,9 +51,7 @@ export const PropertyCard = ({
                 </p>
                 <p>
                     <strong>{tenureStatusLabel} </strong>
-                    {tenureActivityStatus(
-                        asset.tenure ? asset.tenure.isActive : false
-                    )}
+                    {tenureActivityStatus(!!asset.tenure?.isActive)}
                 </p>
                 <p>
                     <strong>{uprnLabel} </strong>

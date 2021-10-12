@@ -22,7 +22,7 @@ interface SearchFormProps
     disableCategory?: boolean;
 }
 
-export const SearchForm = ({
+export const SearchFormLegacy = ({
     className,
     onSubmit,
     defaultType = 'assets',

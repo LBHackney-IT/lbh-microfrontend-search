@@ -13,7 +13,7 @@ import {
     SearchControls,
     SearchResults,
     SearchResult,
-    SearchForm,
+    SearchFormLegacy,
     SearchPagination,
 } from '../../components';
 
@@ -36,7 +36,7 @@ const SearchResultsLayout = (): JSX.Element => {
             {showSearchAgain && (
                 <>
                     <h2 className="lbh-heading-h2">{locale.search}</h2>
-                    <SearchForm
+                    <SearchFormLegacy
                         defaultType={state.type}
                         onSubmit={({ type, searchText }) => {
                             dispatch({ type: 'SEARCH', payload: searchText });
@@ -63,7 +63,7 @@ const SearchResultsLayout = (): JSX.Element => {
     );
 };
 
-export const SearchResultsView = (): JSX.Element => {
+export const SearchResultsViewLegacy = (): JSX.Element => {
     return (
         <SearchURLProvider sessionKey="search:last" redirect="/">
             <SearchResultsLayout />
