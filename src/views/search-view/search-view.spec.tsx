@@ -8,9 +8,11 @@ import { locale } from '../../services';
 
 test('SearchView navigates to results on submit', async () => {
     const { history } = routeRender(<SearchView />);
-    const input = screen.getByLabelText(`${locale.search}*`);
-    userEvent.type(input, 'Hello');
-    userEvent.click(screen.getByRole('button', { name: locale.search }));
+    await waitFor(() => {
+        const input = screen.getByLabelText(`${locale.search}*`);
+        userEvent.type(input, 'Hello');
+        userEvent.click(screen.getByRole('button', { name: locale.search }));
+    });
 
     await waitFor(() =>
         expect(history.location.pathname).toBe('/search/assets')

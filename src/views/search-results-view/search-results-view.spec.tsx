@@ -33,11 +33,10 @@ test('SearchResultsView shows the SearchForm', async () => {
         url: '/search/persons?s=Jake',
     });
 
-    await waitFor(() =>
-        expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
-    );
-
     userEvent.click(screen.getByText(locale.results.searchAgain));
+
+    await waitFor(() => screen.getByRole('search'));
+
     const input = screen.getByLabelText(`${locale.search}*`);
     expect(input).toBeInTheDocument();
 

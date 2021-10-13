@@ -8,7 +8,8 @@ module.exports = {
         '\\.(css|scss)$': 'identity-obj-proxy',
     },
     setupFilesAfterEnv: [
-        '../node_modules/@testing-library/jest-dom/dist/index.js',
+        '@testing-library/jest-dom',
+        '@hackney/mtfh-test-utils',
         './test-utils.tsx',
     ],
     coverageDirectory: '../coverage',

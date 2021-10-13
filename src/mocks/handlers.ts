@@ -54,4 +54,7 @@ export const handlers = [
             );
         }
     ),
+    rest.get('/api/v1/reference-data', (req, res, context) => {
+        return res(context.status(200), context.json({ mmh: [] }));
+    }),
 ];

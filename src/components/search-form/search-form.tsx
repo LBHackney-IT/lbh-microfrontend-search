@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 import { Formik, Form } from 'formik';
 import cn from 'classnames';
+import { useErrorCodes } from '@mtfh/common/lib/hooks';
 import {
     Button,
     Fieldset,
@@ -9,6 +10,8 @@ import {
     RadioGroup,
     Field,
     InlineField,
+    Center,
+    Spinner,
 } from '@mtfh/common/lib/components';
 
 import { searchSchema, SearchFormData } from './schema';
@@ -29,15 +32,26 @@ export const SearchForm = ({
     disableCategory = false,
     ...props
 }: SearchFormProps): JSX.Element => {
+    const errorMessages = useErrorCodes();
+
+    if (!errorMessages) {
+        return (
+            <Center>
+                <Spinner />
+            </Center>
+        );
+    }
+
     return (
         <Formik<SearchFormData>
             initialValues={{ searchText: '', type: defaultType }}
-            validationSchema={searchSchema}
+            validationSchema={searchSchema(errorMessages)}
             validateOnChange={false}
             validateOnBlur={false}
             onSubmit={onSubmit}
         >
             <Form
+                noValidate
                 id="search-form"
                 className={cn('mtfh-search-form', className)}
                 role="search"
