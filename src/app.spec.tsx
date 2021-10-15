@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 
-import { featureToggleStore } from '@mtfh/common/lib/configuration';
+import { $configuration } from '@mtfh/common/lib/configuration';
 import { routeRender } from './test-utils';
 import App from './app';
 
@@ -30,20 +30,22 @@ describe('SearchView - legacy', () => {
     });
 });
 
-const features = featureToggleStore.getValue();
+const features = $configuration.getValue();
 
 describe('SearchView', () => {
     beforeEach(() => {
-        featureToggleStore.next({
+        $configuration.next({
             ...features,
             MMH: {
                 ...features.MMH,
-                WarningComponents: true,
+                featureToggles: {
+                    WarningComponents: true,
+                },
             },
         });
     });
     afterAll(() => {
-        featureToggleStore.next(features);
+        $configuration.next(features);
     });
     test('App renders correctly', async () => {
         routeRender(<App />, { path: '/', url: '/' });
