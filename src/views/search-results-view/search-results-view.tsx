@@ -40,6 +40,7 @@ const SearchResultsLayout = (): JSX.Element => {
                         defaultType={state.type}
                         onSubmit={({ type, searchText }) => {
                             dispatch({ type: 'SEARCH', payload: searchText });
+                            dispatch({ type: 'PAGE', payload: 1 });
                             dispatch({ type: 'TYPE', payload: type });
                             setSearchAgain(false);
                         }}
