@@ -1,21 +1,13 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 
-import { useFeatureToggle } from '@mtfh/common/lib/hooks';
-import {
-    SearchView,
-    SearchViewLegacy,
-    SearchResultsView,
-    SearchResultsViewLegacy,
-} from './views';
+import { SearchView, SearchResultsView } from './views';
 
 export default function App(): JSX.Element {
-    const hasWarningComponents = useFeatureToggle('MMH.WarningComponents');
-
     return (
         <Switch>
             <Route path="/" exact>
-                {hasWarningComponents ? <SearchView /> : <SearchViewLegacy />}
+                <SearchView />
             </Route>
             <Route
                 path="/search"
@@ -27,11 +19,7 @@ export default function App(): JSX.Element {
                 }}
             ></Route>
             <Route path="/search/:type" exact>
-                {hasWarningComponents ? (
-                    <SearchResultsView />
-                ) : (
-                    <SearchResultsViewLegacy />
-                )}
+                <SearchResultsView />
             </Route>
             <Route>
                 <div>404</div>
