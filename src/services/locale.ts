@@ -75,7 +75,7 @@ const locale = {
     },
     tenure: {
         paymentRef: (ref: string): string => `Tenure payment ref ${ref}`,
-        tenureType: `Tenure type`,
+        tenureType: 'Tenure type',
         active: 'active',
     },
     asset: {
@@ -109,8 +109,7 @@ const locale = {
             return type;
         },
         tenureLabel: 'Tenure',
-        tenureTypeLabel: 'Tenure type',
-        tenureStatusLabel: 'Tenure status',
+        tenureTypeLabel: 'Tenure',
         tenureActivityStatus: (isActive: boolean) => {
             const tenureActivityState = `${isActive ? 'Active' : 'Inactive'}`;
             return `${tenureActivityState}`;

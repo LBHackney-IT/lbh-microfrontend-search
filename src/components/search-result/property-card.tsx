@@ -18,7 +18,6 @@ const {
     assetTypeLabel,
     assetType,
     tenureTypeLabel,
-    tenureStatusLabel,
     uprnLabel,
     tenureActivityStatus,
 } = locale.asset;
@@ -47,11 +46,8 @@ export const PropertyCard = ({
                 </p>
                 <p>
                     <strong>{tenureTypeLabel} </strong>
-                    {asset.tenure?.type}
-                </p>
-                <p>
-                    <strong>{tenureStatusLabel} </strong>
                     {tenureActivityStatus(!!asset.tenure?.isActive)}
+                    {asset.tenure?.type && `, ${asset.tenure?.type}`}
                 </p>
                 <p>
                     <strong>{uprnLabel} </strong>
