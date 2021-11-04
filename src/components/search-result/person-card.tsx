@@ -1,8 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
 import React, { ComponentPropsWithoutRef } from 'react';
-import { parseISO, format } from 'date-fns';
 import cn from 'classnames';
 
+import { formatDate } from '@mtfh/common/lib/utils';
 import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
 import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
 import { SearchCard } from '../search-card';
@@ -48,9 +48,7 @@ export const PersonCard = ({
                     </p>
                 )}
                 <p>
-                    <strong>DOB:</strong>{' '}
-                    {person.dateOfBirth &&
-                        format(parseISO(person.dateOfBirth), 'dd/MM/yyyy')}
+                    <strong>DOB:</strong> {formatDate(person.dateOfBirth)}
                 </p>
 
                 {hasTenure && !isMultipleTenancies && (
