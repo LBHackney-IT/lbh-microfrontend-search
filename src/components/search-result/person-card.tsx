@@ -24,6 +24,7 @@ export const PersonCard = ({
     const tenure = person.tenures[0] || {};
     const { assetFullAddress: address, type = 'N/A' } = tenure;
     const isMultipleTenancies = person.tenures.length > 1;
+
     return (
         <LinkBox className={cn('mtfh-search-person', className)}>
             <SearchCard {...props}>
@@ -48,7 +49,8 @@ export const PersonCard = ({
                 )}
                 <p>
                     <strong>DOB:</strong>{' '}
-                    {format(parseISO(person.dateOfBirth), 'dd/MM/yyyy')}
+                    {person.dateOfBirth &&
+                        format(parseISO(person.dateOfBirth), 'dd/MM/yyyy')}
                 </p>
 
                 {hasTenure && !isMultipleTenancies && (
