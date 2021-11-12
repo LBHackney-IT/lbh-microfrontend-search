@@ -13,7 +13,12 @@ interface PersonCardProps
     person: PersonSearchResult;
 }
 
-const { personOriginalFullName, multipleTenures, tenureType } = locale.person;
+const {
+    personOriginalFullName,
+    multipleTenures,
+    tenureLabel,
+    tenureStatus,
+} = locale.person;
 
 export const PersonCard = ({
     person,
@@ -22,7 +27,7 @@ export const PersonCard = ({
 }: PersonCardProps): JSX.Element => {
     const hasTenure = person.tenures.length > 0;
     const tenure = person.tenures[0] || {};
-    const { assetFullAddress: address, type = 'N/A' } = tenure;
+    const { assetFullAddress: address, isActive, type = 'N/A' } = tenure;
     const isMultipleTenancies = person.tenures.length > 1;
 
     return (
@@ -53,7 +58,8 @@ export const PersonCard = ({
 
                 {hasTenure && !isMultipleTenancies && (
                     <p>
-                        <strong>{tenureType}:</strong> {type}
+                        <strong>{tenureLabel}</strong> {tenureStatus(isActive)},{' '}
+                        {type}
                     </p>
                 )}
             </SearchCard>

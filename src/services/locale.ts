@@ -71,7 +71,9 @@ const locale = {
                 .filter(prop => prop)
                 .join(' '),
         multipleTenures: 'Multiple Tenures',
-        tenureType: `Tenure type`,
+        tenureLabel: 'Tenure',
+        tenureStatus: (isActive: boolean): string =>
+            isActive ? 'Active' : 'Inactive',
     },
     tenure: {
         paymentRef: (ref: string): string => `Tenure payment ref ${ref}`,
