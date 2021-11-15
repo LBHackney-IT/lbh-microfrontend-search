@@ -9,7 +9,9 @@ import { AssetSearchResult } from '../types';
 
 faker.seed(1);
 
-const generateMockTenureSummary = (): TenureSummary => ({
+export const generateMockTenureSummary = (
+    data?: Partial<TenureSummary>
+): TenureSummary => ({
     id: faker.datatype.uuid(),
     type: 'secure',
     startDate: faker.date.past(1).toISOString().slice(0, 10),
@@ -23,6 +25,7 @@ const generateMockTenureSummary = (): TenureSummary => ({
         .number({ max: 99999999999 })
         .toString()
         .padStart(11, '0'),
+    ...data,
 });
 
 export const generateMockPerson = (): PersonSearchResult => ({

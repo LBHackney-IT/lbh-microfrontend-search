@@ -3,48 +3,54 @@ import { screen } from '@testing-library/react';
 import { PersonCard } from './person-card';
 import { routeRender } from '../../test-utils';
 import { locale } from '../../services';
-import { mockPersons } from '../../mocks';
+import { generateMockPerson, generateMockTenureSummary } from '../../mocks';
 
-test('it renders the person card', () => {
-    routeRender(<PersonCard person={mockPersons[0]} />);
-    expect(screen.getByText(locale.person.multipleTenures)).toBeInTheDocument();
-});
+const mockPerson = generateMockPerson();
 
-test('it renders a person without tenures', () => {
-    routeRender(<PersonCard person={{ ...mockPersons[0], tenures: [] }} />);
-    expect(
-        screen.queryByText(locale.person.tenureLabel, { exact: false })
-    ).not.toBeInTheDocument();
-    expect(
-        screen.queryByText(locale.person.multipleTenures)
-    ).not.toBeInTheDocument();
-});
+test('it renders the person card with an address if the person has only 1 active tenure', () => {
+    const personWithOneActiveTenure = {
+        ...mockPerson,
+        tenures: Array.from({
+            length: 3,
+        }).map((_, index) =>
+            generateMockTenureSummary({ isActive: index === 0 })
+        ),
+    };
 
-test('it renders a person card with one active tenure', () => {
-    routeRender(
-        <PersonCard
-            person={{ ...mockPersons[0], tenures: [mockPersons[0].tenures[0]] }}
-        />
+    const activeTenure = personWithOneActiveTenure.tenures.find(
+        tenure => tenure.isActive
     );
-    expect(
-        screen.getByText(locale.person.tenureLabel, { exact: false })
-    ).toBeInTheDocument();
 
+    routeRender(<PersonCard person={personWithOneActiveTenure} />);
+    expect(screen.getByText(activeTenure.assetFullAddress)).toBeInTheDocument();
     expect(screen.getByText(/Active/)).toBeInTheDocument();
 });
 
-test('it renders a person card with one inactive tenure', () => {
-    routeRender(
-        <PersonCard
-            person={{
-                ...mockPersons[0],
-                tenures: [{ ...mockPersons[0].tenures[0], isActive: false }],
-            }}
-        />
-    );
-    expect(
-        screen.getByText(locale.person.tenureLabel, { exact: false })
-    ).toBeInTheDocument();
+test('it renders the person card with an address of the last active tenure if there are no active tenures', () => {
+    const personWithNoActiveTenure = {
+        ...mockPerson,
+        tenures: Array.from({
+            length: 3,
+        }).map(() => generateMockTenureSummary({ isActive: false })),
+    };
 
+    const lastActiveTenure = personWithNoActiveTenure.tenures[0];
+
+    routeRender(<PersonCard person={personWithNoActiveTenure} />);
+    expect(
+        screen.getByText(lastActiveTenure.assetFullAddress)
+    ).toBeInTheDocument();
     expect(screen.getByText(/Inactive/)).toBeInTheDocument();
+});
+
+test("it renders the person card with 'Multiple Tenures' if the person has multiple active tenures", () => {
+    const personWithMultipleActiveTenure = {
+        ...mockPerson,
+        tenures: Array.from({ length: 3 }).map(() =>
+            generateMockTenureSummary({ isActive: true })
+        ),
+    };
+
+    routeRender(<PersonCard person={personWithMultipleActiveTenure} />);
+    expect(screen.getByText(locale.person.multipleTenures)).toBeInTheDocument();
 });

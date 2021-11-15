@@ -74,6 +74,7 @@ const locale = {
         tenureLabel: 'Tenure',
         tenureStatus: (isActive: boolean): string =>
             isActive ? 'Active' : 'Inactive',
+        tenureType: (type: string | null): string => (type ? type : 'N/A'),
     },
     tenure: {
         paymentRef: (ref: string): string => `Tenure payment ref ${ref}`,

@@ -18,6 +18,7 @@ const {
     multipleTenures,
     tenureLabel,
     tenureStatus,
+    tenureType,
 } = locale.person;
 
 export const PersonCard = ({
@@ -25,10 +26,15 @@ export const PersonCard = ({
     className,
     ...props
 }: PersonCardProps): JSX.Element => {
-    const hasTenure = person.tenures.length > 0;
-    const tenure = person.tenures[0] || {};
-    const { assetFullAddress: address, isActive, type = 'N/A' } = tenure;
-    const isMultipleTenancies = person.tenures.length > 1;
+    const activeTenures = person.tenures.filter(tenure => tenure.isActive);
+    const inactiveTenures = person.tenures.filter(tenure => !tenure.isActive);
+
+    const hasMultipleActiveTenures = activeTenures.length > 1;
+    const hasOneActiveTenure = activeTenures.length === 1;
+    const latestActiveTenure = activeTenures[0];
+
+    const hasNoActiveTenures = activeTenures.length === 0;
+    const latestInactiveTenure = inactiveTenures[0];
 
     return (
         <LinkBox className={cn('mtfh-search-person', className)}>
@@ -42,24 +48,35 @@ export const PersonCard = ({
                         {personOriginalFullName(person)}
                     </Link>
                 </LinkOverlay>
-                {!isMultipleTenancies && address && (
-                    <p>
-                        <strong>{address}</strong>
-                    </p>
+                {hasOneActiveTenure && !hasMultipleActiveTenures && (
+                    <p>{latestActiveTenure?.assetFullAddress}</p>
                 )}
-                {isMultipleTenancies && (
+                {hasNoActiveTenures && !hasMultipleActiveTenures && (
+                    <p>{latestInactiveTenure?.assetFullAddress}</p>
+                )}
+
+                {hasMultipleActiveTenures && (
                     <p>
                         <strong>{multipleTenures}</strong>
                     </p>
                 )}
                 <p>
-                    <strong>DOB:</strong> {formatDate(person.dateOfBirth)}
+                    <strong>DOB </strong> {formatDate(person.dateOfBirth)}
                 </p>
 
-                {hasTenure && !isMultipleTenancies && (
+                {hasOneActiveTenure && (
                     <p>
-                        <strong>{tenureLabel}</strong> {tenureStatus(isActive)},{' '}
-                        {type}
+                        <strong>{tenureLabel}</strong>{' '}
+                        {tenureStatus(latestActiveTenure.isActive)},{' '}
+                        {tenureType(latestActiveTenure?.type)}
+                    </p>
+                )}
+
+                {hasNoActiveTenures && (
+                    <p>
+                        <strong>{tenureLabel}</strong>{' '}
+                        {tenureStatus(latestInactiveTenure?.isActive)},{' '}
+                        {tenureType(latestInactiveTenure?.type)}
                     </p>
                 )}
             </SearchCard>
