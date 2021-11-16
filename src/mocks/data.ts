@@ -134,9 +134,8 @@ export const generateMockTenure = (): Tenure => {
                 .number({ max: 99999999999 })
                 .toString()
                 .padStart(11, '0'),
+            propertyReference: '2653838280',
         },
-        // here
-        propertyReference: '2653838280',
         accountType: { code: 'S', description: 'Service Charge' },
         charges: {
             rent: 0,
