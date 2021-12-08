@@ -84,7 +84,7 @@ export type SearchActions =
       payload: OrderByOptions;
     };
 
-interface SearchProviderProps {
+export interface SearchProviderProps {
   initial: Pick<SearchState, "type"> & Partial<Omit<SearchState, "type">>;
 }
 

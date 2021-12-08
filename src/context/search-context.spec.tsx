@@ -8,15 +8,18 @@ import {
   SearchActions,
   SearchContext,
   SearchProvider,
+  SearchProviderProps,
   SearchState,
   SearchURLProvider,
 } from "./search-context";
 
-const searchRender = (ui, { initial, ...renderProps }) => {
-  return render(
-    <SearchProvider initial={initial}>{ui}</SearchProvider>,
-    renderProps
-  );
+type SearchRenderProps = (
+  ui: JSX.Element,
+  values: { initial: SearchProviderProps["initial"] }
+) => void;
+
+const searchRender: SearchRenderProps = (ui, { initial }) => {
+  return render(<SearchProvider initial={initial}>{ui}</SearchProvider>);
 };
 
 interface ContextSelectorProps {

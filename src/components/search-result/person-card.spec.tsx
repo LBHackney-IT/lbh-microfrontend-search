@@ -17,9 +17,7 @@ test("it renders the person card with an address if the person has only 1 active
     }).map((_, index) => generateMockTenureSummary({ isActive: index === 0 })),
   };
 
-  const activeTenure = personWithOneActiveTenure.tenures.find(
-    (tenure) => tenure.isActive
-  );
+  const activeTenure = personWithOneActiveTenure.tenures[0];
 
   render(<PersonCard person={personWithOneActiveTenure} />);
   expect(screen.getByText(activeTenure.assetFullAddress)).toBeInTheDocument();
