@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { ConfirmationRouter } from '@mtfh/common/lib/components';
+import { ConfirmationRouter } from "@mtfh/common/lib/components";
 
-import App from './app';
+import App from "./app";
 
-export default function Root(): JSX.Element {
-    return (
-        <div data-testid="root">
-            <ConfirmationRouter>
-                <App />
-            </ConfirmationRouter>
-        </div>
-    );
-}
+const Root = (): JSX.Element => (
+  <div data-testid="root">
+    <ConfirmationRouter>
+      <App />
+    </ConfirmationRouter>
+  </div>
+);
+
+export default Root;

@@ -1,3 +1,3 @@
-export * from './tenure';
-export * from './asset';
-export * from './search';
+export * from "./tenure";
+export * from "./asset";
+export * from "./search";

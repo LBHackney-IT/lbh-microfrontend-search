@@ -1,47 +1,49 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, waitFor } from '@testing-library/react';
+import React from "react";
 
-import { SearchResultsView } from './search-results-view';
-import { routeRender, get } from '../../test-utils';
-import { locale } from '../../services';
+import { render } from "@hackney/mtfh-test-utils";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-test('SearchResultsView renders correctly', async () => {
-    routeRender(<SearchResultsView />, {
-        path: '/search/:type',
-        url: '/search/persons?s=Jake',
-    });
+import { locale } from "../../services";
+import { get } from "../../test-utils";
+import { SearchResultsView } from "./search-results-view";
 
-    await waitFor(() =>
-        expect(screen.queryByText('Loading...')).not.toBeInTheDocument()
-    );
+test("SearchResultsView renders correctly", async () => {
+  render(<SearchResultsView />, {
+    path: "/search/:type",
+    url: "/search/persons?s=Jake",
+  });
+
+  await waitFor(() =>
+    expect(screen.queryByText("Loading...")).not.toBeInTheDocument()
+  );
 });
 
-test('SearchResultsView shows error if request fails', async () => {
-    get('/api/search/persons', { error: 500 }, 500);
-    routeRender(<SearchResultsView />, {
-        path: '/search/:type',
-        url: '/search/persons?s=Jake',
-    });
+test("SearchResultsView shows error if request fails", async () => {
+  get("/api/search/persons", { error: 500 }, 500);
+  render(<SearchResultsView />, {
+    path: "/search/:type",
+    url: "/search/persons?s=Jake",
+  });
 
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+  await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
 });
 
-test('SearchResultsView shows the SearchForm', async () => {
-    const { history } = routeRender(<SearchResultsView />, {
-        path: '/search/:type',
-        url: '/search/persons?s=Jake',
-    });
+test("SearchResultsView shows the SearchForm", async () => {
+  render(<SearchResultsView />, {
+    path: "/search/:type",
+    url: "/search/persons?s=Jake",
+  });
 
-    userEvent.click(screen.getByText(locale.results.searchAgain));
+  userEvent.click(screen.getByText(locale.results.searchAgain));
 
-    await waitFor(() => screen.getByRole('search'));
+  await screen.findByRole("search");
 
-    const input = screen.getByLabelText(`${locale.search}*`);
-    expect(input).toBeInTheDocument();
+  const input = screen.getByLabelText(`${locale.search}*`);
+  expect(input).toBeInTheDocument();
 
-    userEvent.type(input, 'Derek');
-    userEvent.click(screen.getByRole('button', { name: locale.search }));
+  userEvent.type(input, "Derek");
+  userEvent.click(screen.getByRole("button", { name: locale.search }));
 
-    await waitFor(() => expect(history.location.search).toBe('?s=Derek'));
+  await waitFor(() => expect(window.location.search).toBe("?s=Derek"));
 });

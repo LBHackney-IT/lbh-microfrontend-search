@@ -1,15 +1,14 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import React from "react";
 
-import { routeRender } from './test-utils';
-import Root from './root.component';
+import { render } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 
-describe('Root component', () => {
-    it('should be in the document', async () => {
-        routeRender(<Root />);
+import Root from "./root.component";
 
-        await waitFor(() =>
-            expect(screen.getByTestId('root')).toBeInTheDocument()
-        );
-    });
+describe("Root component", () => {
+  it("should be in the document", async () => {
+    render(<Root />);
+
+    expect(await screen.findByTestId("root")).toBeInTheDocument();
+  });
 });

@@ -1,85 +1,87 @@
-import { Link as RouterLink } from 'react-router-dom';
-import React, { ComponentPropsWithoutRef } from 'react';
-import cn from 'classnames';
+import React, { ComponentPropsWithoutRef } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
-import { formatDate } from '@mtfh/common/lib/utils';
-import { Link, LinkBox, LinkOverlay } from '@mtfh/common/lib/components';
-import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
-import { SearchCard } from '../search-card';
-import { locale } from '../../services';
+import cn from "classnames";
+
+import type { PersonSearchResult } from "@mtfh/common/lib/api/person/v1";
+import { Link, LinkBox, LinkOverlay } from "@mtfh/common/lib/components";
+import { formatDate } from "@mtfh/common/lib/utils";
+
+import { locale } from "../../services";
+import { SearchCard } from "../search-card";
 
 interface PersonCardProps
-    extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
-    person: PersonSearchResult;
+  extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
+  person: PersonSearchResult;
 }
 
 const {
-    personOriginalFullName,
-    multipleTenures,
-    tenureLabel,
-    tenureStatus,
-    tenureType,
+  personOriginalFullName,
+  multipleTenures,
+  tenureLabel,
+  tenureStatus,
+  tenureType,
 } = locale.person;
 
 export const PersonCard = ({
-    person,
-    className,
-    ...props
+  person,
+  className,
+  ...props
 }: PersonCardProps): JSX.Element => {
-    const activeTenures = person.tenures.filter(tenure => tenure.isActive);
-    const inactiveTenures = person.tenures.filter(tenure => !tenure.isActive);
+  const activeTenures = person.tenures.filter((tenure) => tenure.isActive);
+  const inactiveTenures = person.tenures.filter((tenure) => !tenure.isActive);
 
-    const hasMultipleActiveTenures = activeTenures.length > 1;
-    const hasOneActiveTenure = activeTenures.length === 1;
-    const latestActiveTenure = activeTenures[0];
+  const hasMultipleActiveTenures = activeTenures.length > 1;
+  const hasOneActiveTenure = activeTenures.length === 1;
+  const latestActiveTenure = activeTenures[0];
 
-    const hasNoActiveTenures = activeTenures.length === 0;
-    const latestInactiveTenure = inactiveTenures[0];
+  const hasNoActiveTenures = activeTenures.length === 0;
+  const latestInactiveTenure = inactiveTenures[0];
 
-    return (
-        <LinkBox className={cn('mtfh-search-person', className)}>
-            <SearchCard {...props}>
-                <LinkOverlay>
-                    <Link
-                        as={RouterLink}
-                        to={`/person/${person.id}`}
-                        variant="text-colour"
-                    >
-                        {personOriginalFullName(person)}
-                    </Link>
-                </LinkOverlay>
-                {hasOneActiveTenure && !hasMultipleActiveTenures && (
-                    <p>{latestActiveTenure?.assetFullAddress}</p>
-                )}
-                {hasNoActiveTenures && !hasMultipleActiveTenures && (
-                    <p>{latestInactiveTenure?.assetFullAddress}</p>
-                )}
+  return (
+    <LinkBox className={cn("mtfh-search-person", className)}>
+      <SearchCard {...props}>
+        <LinkOverlay>
+          <Link
+            as={RouterLink}
+            to={`/person/${person.id}`}
+            variant="text-colour"
+          >
+            {personOriginalFullName(person)}
+          </Link>
+        </LinkOverlay>
+        {hasOneActiveTenure && !hasMultipleActiveTenures && (
+          <p>{latestActiveTenure?.assetFullAddress}</p>
+        )}
+        {hasNoActiveTenures && !hasMultipleActiveTenures && (
+          <p>{latestInactiveTenure?.assetFullAddress}</p>
+        )}
 
-                {hasMultipleActiveTenures && (
-                    <p>
-                        <strong>{multipleTenures}</strong>
-                    </p>
-                )}
-                <p>
-                    <strong>DOB </strong> {formatDate(person.dateOfBirth)}
-                </p>
+        {hasMultipleActiveTenures && (
+          <p>
+            <strong>{multipleTenures}</strong>
+          </p>
+        )}
+        <p>
+          <strong>DOB </strong> {formatDate(person.dateOfBirth)}
+        </p>
 
-                {hasOneActiveTenure && (
-                    <p>
-                        <strong>{tenureLabel}</strong>{' '}
-                        {tenureStatus(latestActiveTenure.isActive)},{' '}
-                        {tenureType(latestActiveTenure?.type)}
-                    </p>
-                )}
+        {hasOneActiveTenure && (
+          <p>
+            <strong>{tenureLabel}</strong>{" "}
+            {tenureStatus(latestActiveTenure.isActive)},{" "}
+            {tenureType(latestActiveTenure?.type)}
+          </p>
+        )}
 
-                {hasNoActiveTenures && (
-                    <p>
-                        <strong>{tenureLabel}</strong>{' '}
-                        {tenureStatus(latestInactiveTenure?.isActive)},{' '}
-                        {tenureType(latestInactiveTenure?.type)}
-                    </p>
-                )}
-            </SearchCard>
-        </LinkBox>
-    );
+        {hasNoActiveTenures && (
+          <p>
+            <strong>{tenureLabel}</strong>{" "}
+            {tenureStatus(latestInactiveTenure?.isActive)},{" "}
+            {tenureType(latestInactiveTenure?.type)}
+          </p>
+        )}
+      </SearchCard>
+    </LinkBox>
+  );
 };

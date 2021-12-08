@@ -2,5 +2,5 @@ assembly-versioning-scheme: MajorMinorPatchTag
 mode: Mainline
 branches: {}
 ignore:
-    sha: []
+  sha: []
 merge-message-formats: {}

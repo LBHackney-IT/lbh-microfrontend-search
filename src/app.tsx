@@ -1,29 +1,29 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-import React from 'react';
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import { SearchView, SearchResultsView } from './views';
+import { SearchResultsView, SearchView } from "./views";
 
-export default function App(): JSX.Element {
-    return (
-        <Switch>
-            <Route path="/" exact>
-                <SearchView />
-            </Route>
-            <Route
-                path="/search"
-                exact
-                render={() => {
-                    const last = sessionStorage.getItem('search:last');
-                    const redirect = last ? `/search/${last}` : '/';
-                    return <Redirect to={redirect} />;
-                }}
-            ></Route>
-            <Route path="/search/:type" exact>
-                <SearchResultsView />
-            </Route>
-            <Route>
-                <div>404</div>
-            </Route>
-        </Switch>
-    );
-}
+const App = (): JSX.Element => (
+  <Switch>
+    <Route path="/" exact>
+      <SearchView />
+    </Route>
+    <Route
+      path="/search"
+      exact
+      render={() => {
+        const last = sessionStorage.getItem("search:last");
+        const redirect = last ? `/search/${last}` : "/";
+        return <Redirect to={redirect} />;
+      }}
+    />
+    <Route path="/search/:type" exact>
+      <SearchResultsView />
+    </Route>
+    <Route>
+      <div>404</div>
+    </Route>
+  </Switch>
+);
+
+export default App;

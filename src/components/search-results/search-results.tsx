@@ -1,47 +1,31 @@
-import React, { ComponentType, useContext } from 'react';
+import React, { useContext } from "react";
 
-import { Center, Spinner } from '@mtfh/common/lib/components';
-import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
-import { AssetSearchResult, TenureSearchResult } from '../../types';
+import type { PersonSearchResult } from "@mtfh/common/lib/api/person/v1";
+import { Center, Spinner } from "@mtfh/common/lib/components";
 
-import { SearchContext } from '../../context/search-context';
-import './search.scss';
+import { SearchContext } from "../../context/search-context";
+import { AssetSearchResult, TenureSearchResult } from "../../types";
+
+import "./search.scss";
 
 type SearchResult = TenureSearchResult | PersonSearchResult | AssetSearchResult;
 
 export interface SearchResultsProp {
-    component: ComponentType<{
-        result: SearchResult;
-    }>;
+  children: (results: SearchResult[]) => JSX.Element[];
 }
 
-export const SearchResults = ({
-    component: Component,
-}: SearchResultsProp): JSX.Element => {
-    const {
-        state: { results },
-    } = useContext(SearchContext);
+export const SearchResults = ({ children }: SearchResultsProp): JSX.Element => {
+  const {
+    state: { results },
+  } = useContext(SearchContext);
 
-    if (results === undefined) {
-        return (
-            <Center className="mtfh-search__loading">
-                <Spinner />
-            </Center>
-        );
-    }
-
+  if (results === undefined) {
     return (
-        <div className="mtfh-search__results">
-            {results.map(
-                (
-                    result:
-                        | PersonSearchResult
-                        | TenureSearchResult
-                        | AssetSearchResult
-                ) => (
-                    <Component key={result.id} result={result} />
-                )
-            )}
-        </div>
+      <Center className="mtfh-search__loading">
+        <Spinner />
+      </Center>
     );
+  }
+
+  return <div className="mtfh-search__results">{children(results)}</div>;
 };

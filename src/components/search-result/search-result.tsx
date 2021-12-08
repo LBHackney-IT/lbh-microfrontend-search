@@ -1,37 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import { useFeatureToggle } from '@mtfh/common/lib/hooks';
-import type { PersonSearchResult } from '@mtfh/common/lib/api/person/v1';
+import type { PersonSearchResult } from "@mtfh/common/lib/api/person/v1";
 
-import { TenureCard } from './tenure-card';
-import { PropertyCard } from './property-card';
-import { PersonCardLegacy } from './person-card-legacy';
-import { PersonCard } from './person-card';
-import { isPerson, isTenure, isAsset } from '../../utils';
-import type { AssetSearchResult, TenureSearchResult } from '../../types';
+import { isAsset, isPerson, isTenure } from "../../utils";
+import { PersonCard } from "./person-card";
+import { PropertyCard } from "./property-card";
+import { TenureCard } from "./tenure-card";
+
+import type { AssetSearchResult, TenureSearchResult } from "../../types";
 
 export interface SearchResultProps {
-    result: PersonSearchResult | TenureSearchResult | AssetSearchResult;
+  result: PersonSearchResult | TenureSearchResult | AssetSearchResult;
 }
 
 export const SearchResult = ({
-    result,
+  result,
+  ...props
 }: SearchResultProps): JSX.Element | null => {
-    const enhancedPersonCard = useFeatureToggle(
-        'MMH.PersonSearchCardEnhancement'
-    );
-
-    if (isPerson(result) && enhancedPersonCard) {
-        return <PersonCard person={result as PersonSearchResult} />;
-    }
-    if (isPerson(result) && !enhancedPersonCard) {
-        return <PersonCardLegacy person={result as PersonSearchResult} />;
-    }
-    if (isTenure(result)) {
-        return <TenureCard tenure={result} />;
-    }
-    if (isAsset(result)) {
-        return <PropertyCard asset={result} />;
-    }
-    return null;
+  if (isPerson(result)) {
+    return <PersonCard person={result as PersonSearchResult} {...props} />;
+  }
+  if (isTenure(result)) {
+    return <TenureCard tenure={result} {...props} />;
+  }
+  if (isAsset(result)) {
+    return <PropertyCard asset={result} {...props} />;
+  }
+  return null;
 };

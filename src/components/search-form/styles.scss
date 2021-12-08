@@ -1,12 +1,12 @@
-@import '~lbh-frontend/lbh/base';
-@import '~govuk-frontend/govuk/helpers/visually-hidden';
+@import "~lbh-frontend/lbh/base";
+@import "~govuk-frontend/govuk/helpers/visually-hidden";
 
 .mtfh-search-form {
-    max-width: 458px;
+  max-width: 458px;
 }
 
 .visually-hidden-label {
-    & > label {
-        @include govuk-visually-hidden();
-    }
+  & > label {
+    @include govuk-visually-hidden();
+  }
 }
